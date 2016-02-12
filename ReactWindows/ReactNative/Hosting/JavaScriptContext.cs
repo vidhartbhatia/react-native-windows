@@ -354,6 +354,7 @@
             Native.ThrowIfError(Native.JsSetException(exception));
         }
 
+#if !CHAKRACORE
         /// <summary>
         ///     Starts debugging in the context.
         /// </summary>
@@ -362,6 +363,7 @@
         {
             Native.ThrowIfError(Native.JsStartDebugging());
         }
+#endif
 
         /// <summary>
         ///     Starts profiling in the current context.

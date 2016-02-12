@@ -3,7 +3,7 @@ using Newtonsoft.Json.Linq;
 using ReactNative.Bridge;
 using System;
 using System.Diagnostics;
-#if DEBUG
+#if DEBUG && !CHAKRACORE
 using Windows.System.Profile;
 #endif
 
@@ -132,11 +132,13 @@ namespace ReactNative.Hosting.Bridge
             var context = _runtime.CreateContext();
             JavaScriptContext.Current = context;
 
+#if !CHAKRACORE
             // Set the WinRT namespace (TODO: needed?)
             Native.ThrowIfError(
                 Native.JsProjectWinRTNamespace("Windows"));
+#endif
 
-#if DEBUG
+#if DEBUG && !CHAKRACORE
             // Start debugging.
             if (AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Desktop")
             {

@@ -77,3 +77,6 @@ packages/
 
 #JavaScript files
 *.jsbundle
+
+#Exceptions
+!References/**/*
