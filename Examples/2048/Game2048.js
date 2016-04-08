@@ -19,6 +19,7 @@
 var React = require('react-native');
 var {
   AppRegistry,
+  KeyListener,
   StyleSheet,
   Text,
   View,
@@ -125,21 +126,37 @@ class Tile extends React.Component {
 }
 
 class GameEndOverlay extends React.Component {
+  keyListener: number;
+
   render() {
     var board = this.props.board;
+    var isPaused = this.props.isPaused;
 
-    if (!board.hasWon() && !board.hasLost()) {
+    KeyListener.clear(this.keyListener);
+
+    if (!board.hasWon() && !board.hasLost() && !isPaused) {
       return <View/>;
     }
+    
+    this.keyListener = KeyListener.onKeyDown((keyData) =>
+    {
+      if (keyData.key == 'Enter' || keyData.key == 'GamepadA') {
+        this.props.onRestart();
+      }
+    });
 
-    var message = board.hasWon() ?
-      'Good Job!' : 'Game Over';
+    var message = board.hasWon() ? 'Good Job!' 
+      : board.hasLost() ? 'Game Over'
+      : 'Menu';
+
+    var text = board.hasWon() || board.hasLost() ? 'Try Again?' 
+      : 'Restart';
 
     return (
       <View style={styles.overlay}>
         <Text style={styles.overlayMessage}>{message}</Text>
         <TouchableBounce onPress={this.props.onRestart} style={styles.tryAgain}>
-          <Text style={styles.tryAgainText}>Try Again?</Text>
+          <Text style={styles.tryAgainText}>{text}</Text>
         </TouchableBounce>
       </View>
     );
@@ -150,22 +167,55 @@ class Game2048 extends React.Component {
   startX: number;
   startY: number;
   state: any;
+  keyListener: number;
 
   constructor(props: {}) {
     super(props);
     this.state = {
       board: new GameBoard(),
+      isPaused: false,
     };
     this.startX = 0;
     this.startY = 0;
   }
+  
+  componentDidMount() {
+    this.keyListener = KeyListener.onKeyDown((keyData) =>
+    {
+      if (!this.state.isPaused)
+      {
+        if (keyData.key == 'Left' || keyData.key == 'GamepadDPadLeft' || keyData.key == 'GamepadLeftThumbstickLeft') {
+          this.setState({board: this.state.board.move(0)});
+        } else if (keyData.key == 'Up' || keyData.key == 'GamepadDPadUp' || keyData.key == 'GamepadLeftThumbstickUp') {
+          this.setState({board: this.state.board.move(1)});
+        } else if (keyData.key == 'Right' || keyData.key == 'GamepadDPadRight' || keyData.key == 'GamepadLeftThumbstickRight') {
+          this.setState({board: this.state.board.move(2)});
+        } else if (keyData.key == 'Down' || keyData.key == 'GamepadDPadDown' || keyData.key == 'GamepadLeftThumbstickDown') {
+          this.setState({board: this.state.board.move(3)});
+        } 
+      } 
+      
+      if (keyData.key == 'M' || keyData.key == 'GamepadMenu') {
+        this.setState({isPaused: !this.state.isPaused});
+      } else if (keyData.key == 'Escape' || keyData.key == 'GamepadB') {
+        this.setState({isPaused: false});
+      }
+    });
+  }
+  
+  componentWillUnmount() {
+    KeyListener.clear(this.keyListener);      
+  }
 
   restartGame() {
-    this.setState({board: new GameBoard()});
+    this.setState({
+      board: new GameBoard(),
+      isPaused: false,
+    });
   }
 
   handleTouchStart(event: Object) {
-    if (this.state.board.hasWon()) {
+    if (this.state.board.hasWon() || this.state.isPaused) {
       return;
     }
 
@@ -174,7 +224,7 @@ class Game2048 extends React.Component {
   }
 
   handleTouchEnd(event: Object) {
-    if (this.state.board.hasWon()) {
+    if (this.state.board.hasWon() || this.state.isPaused) {
       return;
     }
 
@@ -198,6 +248,14 @@ class Game2048 extends React.Component {
       .filter((tile) => tile.value)
       .map((tile) => <Tile ref={tile.id} key={tile.id} tile={tile} />);
 
+    var overlay = null;
+    if (this.state.board.hasWon() || this.state.board.hasLost() || this.state.isPaused) {
+      overlay = <GameEndOverlay 
+        board={this.state.board}
+        isPaused={this.state.isPaused}
+        onRestart={() => this.restartGame()} />
+    }
+
     return (
       <View
         style={styles.container}
@@ -206,7 +264,7 @@ class Game2048 extends React.Component {
         <Board>
           {tiles}
         </Board>
-        <GameEndOverlay board={this.state.board} onRestart={() => this.restartGame()} />
+        {overlay}
       </View>
     );
   }

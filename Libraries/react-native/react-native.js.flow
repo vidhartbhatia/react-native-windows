@@ -87,6 +87,7 @@ var ReactNative = Object.assign(Object.create(require('react')), {
   ImagePickerIOS: require('ImagePickerIOS'),
   IntentAndroid: require('IntentAndroid'),
   InteractionManager: require('InteractionManager'),
+  KeyListener: require('KeyListener'),
   LayoutAnimation: require('LayoutAnimation'),
   Linking: require('Linking'),
   LinkingIOS: require('LinkingIOS'),
