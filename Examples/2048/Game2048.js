@@ -19,6 +19,7 @@
 var React = require('react-native');
 var {
   AppRegistry,
+  Image,
   KeyListener,
   StyleSheet,
   Text,
@@ -258,13 +259,21 @@ class Game2048 extends React.Component {
 
     return (
       <View
-        style={styles.container}
-        onTouchStart={(event) => this.handleTouchStart(event)}
-        onTouchEnd={(event) => this.handleTouchEnd(event)}>
-        <Board>
-          {tiles}
-        </Board>
-        {overlay}
+        style={styles.container}>
+        <Image 
+          source={{uri: "http://coenraets.org/blog/wp-content/uploads/2014/12/react-logo.png"}}
+          style={styles.logo} />
+        <View
+          onTouchStart={(event) => this.handleTouchStart(event)}
+          onTouchEnd={(event) => this.handleTouchEnd(event)}>
+          <Board>
+            {tiles}
+          </Board>
+          {overlay}
+        </View>
+        <Image 
+          source={{uri: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Xbox_logo_2012_cropped.svg/1036px-Xbox_logo_2012_cropped.svg.png"}} 
+          style={styles.logo} />
       </View>
     );
   }
@@ -273,8 +282,13 @@ class Game2048 extends React.Component {
 var styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
+  },
+  logo: {
+    width: 250,
+    height: 250,
   },
   board: {
     padding: BOARD_PADDING,
