@@ -132,13 +132,14 @@ namespace ReactNative.Views.Text
         /// This method will be called by <see cref="UIManagerModule"/> once
         /// per batch, before calculating layout. This will only be called for
         /// nodes that are marked as updated with <see cref="ReactShadowNode.MarkUpdated"/> or
-        /// require layout (i.e., marked with <see cref="ReactShadowNode.dirty"/> ).
+        /// require layout (i.e., marked with <see cref="ReactShadowNode.MarkDirty"/> ).
         /// </summary>
         public override void OnBeforeLayout()
         {
             // Run flexbox on the children which are inline views.
-            foreach (var child in this.Children)
+            for (var i = 0; i < Count; i++)
             {
+                var child = this[i];
                 if (!(child is ReactInlineShadowNode))
                 {
                     child.CalculateLayout();

@@ -82,8 +82,8 @@ namespace ReactNative.UIManager
             var rootCssNode = CreateRootShadowNode();
             rootCssNode.ReactTag = tag;
             rootCssNode.ThemedContext = context;
-            rootCssNode.Width = (float)width;
-            rootCssNode.Height = (float)height;
+            rootCssNode.StyleWidth = (float)width;
+            rootCssNode.StyleHeight = (float)height;
             _shadowNodeRegistry.AddRootNode(rootCssNode);
 
             // Register it with the NativeViewHierarchyManager.
@@ -115,8 +115,8 @@ namespace ReactNative.UIManager
             EventDispatcher eventDispatcher)
         {
             var rootCssNode = _shadowNodeRegistry.GetNode(rootViewTag);
-            rootCssNode.Width = (float)newWidth;
-            rootCssNode.Height = (float)newHeight;
+            rootCssNode.StyleWidth = (float)newWidth;
+            rootCssNode.StyleHeight = (float)newHeight;
 
             // If we're in the middle of a batch, the change will be
             // automatically dispatched at the end of the batch. The event
@@ -427,7 +427,7 @@ namespace ReactNative.UIManager
         public void RemoveSubViewsFromContainerWithId(int containerTag)
         {
             var containerNode = _shadowNodeRegistry.GetNode(containerTag);
-            var n = containerNode.ChildCount;
+            var n = containerNode.Count;
             var indicesToRemove = new int[n];
             for (var i = 0; i < n; ++i)
             {
@@ -664,7 +664,7 @@ namespace ReactNative.UIManager
             var rootCssNode = new ReactShadowNode();
             if (I18NUtil.IsRightToLeft)
             {
-                rootCssNode.Direction = CSSDirection.RTL;
+                rootCssNode.StyleDirection = CSSDirection.RightToLeft;
             }
 
             rootCssNode.ViewClass = "Root";
@@ -691,7 +691,7 @@ namespace ReactNative.UIManager
         {
             _nativeViewHierarchyOptimizer.HandleRemoveNode(nodeToRemove);
             _shadowNodeRegistry.RemoveNode(nodeToRemove.ReactTag);
-            for (var i = nodeToRemove.ChildCount - 1; i >= 0; --i)
+            for (var i = nodeToRemove.Count - 1; i >= 0; --i)
             {
                 RemoveShadowNode(nodeToRemove.GetChildAt(i));
             }
@@ -820,7 +820,7 @@ namespace ReactNative.UIManager
                 return;
             }
 
-            for (var i = 0; i < cssNode.ChildCount; ++i)
+            for (var i = 0; i < cssNode.Count; ++i)
             {
                 NotifyBeforeOnLayoutRecursive(cssNode.GetChildAt(i));
             }
@@ -849,7 +849,7 @@ namespace ReactNative.UIManager
 
             if (!cssNode.IsVirtualAnchor)
             {
-                for (var i = 0; i < cssNode.ChildCount; ++i)
+                for (var i = 0; i < cssNode.Count; ++i)
                 {
                     ApplyUpdatesRecursive(
                         cssNode.GetChildAt(i),

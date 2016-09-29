@@ -8,12 +8,12 @@ namespace ReactNative.UIManager
     /// <summary>
     /// Base node class for representing the virtual tree of React nodes.
     /// Shadow nodes are used primarily for layout, therefore it extends
-    /// <see cref="CSSNode"/> to allow that. Instances of this class receive 
+    /// <see cref="CSSNode"/> to allow that. Instances of this class receive
     /// property updates from JavaScript via the <see cref="UIManagerModule"/>.
-    /// 
+    ///
     /// This class allows for the native view hierarchy not to be an exact copy
     /// of the hierarchy received from JavaScript by keeping track of both
-    /// JavaScript children (e.g., <see cref="CSSNode.ChildCount"/>) and
+    /// JavaScript children (e.g., <see cref="CSSNode.Count"/>) and
     /// separately native children (e.g., <see cref="NativeChildCount"/>). See
     /// <see cref="NativeViewHierarchyOptimizer"/> for more information.
     /// </summary>
@@ -28,6 +28,14 @@ namespace ReactNative.UIManager
         private ReactShadowNode _nativeParent;
 
         private List<ReactShadowNode> _nativeChildren;
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="ReactShadowNode"/> class.
+        /// </summary>
+        public ReactShadowNode()
+        {
+            Initialize();
+        }
 
         /// <summary>
         /// Nodes that return <code>true</code> will be treated as "virtual"
@@ -47,7 +55,7 @@ namespace ReactNative.UIManager
 
         /// <summary>
         /// Nodes that return <code>true</code> will be treated as a root view
-        /// for the virtual nodes tree. It means that 
+        /// for the virtual nodes tree. It means that
         /// <see cref="NativeViewHierarchyManager"/> will not try to perform
         /// manage children operations on such views.
         /// </summary>
@@ -233,7 +241,7 @@ namespace ReactNative.UIManager
         /// <param name="index">The index.</param>
         public void AddChildAt(CSSNode child, int index)
         {
-            InsertChild(index, child);
+            Insert(index, child);
             MarkUpdated();
             var node = (ReactShadowNode)child;
 
@@ -247,7 +255,7 @@ namespace ReactNative.UIManager
         /// Removes the child at the given index.
         /// </summary>
         /// <param name="index">The index.</param>
-        public new ReactShadowNode RemoveChildAt(int index)
+        public ReactShadowNode RemoveChildAt(int index)
         {
             var removed = RemoveAndReturnChildAt(index);
 
@@ -265,7 +273,7 @@ namespace ReactNative.UIManager
         public void RemoveAllChildren()
         {
             var decrease = 0;
-            for (var i = ChildCount - 1; i >= 0; --i)
+            for (var i = Count - 1; i >= 0; --i)
             {
                 var removed = RemoveAndReturnChildAt(i);
                 decrease += removed.IsLayoutOnly ? removed._totalNativeChildren : 1;
@@ -281,7 +289,7 @@ namespace ReactNative.UIManager
         /// This method will be called by <see cref="UIManagerModule"/> once
         /// per batch, before calculating layout. This will only be called for
         /// nodes that are marked as updated with <see cref="MarkUpdated"/> or
-        /// require layout (i.e., marked with <see cref="dirty"/>).
+        /// require layout (i.e., marked with <see cref="MarkDirty"/>).
         /// </summary>
         public virtual void OnBeforeLayout()
         {
@@ -410,13 +418,13 @@ namespace ReactNative.UIManager
         /// subtree (which means that the given child will be a sibling of
         /// theirs in the final native hierarchy since they'll get attached to
         /// the same native parent).
-        /// 
+        ///
         /// Basically, a view might have children that have been optimized away
         /// by <see cref="NativeViewHierarchyOptimizer"/>. Since those children
         /// will then add their native children to this view, we now have
         /// ranges of native children that correspond to single unoptimized
         /// children. The purpose of this method is to return the index within
-        /// the native children that corresponds to the start of the native 
+        /// the native children that corresponds to the start of the native
         /// children that belong to the given child. Also, note that all of the
         /// children of a view might be optimized away, so this could return
         /// the same value for multiple different children.
@@ -427,7 +435,7 @@ namespace ReactNative.UIManager
         {
             var index = 0;
             var found = false;
-            for (var i = 0; i < ChildCount; ++i)
+            for (var i = 0; i < Count; ++i)
             {
                 var current = GetChildAt(i);
                 if (child == current)
@@ -493,11 +501,11 @@ namespace ReactNative.UIManager
         /// <summary>
         /// Marks that the node is dirty.
         /// </summary>
-        protected sealed override void dirty()
+        public sealed override void MarkDirty()
         {
             if (!IsVirtual)
             {
-                base.dirty();
+                base.MarkDirty();
             }
         }
 
@@ -522,7 +530,7 @@ namespace ReactNative.UIManager
         private ReactShadowNode RemoveAndReturnChildAt(int i)
         {
             var removed = this[i];
-            base.RemoveChildAt(i);
+            RemoveAt(i);
             return (ReactShadowNode)removed;
         }
     }

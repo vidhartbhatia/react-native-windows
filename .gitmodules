@@ -1,3 +1,9 @@
 [submodule "Examples"]
 	path = Examples
 	url = https://github.com/ReactWindows/react-native-windows
+[submodule "css-layout"]
+	path = css-layout
+	url = https://github.com/facebook/css-layout.git
+[submodule "CSSLayout/css-layout"]
+	path = CSSLayout/css-layout
+	url = https://github.com/facebook/css-layout.git

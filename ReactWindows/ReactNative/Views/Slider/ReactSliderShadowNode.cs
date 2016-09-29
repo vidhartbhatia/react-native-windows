@@ -13,12 +13,13 @@ namespace ReactNative.Views.Slider
         /// </summary>
         public ReactSliderShadowNode()
         {
-            MeasureFunction = MeasurePicker;
+            SetMeasureFunction(MeasurePicker);
         }
 
-        private static MeasureOutput MeasurePicker(CSSNode node, float width, CSSMeasureMode widthMode, float height, CSSMeasureMode heightMode)
+        private static void MeasurePicker(CSSNode node, float width, CSSMeasureMode widthMode, float height, CSSMeasureMode heightMode, MeasureOutput output)
         {
-            return new MeasureOutput(width, 40);
+            output.Width = width;
+            output.Height = 40;
         }
     }
 }

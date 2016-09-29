@@ -34,7 +34,7 @@ namespace ReactNative.Views.Text
         /// </summary>
         public ReactTextShadowNode()
         {
-            MeasureFunction = MeasureText;
+            SetMeasureFunction(MeasureText);
         }
 
         /// <summary>
@@ -148,7 +148,7 @@ namespace ReactNative.Views.Text
         [ReactProp(ViewProps.TextAlign)]
         public void SetTextAlign(string textAlign)
         {
-            var textAlignment = textAlign == "auto" || textAlign == null ? 
+            var textAlignment = textAlign == "auto" || textAlign == null ?
                 TextAlignment.DetectFromContent :
                 EnumHelpers.Parse<TextAlignment>(textAlign);
 
@@ -180,10 +180,10 @@ namespace ReactNative.Views.Text
         protected override void MarkUpdated()
         {
             base.MarkUpdated();
-            dirty();
+            MarkDirty();
         }
 
-        private static MeasureOutput MeasureText(CSSNode node, float width, CSSMeasureMode widthMode, float height, CSSMeasureMode heightMode)
+        private static void MeasureText(CSSNode node, float width, CSSMeasureMode widthMode, float height, CSSMeasureMode heightMode, MeasureOutput output)
         {
             // This is not a terribly efficient way of projecting the height of
             // the text elements. It requires that we have access to the
@@ -205,21 +205,22 @@ namespace ReactNative.Views.Text
                 textNode.UpdateTextBlockCore(textBlock, true);
 
                 var block = new Paragraph();
-                foreach (var child in textNode.Children)
+                for (var i = 0; i < textNode.Count; i++)
                 {
-                    block.Inlines.Add(ReactInlineShadowNodeVisitor.Apply(child));
+                    block.Inlines.Add(ReactInlineShadowNodeVisitor.Apply(textNode[i]));
                 }
+
                 textBlock.Blocks.Add(block);
 
                 var normalizedWidth = CSSConstants.IsUndefined(width) ? double.PositiveInfinity : width;
                 var normalizedHeight = CSSConstants.IsUndefined(height) ? double.PositiveInfinity : height;
                 textBlock.Measure(new Size(normalizedWidth, normalizedHeight));
-                return new MeasureOutput(
-                    (float)textBlock.DesiredSize.Width,
-                    (float)textBlock.DesiredSize.Height);
+                return new MeasureOutput
+                {
+                    Width = (float)textBlock.DesiredSize.Width,
+                    Height = (float)textBlock.DesiredSize.Height
+                };
             });
-
-            return task.Result;
         }
 
         /// <summary>
@@ -245,8 +246,8 @@ namespace ReactNative.Views.Text
             if (!measureOnly)
             {
                 textBlock.Padding = new Thickness(
-                    this.GetPaddingSpace(CSSSpacingType.Left),
-                    this.GetPaddingSpace(CSSSpacingType.Top),
+                    this.GetPaddingSpace(CSSEdge.Left),
+                    this.GetPaddingSpace(CSSEdge.Top),
                     0,
                     0);
             }
@@ -256,13 +257,14 @@ namespace ReactNative.Views.Text
         /// This method will be called by <see cref="UIManagerModule"/> once
         /// per batch, before calculating layout. This will only be called for
         /// nodes that are marked as updated with <see cref="MarkUpdated"/> or
-        /// require layout (i.e., marked with <see cref="ReactShadowNode.dirty"/>).
+        /// require layout (i.e., marked with <see cref="ReactShadowNode.MarkDirty"/>).
         /// </summary>
         public override void OnBeforeLayout()
         {
             // Run flexbox on the children which are inline views.
-            foreach (var child in this.Children)
+            for (var i = 0; i < Count; i++)
             {
+                var child = this[i];
                 if (!(child is ReactInlineShadowNode))
                 {
                     child.CalculateLayout();

@@ -7,13 +7,13 @@ namespace ReactNative.Views.Progress
     {
         public ProgressBarShadowNode()
         {
-            MeasureFunction = MeasureProgressBar;
+            SetMeasureFunction(MeasureProgressBar);
         }
 
-        private static MeasureOutput MeasureProgressBar(CSSNode node, float width, CSSMeasureMode widthMode, float height, CSSMeasureMode heightMode)
+        private static void MeasureProgressBar(CSSNode node, float width, CSSMeasureMode widthMode, float height, CSSMeasureMode heightMode, MeasureOutput output)
         {
-            var adjustedHeight = CSSConstants.IsUndefined(height) ? 4 : height; 
-            return new MeasureOutput(width, adjustedHeight);
+            output.Width = width;
+            output.Height = CSSConstants.IsUndefined(height) ? 4 : height;
         }
     }
 }

@@ -17,22 +17,22 @@ namespace ReactNative.UIManager
     /// able to take instructions from <see cref="UIManagerModule"/> and
     /// output instructions to the native view hierarchy that achieve the same
     /// displayed UI but with fewer views.
-    /// 
+    ///
     /// Currently, this class is only used to remove layout-only views, that
     /// is to say views that only affect the positions of their children but do
     /// not draw anything themselves. These views are faily common because
     /// 1) containers are used to do layouting via flexbox and 2) the return of
     /// each render call in JavaScript must be exactly one view, which means
     /// views are often wrapped in an unnecessary layer of hierarchy.
-    /// 
+    ///
     /// This optimization is implemented by keeping track of both the
     /// unoptimized JavaScript hierarchy and the optimized native hierarchy in
     /// <see cref="ReactShadowNode"/>.
-    /// 
-    /// This optimization is important for view hierarchy depth (which can 
+    ///
+    /// This optimization is important for view hierarchy depth (which can
     /// cause stack overflows during view traversal for complex apps), memory
     /// usage, amount of time spent in GC, and time-to-display.
-    /// 
+    ///
     /// Some examples of the optimizations this class will do based on commands
     /// from JavaScript:
     /// - Create a view with only layout properties: a description of that view
@@ -77,7 +77,7 @@ namespace ReactNative.UIManager
         /// </param>
         public void HandleCreateView(
             ReactShadowNode node,
-            ThemedReactContext themedContext, 
+            ThemedReactContext themedContext,
             ReactStylesDiffMap initialProperties)
         {
 #if !ENABLED
@@ -202,7 +202,7 @@ namespace ReactNative.UIManager
         }
 
         /// <summary>
-        /// Handles an update layout call. All update layout calls are 
+        /// Handles an update layout call. All update layout calls are
         /// collected and dispatched at the end of a batch because update
         /// layout calls to layout-only nodes can necessitate multiple update
         /// layout calls for all its children.
@@ -285,7 +285,7 @@ namespace ReactNative.UIManager
             }
             else
             {
-                for (var i = nodeToRemove.ChildCount - 1; i >= 0; --i)
+                for (var i = nodeToRemove.Count - 1; i >= 0; --i)
                 {
                     RemoveNodeFromParent(nodeToRemove.GetChildAt(i), shouldDelete);
                 }
@@ -295,7 +295,7 @@ namespace ReactNative.UIManager
         private void AddLayoutOnlyNodeToLayoutOnlyNode(ReactShadowNode parent, ReactShadowNode child, int index)
         {
             var parentParent = parent.Parent;
-            
+
             // If the parent hasn't been attached to its parent yet, don't
             // issue commands to the native hierarchy. This will occur when the
             // parent node actually gets attached somewhere.
@@ -341,7 +341,7 @@ namespace ReactNative.UIManager
         private void AddLayoutOnlyNodeToNonLayoutOnlyNode(ReactShadowNode parent, ReactShadowNode child, int index)
         {
             var currentIndex = index;
-            for (var i = 0; i < child.ChildCount; ++i)
+            for (var i = 0; i < child.Count; ++i)
             {
                 var childToAdd = child.GetChildAt(i);
                 if (childToAdd.IsLayoutOnly)
@@ -436,7 +436,7 @@ namespace ReactNative.UIManager
                 return;
             }
 
-            for (var i = 0; i < node.ChildCount; ++i)
+            for (var i = 0; i < node.Count; ++i)
             {
                 var child = node.GetChildAt(i);
                 var visited = default(bool);
@@ -485,18 +485,18 @@ namespace ReactNative.UIManager
             // Add the node and all its children as if adding new nodes.
             parent.AddChildAt(node, childIndex);
             AddNodeToNode(parent, node, childIndex);
-            for (var i = 0; i < node.ChildCount; ++i)
+            for (var i = 0; i < node.Count; ++i)
             {
                 AddNodeToNode(node, node.GetChildAt(i), i);
             }
 
             // Update layouts since the children of the node were offset by its
             // x/y position previously. (Warning: bit of a hack) We need to
-            // update the layout of this node's children now that it's no 
+            // update the layout of this node's children now that it's no
             // longer layout-only, but we may still receive more layout updates
             // at the end of this batch that we don't want to ignore.
             ApplyLayoutBase(node);
-            for (var i = 0; i < node.ChildCount; ++i)
+            for (var i = 0; i < node.Count; ++i)
             {
                 ApplyLayoutBase(node.GetChildAt(i));
             }

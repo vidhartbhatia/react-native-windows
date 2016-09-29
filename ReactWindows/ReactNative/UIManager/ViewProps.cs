@@ -83,30 +83,30 @@ namespace ReactNative.UIManager
         /// Ordered list of margin spacing types.
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "IReadOnlyList is immutable.")]
-        public static readonly IReadOnlyList<CSSSpacingType> PaddingMarginSpacingTypes = 
-            new List<CSSSpacingType>
+        public static readonly IReadOnlyList<CSSEdge> PaddingMarginSpacingTypes = 
+            new List<CSSEdge>
             {
-                CSSSpacingType.All,
-                CSSSpacingType.Vertical,
-                CSSSpacingType.Horizontal,
-                CSSSpacingType.Left,
-                CSSSpacingType.Right,
-                CSSSpacingType.Top,
-                CSSSpacingType.Bottom,
+                CSSEdge.All,
+                CSSEdge.Vertical,
+                CSSEdge.Horizontal,
+                CSSEdge.Left,
+                CSSEdge.Right,
+                CSSEdge.Top,
+                CSSEdge.Bottom,
             };
 
         /// <summary>
         /// Ordered list of border spacing types.
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "IReadOnlyList is immutable.")]
-        public static readonly IReadOnlyList<CSSSpacingType> BorderSpacingTypes =
-            new List<CSSSpacingType>
+        public static readonly IReadOnlyList<CSSEdge> BorderSpacingTypes =
+            new List<CSSEdge>
             {
-                CSSSpacingType.All,
-                CSSSpacingType.Left,
-                CSSSpacingType.Right,
-                CSSSpacingType.Top,
-                CSSSpacingType.Bottom,
+                CSSEdge.All,
+                CSSEdge.Left,
+                CSSEdge.Right,
+                CSSEdge.Top,
+                CSSEdge.Bottom,
             };
 
         private static readonly HashSet<string> s_layoutOnlyProperties =

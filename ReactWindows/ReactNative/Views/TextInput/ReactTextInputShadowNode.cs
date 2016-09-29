@@ -53,11 +53,11 @@ namespace ReactNative.Views.TextInput
         /// </summary>
         public ReactTextInputShadowNode()
         {
-            SetPadding(CSSSpacingType.Left, s_defaultPaddings[0]);
-            SetPadding(CSSSpacingType.Top, s_defaultPaddings[1]);
-            SetPadding(CSSSpacingType.Right, s_defaultPaddings[2]);
-            SetPadding(CSSSpacingType.Bottom, s_defaultPaddings[3]);
-            MeasureFunction = MeasureTextInput;
+            SetPadding(CSSEdge.Left, s_defaultPaddings[0]);
+            SetPadding(CSSEdge.Top, s_defaultPaddings[1]);
+            SetPadding(CSSEdge.Right, s_defaultPaddings[2]);
+            SetPadding(CSSEdge.Bottom, s_defaultPaddings[3]);
+            SetMeasureFunction(MeasureTextInput);
         }
 
         /// <summary>
@@ -228,15 +228,15 @@ namespace ReactNative.Views.TextInput
         /// </summary>
         /// <param name="spacingType">The spacing type.</param>
         /// <param name="padding">The padding value.</param>
-        protected override void SetPaddingCore(CSSSpacingType spacingType, float padding)
+        protected override void SetPaddingCore(CSSEdge spacingType, float padding)
         {
             MarkUpdated();
             switch (spacingType)
             {
-                case CSSSpacingType.Left:
-                case CSSSpacingType.Top:
-                case CSSSpacingType.Right:
-                case CSSSpacingType.Bottom:
+                case CSSEdge.Left:
+                case CSSEdge.Top:
+                case CSSEdge.Right:
+                case CSSEdge.Bottom:
                     var index = (int)spacingType;
                     var isUndefined = CSSConstants.IsUndefined(padding);
                     SetPadding(spacingType, isUndefined ? s_defaultPaddings[index] : padding);
@@ -254,25 +254,25 @@ namespace ReactNative.Views.TextInput
         protected override void MarkUpdated()
         {
             base.MarkUpdated();
-            dirty();
+            MarkDirty();
         }
 
         private float[] GetComputedPadding()
         {
             return new float[]
             {
-                GetTextInputPadding(CSSSpacingType.Left),
-                GetTextInputPadding(CSSSpacingType.Top),
-                GetTextInputPadding(CSSSpacingType.Right),
-                GetTextInputPadding(CSSSpacingType.Bottom),
+                GetTextInputPadding(CSSEdge.Left),
+                GetTextInputPadding(CSSEdge.Top),
+                GetTextInputPadding(CSSEdge.Right),
+                GetTextInputPadding(CSSEdge.Bottom),
             };
         }
 
-        private float GetTextInputPadding(CSSSpacingType spacingType)
+        private float GetTextInputPadding(CSSEdge spacingType)
         {
             var index = (int)spacingType;
             var isUserPadding = _isUserPadding[index];
-            var originalPadding = GetPadding(spacingType);
+            var originalPadding = GetPadding().Get((int)spacingType);
             if (!isUserPadding)
             {
                 SetPadding(spacingType, CSSConstants.Undefined);
@@ -288,13 +288,13 @@ namespace ReactNative.Views.TextInput
             return result;
         }
 
-        private static MeasureOutput MeasureTextInput(CSSNode node, float width, CSSMeasureMode widthMode, float height, CSSMeasureMode heightMode)
+        private static void MeasureTextInput(CSSNode node, float width, CSSMeasureMode widthMode, float height, CSSMeasureMode heightMode, MeasureOutput output)
         {
             var textInputNode = (ReactTextInputShadowNode)node;
             textInputNode._computedPadding = textInputNode.GetComputedPadding();
 
-            var borderLeftWidth = textInputNode.GetBorder(CSSSpacingType.Left);
-            var borderRightWidth = textInputNode.GetBorder(CSSSpacingType.Right);
+            var borderLeftWidth = textInputNode.GetBorder().Get(Spacing.Left);
+            var borderRightWidth = textInputNode.GetBorder().Get(Spacing.Right);
 
             var normalizedWidth = Math.Max(0,
                 (CSSConstants.IsUndefined(width) ? double.PositiveInfinity : width)
@@ -328,8 +328,8 @@ namespace ReactNative.Views.TextInput
 
                 textBlock.Measure(new Size(normalizedWidth, normalizedHeight));
 
-                var borderTopWidth = textInputNode.GetBorder(CSSSpacingType.Top);
-                var borderBottomWidth = textInputNode.GetBorder(CSSSpacingType.Bottom);
+                var borderTopWidth = textInputNode.GetBorder().Get(Spacing.Top);
+                var borderBottomWidth = textInputNode.GetBorder().Get(Spacing.Bottom);
 
                 var finalizedHeight = (float)textBlock.DesiredSize.Height;
                 finalizedHeight += textInputNode._computedPadding[1];
@@ -337,10 +337,12 @@ namespace ReactNative.Views.TextInput
                 finalizedHeight += CSSConstants.IsUndefined(borderTopWidth) ? 0 : borderTopWidth;
                 finalizedHeight += CSSConstants.IsUndefined(borderBottomWidth) ? 0 : borderBottomWidth;
 
-                return new MeasureOutput(width, finalizedHeight);
+                return new MeasureOutput { Width = width, Height = finalizedHeight };
             });
 
-            return task.Result;
+            var result = task.Result;
+            output.Width = result.Width;
+            output.Height = result.Height;
         }
 
         /// <summary>

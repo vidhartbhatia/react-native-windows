@@ -13,7 +13,7 @@ namespace ReactNative.UIManager
                 throw new ArgumentNullException(nameof(node));
             }
 
-            var n = node.ChildCount;
+            var n = node.Count;
             if (n == 0)
             {
                 return Make(node, Array.Empty<T>());
@@ -21,9 +21,9 @@ namespace ReactNative.UIManager
             else
             {
                 var children = new List<T>(n);
-                foreach (var child in node.Children)
+                for (var i = 0; i < node.Count; i++)
                 {
-                    children.Add(Visit(child));
+                    children.Add(Visit(node[i]));
                 }
 
                 return Make(node, children);

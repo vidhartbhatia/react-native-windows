@@ -19,7 +19,7 @@ namespace ReactNative.UIManager
         [ReactProp(ViewProps.Width, DefaultSingle = Undefined)]
         public void SetWidth(float width)
         {
-            Width = width;
+            StyleWidth = width;
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace ReactNative.UIManager
         [ReactProp(ViewProps.Height, DefaultSingle = Undefined)]
         public void SetHeight(float height)
         {
-            Height = height;
+            StyleHeight = height;
         }
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace ReactNative.UIManager
         [ReactProp(ViewProps.Left, DefaultSingle = Undefined)]
         public void SetLeft(float left)
         {
-            PositionLeft = left;
+            SetPosition(CSSEdge.Left, left);
         }
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace ReactNative.UIManager
         [ReactProp(ViewProps.Top, DefaultSingle = Undefined)]
         public void SetTop(float top)
         {
-            PositionTop = top;
+            SetPosition(CSSEdge.Top, top);
         }
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace ReactNative.UIManager
         [ReactProp(ViewProps.Bottom, DefaultSingle = Undefined)]
         public void SetBottom(float bottom)
         {
-            PositionBottom = bottom;
+            SetPosition(CSSEdge.Bottom, bottom);
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace ReactNative.UIManager
         [ReactProp(ViewProps.Right, DefaultSingle = Undefined)]
         public void SetRight(float right)
         {
-            PositionRight = right;
+            SetPosition(CSSEdge.Right, right);
         }
 
         /// <summary>
@@ -217,7 +217,7 @@ namespace ReactNative.UIManager
         /// <remarks>
         /// Override this virtual method if the view has custom padding behavior.
         /// </remarks>
-        protected virtual void SetPaddingCore(CSSSpacingType spacingType, float padding)
+        protected virtual void SetPaddingCore(CSSEdge spacingType, float padding)
         {
             SetPadding(spacingType, padding);
         }

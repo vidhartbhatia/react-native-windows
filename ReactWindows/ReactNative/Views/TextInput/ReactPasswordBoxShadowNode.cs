@@ -40,11 +40,11 @@ namespace ReactNative.Views.TextInput
         public ReactPasswordBoxShadowNode()
         {
             var computedPadding = GetDefaultPaddings();
-            SetPadding(CSSSpacingType.Left, computedPadding[0]);
-            SetPadding(CSSSpacingType.Top, computedPadding[1]);
-            SetPadding(CSSSpacingType.Right, computedPadding[2]);
-            SetPadding(CSSSpacingType.Bottom, computedPadding[3]);
-            MeasureFunction = MeasureTextInput;
+            SetPadding(CSSEdge.Left, computedPadding[0]);
+            SetPadding(CSSEdge.Top, computedPadding[1]);
+            SetPadding(CSSEdge.Right, computedPadding[2]);
+            SetPadding(CSSEdge.Bottom, computedPadding[3]);
+            SetMeasureFunction(MeasureTextInput);
         }
 
         /// <summary>
@@ -169,7 +169,7 @@ namespace ReactNative.Views.TextInput
         protected override void MarkUpdated()
         {
             base.MarkUpdated();
-            dirty();
+            MarkDirty();
         }
 
         private float[] GetDefaultPaddings()
@@ -188,20 +188,20 @@ namespace ReactNative.Views.TextInput
         {
             return new float[]
             {
-                GetPadding(CSSSpacingType.Left),
-                GetPadding(CSSSpacingType.Top),
-                GetPadding(CSSSpacingType.Right),
-                GetPadding(CSSSpacingType.Bottom),
+                GetPadding().Get(Spacing.Left),
+                GetPadding().Get(Spacing.Top),
+                GetPadding().Get(Spacing.Right),
+                GetPadding().Get(Spacing.Bottom),
             };
         }
 
-        private static MeasureOutput MeasureTextInput(CSSNode node, float width, CSSMeasureMode widthMode, float height, CSSMeasureMode heightMode)
+        private static void MeasureTextInput(CSSNode node, float width, CSSMeasureMode widthMode, float height, CSSMeasureMode heightMode, MeasureOutput output)
         {
             var textInputNode = (ReactPasswordBoxShadowNode)node;
             textInputNode._computedPadding = textInputNode.GetComputedPadding();
 
-            var borderLeftWidth = textInputNode.GetBorder(CSSSpacingType.Left);
-            var borderRightWidth = textInputNode.GetBorder(CSSSpacingType.Right);
+            var borderLeftWidth = textInputNode.GetBorder().Get(Spacing.Left);
+            var borderRightWidth = textInputNode.GetBorder().Get(Spacing.Right);
 
             var normalizedWidth = Math.Max(0,
                 (CSSConstants.IsUndefined(width) ? double.PositiveInfinity : width)
@@ -231,8 +231,8 @@ namespace ReactNative.Views.TextInput
 
                 passwordBox.Measure(new Size(normalizedWidth, normalizedHeight));
 
-                var borderTopWidth = textInputNode.GetBorder(CSSSpacingType.Top);
-                var borderBottomWidth = textInputNode.GetBorder(CSSSpacingType.Bottom);
+                var borderTopWidth = textInputNode.GetBorder().Get(Spacing.Top);
+                var borderBottomWidth = textInputNode.GetBorder().Get(Spacing.Bottom);
 
                 var finalizedHeight = (float)passwordBox.DesiredSize.Height;
                 finalizedHeight += textInputNode._computedPadding[1];
@@ -240,10 +240,12 @@ namespace ReactNative.Views.TextInput
                 finalizedHeight += CSSConstants.IsUndefined(borderTopWidth) ? 0 : borderTopWidth;
                 finalizedHeight += CSSConstants.IsUndefined(borderBottomWidth) ? 0 : borderBottomWidth;
 
-                return new MeasureOutput(width, finalizedHeight);
+                return new MeasureOutput { Width = width, Height = finalizedHeight };
             });
 
-            return task.Result;
+            var result = task.Result;
+            output.Height = result.Height;
+            output.Width = result.Width;
         }
 
         /// <summary>

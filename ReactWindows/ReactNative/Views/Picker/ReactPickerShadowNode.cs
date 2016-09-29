@@ -1,6 +1,5 @@
 ﻿using Facebook.CSSLayout;
 using ReactNative.UIManager;
-using Windows.UI.Xaml.Controls;
 
 namespace ReactNative.Views.Picker
 {
@@ -14,12 +13,13 @@ namespace ReactNative.Views.Picker
         /// </summary>
         public ReactPickerShadowNode()
         {
-            MeasureFunction = MeasurePicker;
+            SetMeasureFunction(MeasurePicker);
         }
 
-        private static MeasureOutput MeasurePicker(CSSNode node, float width, CSSMeasureMode widthMode, float height, CSSMeasureMode heightMode)
+        private static void MeasurePicker(CSSNode node, float width, CSSMeasureMode widthMode, float height, CSSMeasureMode heightMode, MeasureOutput output)
         {
-            return new MeasureOutput(width, 40);
+            output.Width = width;
+            output.Height = 40;
         }
     }
 }

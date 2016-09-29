@@ -439,12 +439,15 @@
     </SDKReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\CSSLayout\Facebook.CSSLayout\Facebook.CSSLayout.csproj">
+      <Project>{d7c2626d-fa57-4c64-8e34-249251c22ff5}</Project>
+      <Name>Facebook.CSSLayout</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ChakraBridge\ChakraBridge.vcxproj">
       <Project>{4b72c796-16d5-4e3a-81c0-3e36f531e578}</Project>
       <Name>ChakraBridge</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

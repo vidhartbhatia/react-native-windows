@@ -25,11 +25,11 @@ namespace ReactNative.Views.Text
             else
             {
                 var rectangle = new Rectangle();
-                rectangle.Width = node.Width;
-                rectangle.Height = node.Height;
+                rectangle.Width = node.StyleWidth;
+                rectangle.Height = node.StyleHeight;
                 return new InlineUIContainer
                 {
-                    Child = rectangle,                    
+                    Child = rectangle,
                 };
             }
         }

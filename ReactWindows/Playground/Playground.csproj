@@ -182,6 +182,9 @@
     <None Include="Playground_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="CSSLayout.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -198,6 +201,10 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\CSSLayout\Facebook.CSSLayout\Facebook.CSSLayout.csproj">
+      <Project>{d7c2626d-fa57-4c64-8e34-249251c22ff5}</Project>
+      <Name>Facebook.CSSLayout</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ReactNative\ReactNative.csproj">
       <Project>{c7673ad5-e3aa-468c-a5fd-fa38154e205c}</Project>
       <Name>ReactNative</Name>
