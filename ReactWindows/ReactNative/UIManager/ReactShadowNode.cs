@@ -30,14 +30,6 @@ namespace ReactNative.UIManager
         private List<ReactShadowNode> _nativeChildren;
 
         /// <summary>
-        /// Creates a new instance of the <see cref="ReactShadowNode"/> class.
-        /// </summary>
-        public ReactShadowNode()
-        {
-            Initialize();
-        }
-
-        /// <summary>
         /// Nodes that return <code>true</code> will be treated as "virtual"
         /// nodes. That is, nodes that are not mapped into native views (e.g.,
         /// nested text node).

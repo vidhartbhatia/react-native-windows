@@ -110,29 +110,72 @@
     <EmbeddedResource Include="Properties\Facebook.CSSLayout.rd.xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\css-layout\csharp\Facebook.CSSLayout\CSSAlign.cs">
+      <Link>CSSAlign.cs</Link>
+    </Compile>
+    <Compile Include="..\css-layout\csharp\Facebook.CSSLayout\CSSAssert.cs">
+      <Link>CSSAssert.cs</Link>
+    </Compile>
+    <Compile Include="..\css-layout\csharp\Facebook.CSSLayout\CSSConstants.cs">
+      <Link>CSSConstants.cs</Link>
+    </Compile>
+    <Compile Include="..\css-layout\csharp\Facebook.CSSLayout\CSSDimension.cs">
+      <Link>CSSDimension.cs</Link>
+    </Compile>
+    <Compile Include="..\css-layout\csharp\Facebook.CSSLayout\CSSDIrection.cs">
+      <Link>CSSDIrection.cs</Link>
+    </Compile>
+    <Compile Include="..\css-layout\csharp\Facebook.CSSLayout\CSSEdge.cs">
+      <Link>CSSEdge.cs</Link>
+    </Compile>
+    <Compile Include="..\css-layout\csharp\Facebook.CSSLayout\CSSFlexDirection.cs">
+      <Link>CSSFlexDirection.cs</Link>
+    </Compile>
+    <Compile Include="..\css-layout\csharp\Facebook.CSSLayout\CSSJustify.cs">
+      <Link>CSSJustify.cs</Link>
+    </Compile>
+    <Compile Include="..\css-layout\csharp\Facebook.CSSLayout\CSSMeasureFunc.cs">
+      <Link>CSSMeasureFunc.cs</Link>
+    </Compile>
+    <Compile Include="..\css-layout\csharp\Facebook.CSSLayout\CSSMeasureMode.cs">
+      <Link>CSSMeasureMode.cs</Link>
+    </Compile>
+    <Compile Include="..\css-layout\csharp\Facebook.CSSLayout\CSSNode.cs">
+      <Link>CSSNode.cs</Link>
+    </Compile>
+    <Compile Include="..\css-layout\csharp\Facebook.CSSLayout\CSSOverflow.cs">
+      <Link>CSSOverflow.cs</Link>
+    </Compile>
+    <Compile Include="..\css-layout\csharp\Facebook.CSSLayout\CSSPositionType.cs">
+      <Link>CSSPositionType.cs</Link>
+    </Compile>
+    <Compile Include="..\css-layout\csharp\Facebook.CSSLayout\CSSPrintFunc.cs">
+      <Link>CSSPrintFunc.cs</Link>
+    </Compile>
+    <Compile Include="..\css-layout\csharp\Facebook.CSSLayout\CSSPrintOptions.cs">
+      <Link>CSSPrintOptions.cs</Link>
+    </Compile>
+    <Compile Include="..\css-layout\csharp\Facebook.CSSLayout\CSSSize.cs">
+      <Link>CSSSize.cs</Link>
+    </Compile>
+    <Compile Include="..\css-layout\csharp\Facebook.CSSLayout\CSSWrap.cs">
+      <Link>CSSWrap.cs</Link>
+    </Compile>
+    <Compile Include="..\css-layout\csharp\Facebook.CSSLayout\MeasureFunction.cs">
+      <Link>MeasureFunction.cs</Link>
+    </Compile>
+    <Compile Include="..\css-layout\csharp\Facebook.CSSLayout\MeasureOutput.cs">
+      <Link>MeasureOutput.cs</Link>
+    </Compile>
+    <Compile Include="..\css-layout\csharp\Facebook.CSSLayout\Native.cs">
+      <Link>Native.cs</Link>
+    </Compile>
     <Compile Include="..\css-layout\csharp\Facebook.CSSLayout\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="CSSAlign.cs" />
-    <Compile Include="CSSConstants.cs" />
-    <Compile Include="CSSDimension.cs" />
-    <Compile Include="CSSDIrection.cs" />
-    <Compile Include="CSSEdge.cs" />
-    <Compile Include="CSSFlexDirection.cs" />
-    <Compile Include="CSSJustify.cs" />
-    <Compile Include="CSSMeasureFunc.cs" />
-    <Compile Include="CSSMeasureMode.cs" />
-    <Compile Include="CSSNode.cs" />
-    <Compile Include="CSSOverflow.cs" />
-    <Compile Include="CSSPositionType.cs" />
-    <Compile Include="CSSPrintFunc.cs" />
-    <Compile Include="CSSPrintOptions.cs" />
-    <Compile Include="CSSSize.cs" />
-    <Compile Include="CSSWrap.cs" />
-    <Compile Include="MeasureFunction.cs" />
-    <Compile Include="MeasureOutput.cs" />
-    <Compile Include="Native.cs" />
-    <Compile Include="Spacing.cs" />
+    <Compile Include="..\css-layout\csharp\Facebook.CSSLayout\Spacing.cs">
+      <Link>Spacing.cs</Link>
+    </Compile>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
