@@ -4,8 +4,11 @@ using ReactNative.UIManager;
 using ReactNative.UIManager.Events;
 using System;
 using System.Collections.Generic;
+using Windows.Foundation;
+using Windows.UI.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
 
 namespace ReactNative.Touch
 {
@@ -45,18 +48,25 @@ namespace ReactNative.Touch
                 throw new InvalidOperationException("A pointer with this ID already exists.");
             }
 
-            var reactView = GetReactViewFromView(e.OriginalSource as UIElement);
-
+            var originalSource = e.OriginalSource as DependencyObject;
+            var rootPoint = e.GetCurrentPoint(_view);
+            var reactView = GetReactViewTarget(originalSource, rootPoint.Position);
             if (reactView != null && _view.CapturePointer(e.Pointer))
             {
-                var reactTag = reactView.GetReactCompoundView().GetReactTagAtPoint(reactView,
-                    e.GetCurrentPoint(reactView).Position);
+                var viewPoint = e.GetCurrentPoint(reactView);
+                var reactTag = reactView.GetReactCompoundView().GetReactTagAtPoint(reactView, viewPoint.Position);
                 var pointer = new ReactPointer();
                 pointer.Target = reactTag;
                 pointer.PointerId = e.Pointer.PointerId;
                 pointer.Identifier = ++_pointerIDs;
+                pointer.PointerType = e.Pointer.PointerDeviceType.GetPointerDeviceTypeName();
+                pointer.IsLeftButton = viewPoint.Properties.IsLeftButtonPressed;
+                pointer.IsRightButton = viewPoint.Properties.IsRightButtonPressed;
+                pointer.IsMiddleButton = viewPoint.Properties.IsMiddleButtonPressed;
+                pointer.IsHorizontalMouseWheel = viewPoint.Properties.IsHorizontalMouseWheel;
+                pointer.IsEraser = viewPoint.Properties.IsEraser;
                 pointer.ReactView = reactView;
-                UpdatePointerForEvent(pointer, e);
+                UpdatePointerForEvent(pointer, rootPoint, viewPoint);
 
                 var pointerIndex = _pointers.Count;
                 _pointers.Add(pointer);
@@ -123,44 +133,66 @@ namespace ReactNative.Touch
             return -1;
         }
 
-        private UIElement GetReactViewFromView(DependencyObject originalSource)
+        private UIElement GetReactViewTarget(DependencyObject originalSource, Point point)
         {
-            var viewHierarchy = RootViewHelper.GetReactViewHierarchy(originalSource);
-            if (viewHierarchy.Count == 0)
+            // If the target is not a child of the root view, then this pointer
+            // event does not belong to React.
+            if (!RootViewHelper.IsReactSubview(originalSource))
             {
                 return null;
             }
 
-            var target = -1;
-            for (var i = 0; i < viewHierarchy.Count; ++i)
+            var sources = VisualTreeHelper.FindElementsInHostCoordinates(point, _view);
+
+            // Get the first React view that does not have pointer events set
+            // to 'none' or 'box-none', and is not a child of a view with 
+            // 'box-only' or 'none' settings for pointer events.
+
+            // TODO: use pooled data structure
+            var isBoxOnlyCache = new Dictionary<DependencyObject, bool>();
+            foreach (var source in sources)
             {
-                var view = viewHierarchy[i];
-                var pointerEvents = view.GetPointerEvents();
-                if (pointerEvents != PointerEvents.None && pointerEvents != PointerEvents.BoxNone)
+                if (!source.HasTag())
                 {
-                    target = i;
+                    continue;
                 }
 
-                if (pointerEvents == PointerEvents.BoxOnly || pointerEvents == PointerEvents.None)
+                var pointerEvents = source.GetPointerEvents();
+                if (pointerEvents == PointerEvents.None || pointerEvents == PointerEvents.BoxNone)
                 {
-                    break;
+                    continue;
+                }
+
+                var viewHierarchy = RootViewHelper.GetReactViewHierarchy(source);
+                var isBoxOnly = IsBoxOnlyWithCache(viewHierarchy, isBoxOnlyCache);
+                if (!isBoxOnly)
+                {
+                    return source;
                 }
             }
 
-            return target < 0 ? null : viewHierarchy[target];
+            return null;
         }
 
         private void UpdatePointerForEvent(ReactPointer pointer, PointerRoutedEventArgs e)
         {
-            var viewPoint = e.GetCurrentPoint(_view);
-            var positionInRoot = viewPoint.Position;
-            var positionInView = e.GetCurrentPoint(pointer.ReactView).Position;
+            var rootPoint = e.GetCurrentPoint(_view);
+            var viewPoint = e.GetCurrentPoint(pointer.ReactView);
+            UpdatePointerForEvent(pointer, rootPoint, viewPoint);
+        }
+
+        private void UpdatePointerForEvent(ReactPointer pointer, PointerPoint rootPoint, PointerPoint viewPoint)
+        {
+            var positionInRoot = rootPoint.Position;
+            var positionInView = viewPoint.Position;
 
             pointer.PageX = (float)positionInRoot.X;
             pointer.PageY = (float)positionInRoot.Y;
             pointer.LocationX = (float)positionInView.X;
             pointer.LocationY = (float)positionInView.Y;
-            pointer.Timestamp = viewPoint.Timestamp / 1000; // Convert microseconds to milliseconds;
+            pointer.Timestamp = rootPoint.Timestamp / 1000; // Convert microseconds to milliseconds;
+            pointer.Force = rootPoint.Properties.Pressure;
+            pointer.IsBarrelButtonPressed = rootPoint.Properties.IsBarrelButtonPressed;
         }
 
         private void DispatchTouchEvent(TouchEventType touchEventType, List<ReactPointer> activePointers, int pointerIndex)
@@ -182,6 +214,42 @@ namespace ReactNative.Touch
                 .GetNativeModule<UIManagerModule>()
                 .EventDispatcher
                 .DispatchEvent(touchEvent);
+        }
+
+        private static bool IsBoxOnlyWithCache(IEnumerable<DependencyObject> hierarchy, IDictionary<DependencyObject, bool> cache)
+        {
+            var enumerator = hierarchy.GetEnumerator();
+
+            // Skip the first element (only checking ancestors)
+            if (!enumerator.MoveNext())
+            {
+                return false;
+            }
+
+            return IsBoxOnlyWithCacheRecursive(enumerator, cache);
+        }
+
+        private static bool IsBoxOnlyWithCacheRecursive(IEnumerator<DependencyObject> enumerator, IDictionary<DependencyObject, bool> cache)
+        {
+            if (!enumerator.MoveNext())
+            {
+                return false;
+            }
+
+            var currentView = enumerator.Current;
+            var isBoxOnly = default(bool);
+            if (!cache.TryGetValue(currentView, out isBoxOnly))
+            {
+                var pointerEvents = currentView.GetPointerEvents();
+
+                isBoxOnly = pointerEvents == PointerEvents.BoxOnly 
+                    || pointerEvents == PointerEvents.None
+                    || IsBoxOnlyWithCacheRecursive(enumerator, cache);
+
+                cache.Add(currentView, isBoxOnly);
+            }
+
+            return isBoxOnly;
         }
 
         class TouchEvent : Event
@@ -261,6 +329,30 @@ namespace ReactNative.Touch
 
             [JsonProperty(PropertyName = "pageY")]
             public float PageY { get; set; }
+
+            [JsonProperty(PropertyName = "pointerType")]
+            public string PointerType { get; set; }
+
+            [JsonProperty(PropertyName = "force")]
+            public double Force { get; set; }
+
+            [JsonProperty(PropertyName = "isLeftButton", DefaultValueHandling = DefaultValueHandling.Ignore)]
+            public bool IsLeftButton { get; set; }
+
+            [JsonProperty(PropertyName = "isRightButton", DefaultValueHandling = DefaultValueHandling.Ignore)]
+            public bool IsRightButton { get; set; }
+
+            [JsonProperty(PropertyName = "isMiddleButton", DefaultValueHandling = DefaultValueHandling.Ignore)]
+            public bool IsMiddleButton { get; set; }
+
+            [JsonProperty(PropertyName = "isBarrelButtonPressed", DefaultValueHandling = DefaultValueHandling.Ignore)]
+            public bool IsBarrelButtonPressed { get; set; }
+
+            [JsonProperty(PropertyName = "isHorizontalScrollWheel", DefaultValueHandling = DefaultValueHandling.Ignore)]
+            public bool IsHorizontalMouseWheel { get; set; }
+
+            [JsonProperty(PropertyName = "isEraser", DefaultValueHandling = DefaultValueHandling.Ignore)]
+            public bool IsEraser { get; set; }
         }
     }
 }
