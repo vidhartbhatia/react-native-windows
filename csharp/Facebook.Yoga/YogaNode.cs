@@ -1,3 +1,5 @@
+﻿#pragma warning disable CS1587 // XML comment is not placed on a valid language element
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -20,6 +22,7 @@ using AOT;
 
 namespace Facebook.Yoga
 {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public partial class YogaNode : IEnumerable<YogaNode>
     {
         private readonly YGNodeHandle _ygNode;

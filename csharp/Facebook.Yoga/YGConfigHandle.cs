@@ -1,3 +1,4 @@
+#pragma warning disable CS1587 // XML comment is not placed on a valid language element
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
