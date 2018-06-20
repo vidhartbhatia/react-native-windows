@@ -1,7 +1,9 @@
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License.
+
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 using Newtonsoft.Json.Linq;
 using ReactNative.Bridge;
-using ReactNative.Bridge.Queue;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -125,15 +127,10 @@ namespace ReactNative.Tests.Bridge
             };
 
             var exception = new Exception();
-            var tcs = new TaskCompletionSource<Exception>();
-            var handler = new Action<Exception>(ex =>
-            {
-                Task.Run(() => tcs.SetResult(ex));
-            });
-
+            var tcs = new TaskCompletionSource<Exception>(TaskCreationOptions.RunContinuationsAsynchronously);
             var builder = new ReactInstance.Builder()
             {
-                QueueConfiguration = TestReactQueueConfiguration.Create(handler),
+                QueueConfiguration = TestReactQueueConfiguration.Create(tcs.SetResult),
                 Registry = registry,
                 JavaScriptExecutorFactory = () => executor,
                 BundleLoader = JavaScriptBundleLoader.CreateFileLoader("ms-appx:///Resources/test.js"),

@@ -1,3 +1,8 @@
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Portions derived from React Native:
+// Copyright (c) 2015-present, Facebook, Inc.
+// Licensed under the MIT License.
+
 using ReactNative.Bridge;
 using ReactNative.Common;
 using ReactNative.Modules.Core;
@@ -31,7 +36,7 @@ namespace ReactNative
         }
 
         /// <summary>
-        /// Checks whether this host contains a Re
+        /// Checks whether this host contains a <see cref="ReactInstanceManager"/>
         /// </summary>
         public bool HasInstance
         {
@@ -93,6 +98,19 @@ namespace ReactNative
         }
 
         /// <summary>
+        /// When <code>true</code>, view manager constants, including custom
+        /// events and native props configuration are loaded
+        /// on-demand rather than at startup.
+        /// </summary>
+        protected virtual bool LazyViewManagersEnabled
+        {
+            get
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
         /// The list of <see cref="IReactPackage"/>s used by the application.
         /// </summary>
         protected abstract List<IReactPackage> Packages { get; }
@@ -100,6 +118,9 @@ namespace ReactNative
         /// <summary>
         /// Creates a new root view.
         /// </summary>
+        /// <remarks>
+        /// Has to be called in the context of the dispatcher associated with the hosting view
+        /// </remarks>
         /// <returns>The root view.</returns>
         public virtual ReactRootView CreateRootView()
         {
@@ -130,6 +151,7 @@ namespace ReactNative
                 JavaScriptBundleFile = JavaScriptBundleFile,
                 JavaScriptMainModuleName = JavaScriptMainModuleName,
                 JavaScriptExecutorFactory = JavaScriptExecutorFactory,
+                LazyViewManagersEnabled = LazyViewManagersEnabled,
             };
 
             builder.Packages.AddRange(Packages);

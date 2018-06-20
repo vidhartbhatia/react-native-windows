@@ -1,11 +1,13 @@
-﻿using Newtonsoft.Json.Linq;
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License.
+
+using Newtonsoft.Json.Linq;
 using ReactNative.Collections;
 using ReactNative.Modules.Image;
 using ReactNative.UIManager;
 using ReactNative.UIManager.Annotations;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Reactive.Disposables;
 using System.Windows;
 using System.Windows.Controls;
@@ -39,29 +41,29 @@ namespace ReactNative.Views.Image
         /// <summary>
         /// The view manager event constants.
         /// </summary>
-        public override IReadOnlyDictionary<string, object> ExportedCustomDirectEventTypeConstants
+        public override JObject CustomDirectEventTypeConstants
         {
             get
             {
-                return new Dictionary<string, object>
+                return new JObject
                 {
                     {
                         "topLoadStart",
-                        new Dictionary<string, object>
+                        new JObject
                         {
                             { "registrationName", "onLoadStart" }
                         }
                     },
                     {
                         "topLoad",
-                        new Dictionary<string, object>
+                        new JObject
                         {
                             { "registrationName", "onLoad" }
                         }
                     },
                     {
                         "topLoadEnd",
-                        new Dictionary<string, object>
+                        new JObject
                         {
                             { "registrationName", "onLoadEnd" }
                         }
@@ -182,7 +184,7 @@ namespace ReactNative.Views.Image
         /// Sets the border thickness of the image view.
         /// </summary>
         /// <param name="view">The image view instance.</param>
-        /// <param name="index">The property index.</param>
+        /// <param name="index">The prop index.</param>
         /// <param name="width">The border width in pixels.</param>
         [ReactPropGroup(
             ViewProps.BorderWidth,
@@ -246,6 +248,12 @@ namespace ReactNative.Views.Image
 
         private void OnImageFailed(Border view)
         {
+            if (!view.HasTag())
+            {
+                // View may have been unmounted, ignore.
+                return;
+            }
+
             view.GetReactContext()
                 .GetNativeModule<UIManagerModule>()
                 .EventDispatcher
@@ -257,6 +265,12 @@ namespace ReactNative.Views.Image
 
         private void OnImageStatusUpdate(Border view, ImageStatusEventData status)
         {
+            if (!view.HasTag())
+            {
+                // View may have been unmounted, ignore.
+                return;
+            }
+
             var eventDispatcher = view.GetReactContext()
                 .GetNativeModule<UIManagerModule>()
                 .EventDispatcher;

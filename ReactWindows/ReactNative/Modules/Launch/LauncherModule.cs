@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License.
+
 using Newtonsoft.Json.Linq;
 using ReactNative.Bridge;
 using ReactNative.Modules.Core;
@@ -13,8 +16,9 @@ namespace ReactNative.Modules.Launch
     /// </summary>
     public class LauncherModule : ReactContextNativeModuleBase, ILifecycleEventListener
     {
-        private static readonly Subject<string> s_urlSubject = new Subject<string>();
         private static string s_activatedUrl;
+
+        private readonly Subject<string> _urlSubject = new Subject<string>();
 
         private bool _initialized;
         private IDisposable _subscription;
@@ -55,8 +59,7 @@ namespace ReactNative.Modules.Launch
                 return;
             }
 
-            var uri = default(Uri);
-            if (!Uri.TryCreate(url, UriKind.Absolute, out uri))
+            if (!Uri.TryCreate(url, UriKind.Absolute, out var uri))
             {
                 promise.Reject(new ArgumentException(Invariant($"URL argument '{uri}' is not valid.")));
                 return;
@@ -90,8 +93,7 @@ namespace ReactNative.Modules.Launch
                 return;
             }
 
-            var uri = default(Uri);
-            if (!Uri.TryCreate(url, UriKind.Absolute, out uri))
+            if (!Uri.TryCreate(url, UriKind.Absolute, out var uri))
             {
                 promise.Reject(new ArgumentException(Invariant($"URL argument '{uri}' is not valid.")));
                 return;
@@ -160,17 +162,26 @@ namespace ReactNative.Modules.Launch
         }
 
         /// <summary>
+        /// Called whenever a protocol activation occurs.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        public void OnActivated(string url)
+        {
+            _urlSubject.OnNext(url);
+        }
+
+        /// <summary>
         /// The initial URL used to activate the application.
         /// </summary>
+        /// <param name="url">The URL.</param>
         public static void SetActivatedUrl(string url)
         {
             s_activatedUrl = url;
-            s_urlSubject.OnNext(url);
         }
 
         private IDisposable CreateUrlSubscription()
         {
-            return s_urlSubject.Subscribe(url =>
+            return _urlSubject.Subscribe(url =>
                 Context.GetJavaScriptModule<RCTDeviceEventEmitter>()
                     .emit("url", new JObject
                     {

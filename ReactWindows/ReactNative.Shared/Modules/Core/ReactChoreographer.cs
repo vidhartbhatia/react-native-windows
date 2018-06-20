@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License.
+
 using ReactNative.Bridge;
 using System;
 using System.Collections.Generic;
@@ -14,21 +17,20 @@ using System.Windows.Threading;
 
 namespace ReactNative.Modules.Core
 {
-    /// <summary>
-    /// A simple action queue that allows us to control the order certain
-    /// callbacks are executed within a given frame.
-    /// </summary>
-    public class ReactChoreographer : IDisposable
+    /// <inheritdoc />
+    public class ReactChoreographer : IReactChoreographer
     {
 #if WINDOWS_UWP
         private const CoreDispatcherPriority ActivatePriority = CoreDispatcherPriority.High;
+        private readonly CoreApplicationView _applicationView;
+        private readonly CoreDispatcher _coreDispatcher;
 #else
         private const DispatcherPriority ActivatePriority = DispatcherPriority.Send;
 #endif
         private const int InactiveFrameCount = 120;
 
-        private static readonly Stopwatch s_stopwatch = Stopwatch.StartNew();
-        private static ReactChoreographer s_instance;
+        private static readonly Stopwatch _stopwatch = Stopwatch.StartNew();
+        private static IReactChoreographer s_instance;
 
         private readonly object _gate = new object();
         private readonly HashSet<string> _callbackKeys = new HashSet<string>();
@@ -38,9 +40,25 @@ namespace ReactNative.Modules.Core
         private Timer _timer;
         private bool _isSubscribed;
         private bool _isSubscribing;
+        private bool _isDisposed;
         private int _currentInactiveCount;
 
+#if WINDOWS_UWP
+        private ReactChoreographer() : this(CoreApplication.MainView) { }
+
+        private ReactChoreographer(CoreApplicationView applicationView)
+        {
+            _applicationView = applicationView;
+
+            // Corner case: UWP scenarios that start with no main window.
+            // This may look confusing, but _applicationView.Dispatcher seems to be accessible here (a thread corresponding to
+            // main dispatcher or layout manager), yet it may not be yet accessible from the thread pool threads that'll soon
+            // call ActivateCallback.
+            _coreDispatcher = applicationView.Dispatcher;
+        }
+#else
         private ReactChoreographer() { }
+#endif
 
         /// <summary>
         /// For use by <see cref="UIManager.UIManagerModule"/>. 
@@ -66,7 +84,7 @@ namespace ReactNative.Modules.Core
         /// <summary>
         /// The choreographer instance.
         /// </summary>
-        public static ReactChoreographer Instance
+        public static IReactChoreographer Instance
         {
             get
             {
@@ -79,12 +97,22 @@ namespace ReactNative.Modules.Core
             }
         }
 
-        private static bool HasCoreWindow
+#if WINDOWS_UWP
+        /// <summary>
+        /// Factory for choreographer instances associated with non main-view dispatchers.
+        /// </summary>
+        public static IReactChoreographer CreateSecondaryInstance(CoreApplicationView view)
+        {
+            return new ReactChoreographer(view);
+        }
+#endif
+
+        private bool HasCoreWindow
         {
             get
             {
 #if WINDOWS_UWP
-                return CoreApplication.MainView.CoreWindow != null;
+                return _applicationView.CoreWindow != null;
 #else
                 return true;
 #endif
@@ -138,8 +166,10 @@ namespace ReactNative.Modules.Core
             {
                 var isSubscribed = Volatile.Read(ref _isSubscribed);
                 var isSubscribing = Volatile.Read(ref _isSubscribing);
+                var isDisposed = Volatile.Read(ref _isDisposed);
                 subscribe = _isSubscribing =
-                    _callbackKeys.Add(callbackKey)
+                    !isDisposed
+                    && _callbackKeys.Add(callbackKey)
                     && _callbackKeys.Count == 1
                     && !isSubscribed
                     && !isSubscribing;
@@ -148,6 +178,11 @@ namespace ReactNative.Modules.Core
             if (subscribe)
             {
                 DispatcherHelpers.RunOnDispatcher(
+#if WINDOWS_UWP
+                    _coreDispatcher,
+#else
+                    DispatcherHelpers.MainDispatcher,
+#endif
                     ActivatePriority,
                     () =>
                     {
@@ -174,6 +209,7 @@ namespace ReactNative.Modules.Core
 
         void IDisposable.Dispose()
         {
+            _isDisposed = true;
             if (_isSubscribed)
             {
                 Unsubscribe();
@@ -223,31 +259,36 @@ namespace ReactNative.Modules.Core
 
         private void OnTick(object state)
         {
-            DispatcherHelpers.RunOnDispatcher(() =>
-            {
-                bool isSubscribed;
-                lock (_gate)
+            DispatcherHelpers.RunOnDispatcher(
+#if WINDOWS_UWP
+                _coreDispatcher,
+#else
+                DispatcherHelpers.MainDispatcher,
+#endif
+                () =>
                 {
-                    isSubscribed = _isSubscribed;
-                }
+                    bool isSubscribed;
+                    lock (_gate)
+                    {
+                        isSubscribed = _isSubscribed;
+                    }
 
-                if (isSubscribed)
-                {
-                    OnRendering(null, s_stopwatch.Elapsed);
-                }
-            });
+                    if (isSubscribed)
+                    {
+                        OnRendering(null, _stopwatch.Elapsed);
+                    }
+                });
         }
 
         private void OnRendering(object sender, TimeSpan e)
         {
-            var renderingTime = s_stopwatch.Elapsed;
             if (_frameEventArgs == null)
             {
-                _mutableReference = _frameEventArgs = new FrameEventArgs(renderingTime);
+                _mutableReference = _frameEventArgs = new FrameEventArgs(e);
             }
             else
             {
-                _mutableReference.Update(renderingTime);
+                _mutableReference.Update(e);
             }
 
             DispatchUICallback?.Invoke(this, _frameEventArgs);

@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License.
+
 using NMock;
 using NUnit.Framework;
 using ReactNative.Views.Scroll;
@@ -24,6 +27,7 @@ namespace ReactNative.Tests.Views.Scroll
         }
 
         [Test]
+
         public async Task ReactScrollViewManager_ScrollAnimated_VerticalOnly()
         {
             // Arrange

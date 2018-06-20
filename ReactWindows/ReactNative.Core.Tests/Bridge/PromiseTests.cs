@@ -1,5 +1,8 @@
-﻿using NUnit.Framework;
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License.
+
 using Newtonsoft.Json.Linq;
+using NUnit.Framework;
 using ReactNative.Bridge;
 using System;
 using System.Threading;
@@ -46,7 +49,7 @@ namespace ReactNative.Core.Tests.Bridge
 
             var code = "42";
             var message = "foo";
-            promise.Reject(code, message);
+            promise.Reject(code, message, string.Empty, JToken.FromObject(string.Empty));
             are.WaitOne();
             Assert.That(args, Is.Not.Null);
             Assert.That(args.Length, Is.EqualTo(1));
@@ -74,7 +77,7 @@ namespace ReactNative.Core.Tests.Bridge
             var message = "foo";
             var e = new Exception();
             e.Data.Add("qux", "baz");
-            promise.Reject(code, message, e);
+            promise.Reject(code, message, string.Empty, JToken.FromObject(e.Data));
             are.WaitOne();
 
             Assert.That(args, Is.Not.Null);

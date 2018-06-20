@@ -1,5 +1,10 @@
-﻿using ReactNative.Bridge;
-using System.Collections.Generic;
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Portions derived from React Native:
+// Copyright (c) 2015-present, Facebook, Inc.
+// Licensed under the MIT License.
+
+using Newtonsoft.Json.Linq;
+using ReactNative.Bridge;
 
 namespace ReactNative.Modules.SystemInfo
 {
@@ -22,11 +27,11 @@ namespace ReactNative.Modules.SystemInfo
         /// <summary>
         /// The native module constants.
         /// </summary>
-        public override IReadOnlyDictionary<string, object> Constants
+        public override JObject ModuleConstants
         {
             get
             {
-                return new Dictionary<string, object>
+                return new JObject
                 {
                     { "reactNativeVersion", ReactNativeVersion.Version },
                 };

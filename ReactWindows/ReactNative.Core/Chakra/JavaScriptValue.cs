@@ -1,4 +1,4 @@
-﻿namespace ReactNative.Chakra
+namespace ReactNative.Chakra
 {
     using System;
     using System.Runtime.InteropServices;

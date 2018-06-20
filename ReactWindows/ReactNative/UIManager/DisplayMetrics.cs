@@ -1,5 +1,7 @@
-using Windows.Graphics.Display;
-using Windows.UI.ViewManagement;
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License.
+
+using ReactNative.Modules.DeviceInfo;
 
 namespace ReactNative.UIManager
 {
@@ -20,10 +22,10 @@ namespace ReactNative.UIManager
 
         public static DisplayMetrics Empty { get; } = new DisplayMetrics(0, 0, 0);
 
-        public static DisplayMetrics GetForCurrentView()
+        public static DisplayMetrics GetForDeviceView(DeviceViewInfo viewInfo)
         {
-            var bounds = ApplicationView.GetForCurrentView().VisibleBounds;
-            var scale = DisplayInformation.GetForCurrentView().RawPixelsPerViewPixel;
+            var bounds = viewInfo.ApplicationView.VisibleBounds;
+            var scale = viewInfo.DisplayInformation.RawPixelsPerViewPixel;
             return new DisplayMetrics(bounds.Width, bounds.Height, scale);
         }
     }

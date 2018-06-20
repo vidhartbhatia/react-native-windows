@@ -1,3 +1,8 @@
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Portions derived from React Native:
+// Copyright (c) 2015-present, Facebook, Inc.
+// Licensed under the MIT License.
+
 using Newtonsoft.Json.Linq;
 using ReactNative.Common;
 using ReactNative.Tracing;
@@ -14,10 +19,8 @@ namespace ReactNative.Animated
         private readonly UIImplementation _uiImplementation;
         private readonly Dictionary<string, int> _propNodeMapping;
 
-        // This is the backing map for `_diffMap` we can mutate this to update
-        // it instead of having to create a new one for each update.
+        // We can mutate this to update instead of creating a new one for each update.
         private readonly JObject _propMap;
-        private readonly ReactStylesDiffMap _diffMap;
 
         private int _connectedViewTag = -1;
 
@@ -32,7 +35,6 @@ namespace ReactNative.Animated
             }
 
             _propMap = new JObject();
-            _diffMap = new ReactStylesDiffMap(_propMap);
             _manager = manager;
             _uiImplementation = uiImplementation;
         }
@@ -68,7 +70,7 @@ namespace ReactNative.Animated
 
             _uiImplementation.SynchronouslyUpdateViewOnDispatcherThread(
                 _connectedViewTag,
-                _diffMap);
+                _propMap);
         }
 
         public void UpdateView()
@@ -81,26 +83,24 @@ namespace ReactNative.Animated
             foreach (var entry in _propNodeMapping)
             {
                 var node = _manager.GetNodeById(entry.Value);
-                var styleNode = node as StyleAnimatedNode;
-                var valueNode = default(ValueAnimatedNode);
-                if (styleNode != null)
+                if (node is StyleAnimatedNode styleNode)
                 {
                     styleNode.CollectViewUpdates(_propMap);
                 }
-                else if ((valueNode = node as ValueAnimatedNode) != null)
+                else if (node is ValueAnimatedNode valueNode)
                 {
                     _propMap[entry.Key] = valueNode.Value;
                 }
                 else
                 {
                     throw new InvalidOperationException(
-                        Invariant($"Unsupported type of node used in property node '{node.GetType()}'."));
+                        Invariant($"Unsupported type of node used in prop node '{node.GetType()}'."));
                 }
             }
 
             var updated = _uiImplementation.SynchronouslyUpdateViewOnDispatcherThread(
                 _connectedViewTag,
-                _diffMap);
+                _propMap);
 
             if (!updated)
             {

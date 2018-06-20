@@ -11,14 +11,14 @@
     <AssemblyName>ReactNative.Tests</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion>10.0.15063.0</TargetPlatformVersion>
+    <TargetPlatformVersion>10.0.14393.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.10586.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <PackageCertificateKeyFile>ReactNative.Tests_TemporaryKey.pfx</PackageCertificateKeyFile>
     <UnitTestPlatformVersion Condition="'$(UnitTestPlatformVersion)' == ''">14.0</UnitTestPlatformVersion>
-    <RuntimeIdentifiers>win10-arm;win10-arm-aot;win10-x86;win10-x86-aot;win10-x64;win10-x64-aot</RuntimeIdentifiers>
+    <PackageCertificateThumbprint>F0FB82837F45EE9E0EFC3B38576F3C1523EAC45A</PackageCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -89,6 +89,9 @@
     <Prefer32Bit>true</Prefer32Bit>
     <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
   </PropertyGroup>
+  <PropertyGroup>
+    <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+  </PropertyGroup>
   <ItemGroup>
     <!--A reference to the entire .Net Framework and Windows SDK are automatically included-->
     <SDKReference Include="MSTestFramework.Universal, Version=$(UnitTestPlatformVersion)" />
@@ -98,9 +101,7 @@
     <Compile Include="Bridge\JavaScriptModuleRegistryTests.cs" />
     <Compile Include="Bridge\ReactInstanceTests.cs" />
     <Compile Include="Bridge\Queue\ActionQueueTests.cs" />
-    <Compile Include="Internal\Constants\DictionaryHelpers.cs" />
     <Compile Include="Internal\DispatcherHelpers.cs" />
-    <Compile Include="Internal\MockViewManager.cs" />
     <Compile Include="Modules\Clipboard\ClipboardModuleTests.cs" />
     <Compile Include="Modules\Clipboard\MockClipboardInstance.cs" />
     <Compile Include="Modules\Core\TimingTests.cs" />
@@ -110,6 +111,7 @@
     <Compile Include="Modules\Storage\AsyncStorageModuleTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReactInstanceManagerTests.cs" />
+    <Compile Include="UIManager\BorderedCanvasTests.cs" />
     <Compile Include="UIManager\Events\EventDispatcherTests.cs" />
     <Compile Include="UIManager\Events\EventTests.cs" />
     <Compile Include="UIManager\Events\RCTEventEmitterTests.cs" />
@@ -128,6 +130,7 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <None Include="application.config" />
     <None Include="ReactNative.Tests_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
@@ -139,6 +142,10 @@
     <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
+    <Content Include="Resources\immediate.js" />
+    <Content Include="Resources\sync.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\test.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -156,15 +163,10 @@
       <Name>ReactNative</Name>
     </ProjectReference>
   </ItemGroup>
+  <Import Project="..\ReactNative.Shared.Tests\ReactNative.Shared.Tests.projitems" Label="Shared" />
   <ItemGroup>
-    <PackageReference Include="Facebook.Yoga">
-      <Version>1.5.0-pre1</Version>
-    </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.0.1</Version>
-    </PackageReference>
-    <PackageReference Include="Newtonsoft.Json">
-      <Version>9.0.1</Version>
+      <Version>6.1.5</Version>
     </PackageReference>
     <PackageReference Include="NUnit">
       <Version>3.9.0</Version>
@@ -175,17 +177,10 @@
     <PackageReference Include="NUnit3TestAdapter">
       <Version>3.9.0</Version>
     </PackageReference>
-    <PackageReference Include="System.Reactive">
-      <Version>4.0.0-preview00001</Version>
-    </PackageReference>
-    <PackageReference Include="System.Reactive.Compatibility">
-      <Version>4.0.0-preview00001</Version>
-    </PackageReference>
-    <PackageReference Include="System.Reactive.Interfaces">
-      <Version>4.0.0-preview00001</Version>
-    </PackageReference>
   </ItemGroup>
-  <Import Project="..\ReactNative.Shared.Tests\ReactNative.Shared.Tests.projitems" Label="Shared" />
+  <ItemGroup>
+    <Folder Include="Internal\Constants\" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

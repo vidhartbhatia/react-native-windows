@@ -1,3 +1,8 @@
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Portions derived from React Native:
+// Copyright (c) 2015-present, Facebook, Inc.
+// Licensed under the MIT License.
+
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -28,20 +33,18 @@ namespace ReactNative.Animated
             foreach (var entry in _propMapping)
             {
                 var node = _manager.GetNodeById(entry.Value);
-                var transformNode = node as TransformAnimatedNode;
-                var valueNode = default(ValueAnimatedNode);
-                if (transformNode != null)
+                if (node is TransformAnimatedNode transformNode)
                 {
                     transformNode.CollectViewUpdates(propsMap);
                 }
-                else if ((valueNode = node as ValueAnimatedNode) != null)
+                else if (node is ValueAnimatedNode valueNode)
                 {
                     propsMap[entry.Key] = valueNode.Value;
                 }
                 else
                 {
                     throw new InvalidOperationException(
-                        Invariant($"Unsupported type of node used in property node: '{node.GetType()}'"));
+                        Invariant($"Unsupported type of node used in prop node: '{node.GetType()}'"));
                 }
             }
         }

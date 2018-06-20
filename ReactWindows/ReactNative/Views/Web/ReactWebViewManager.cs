@@ -1,3 +1,8 @@
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Portions derived from React Native:
+// Copyright (c) 2015-present, Facebook, Inc.
+// Licensed under the MIT License.
+
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using ReactNative.Bridge;
@@ -6,7 +11,7 @@ using ReactNative.UIManager.Annotations;
 using ReactNative.Views.Web.Events;
 using ReactNativeWebViewBridge;
 using System;
-using System.Collections.Generic;
+using System.Collections.Concurrent;
 using Windows.UI.Xaml.Controls;
 using Windows.Web.Http;
 using static System.FormattableString;
@@ -29,7 +34,7 @@ namespace ReactNative.Views.Web
 
         private const string BridgeName = "__REACT_WEB_VIEW_BRIDGE";
 
-        private readonly Dictionary<WebView, WebViewData> _webViewData = new Dictionary<WebView, WebViewData>();
+        private readonly ConcurrentDictionary<WebView, WebViewData> _webViewData = new ConcurrentDictionary<WebView, WebViewData>();
         private readonly IReactContext _context;
 
         /// <summary>
@@ -55,11 +60,11 @@ namespace ReactNative.Views.Web
         /// <summary>
         /// The commands map for the webview manager.
         /// </summary>
-        public override IReadOnlyDictionary<string, object> CommandsMap
+        public override JObject ViewCommandsMap
         {
             get
             {
-                return new Dictionary<string, object>
+                return new JObject
                 {
                     { "goBack", CommandGoBack },
                     { "goForward", CommandGoForward },
@@ -68,6 +73,24 @@ namespace ReactNative.Views.Web
                     { "postMessage", CommandPostMessage },
                     { "injectJavaScript", CommandInjectJavaScript },
                 };
+            }
+        }
+
+        /// <summary>
+        /// Sets the background color for the <see cref="WebView"/>.
+        /// </summary>
+        /// <param name="view">The view instance.</param>
+        /// <param name="color">The masked color value.</param>
+        [ReactProp(ViewProps.BackgroundColor, CustomType = "Color")]
+        public void SetBackgroundColor(WebView view, uint? color)
+        {
+            if (color.HasValue)
+            {
+                view.DefaultBackgroundColor = ColorHelpers.Parse(color.Value);
+            }
+            else
+            {
+                view.ClearValue(WebView.DefaultBackgroundColorProperty);
             }
         }
 
@@ -192,7 +215,8 @@ namespace ReactNative.Views.Web
             view.DOMContentLoaded -= OnDOMContentLoaded;
             view.NavigationFailed -= OnNavigationFailed;
             view.NavigationCompleted -= OnNavigationCompleted;
-            _webViewData.Remove(view);
+
+            _webViewData.TryRemove(view, out _);
         }
 
         /// <summary>
@@ -203,7 +227,8 @@ namespace ReactNative.Views.Web
         protected override WebView CreateViewInstance(ThemedReactContext reactContext)
         {
             var view = new WebView(WebViewExecutionMode.SeparateThread);
-            _webViewData.Add(view, new WebViewData());
+            var data = new WebViewData();
+            _webViewData.AddOrUpdate(view, data, (k, v) => data);
             return view;
         }
 
@@ -223,7 +248,7 @@ namespace ReactNative.Views.Web
         }
 
         /// <summary>
-        /// Callback that will be triggered after all properties are updated         
+        /// Callback that will be triggered after all props are updated         
         /// </summary>
         /// <param name="view">The view instance.</param>
         protected override void OnAfterUpdateTransaction(WebView view)

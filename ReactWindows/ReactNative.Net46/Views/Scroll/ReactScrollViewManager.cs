@@ -1,4 +1,7 @@
-﻿using Newtonsoft.Json.Linq;
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License.
+
+using Newtonsoft.Json.Linq;
 using ReactNative.UIManager;
 using ReactNative.UIManager.Annotations;
 using ReactNative.UIManager.Events;
@@ -8,7 +11,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Media;
 using static System.FormattableString;
 
@@ -38,11 +40,11 @@ namespace ReactNative.Views.Scroll
         /// <summary>
         /// The commands map for the view manager.
         /// </summary>
-        public override IReadOnlyDictionary<string, object> CommandsMap
+        public override JObject ViewCommandsMap
         {
             get
             {
-                return new Dictionary<string, object>
+                return new JObject
                 {
                     { "scrollTo", CommandScrollTo },
                 };
@@ -52,29 +54,29 @@ namespace ReactNative.Views.Scroll
         /// <summary>
         /// The exported custom direct event types.
         /// </summary>
-        public override IReadOnlyDictionary<string, object> ExportedCustomDirectEventTypeConstants
+        public override JObject CustomDirectEventTypeConstants
         {
             get
             {
-                return new Dictionary<string, object>
+                return new JObject
                 {
                     {
                         ScrollEventType.BeginDrag.GetJavaScriptEventName(),
-                        new Dictionary<string, object>
+                        new JObject
                         {
                             { "registrationName", "onScrollBeginDrag" },
                         }
                     },
                     {
                         ScrollEventType.EndDrag.GetJavaScriptEventName(),
-                        new Dictionary<string, object>
+                        new JObject
                         {
                             { "registrationName", "onScrollEndDrag" },
                         }
                     },
                     {
                         ScrollEventType.Scroll.GetJavaScriptEventName(),
-                        new Dictionary<string, object>
+                        new JObject
                         {
                             { "registrationName", "onScroll" },
                         }
@@ -90,11 +92,12 @@ namespace ReactNative.Views.Scroll
         /// <param name="color">The masked color value.</param>
         [ReactProp(
             ViewProps.BackgroundColor,
-            CustomType = "Color",
-            DefaultUInt32 = ColorHelpers.Transparent)]
-        public void SetBackgroundColor(ScrollView view, uint color)
+            CustomType = "Color")]
+        public void SetBackgroundColor(ScrollView view, uint? color)
         {
-            view.Background = new SolidColorBrush(ColorHelpers.Parse(color));
+            view.Background = color.HasValue
+                ? new SolidColorBrush(ColorHelpers.Parse(color.Value))
+                : null;
         }
 
         /// <summary>
@@ -209,6 +212,17 @@ namespace ReactNative.Views.Scroll
         /// <param name="enabled">Signals whether zoom is enabled.</param>
         [ReactProp("zoomEnabled")]
         public void SetZoomScale(ScrollView view, bool? enabled)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Disables keyboaed based arrow scrolling.
+        /// </summary>
+        /// <param name="view">The view instance.</param>
+        /// <param name="disabled">Signals whether keyboard based scrolling is disabled.</param>
+        [ReactProp("disableKeyboardBasedScrolling")]
+        public void SetDisableKeyboardBasedScrolling(ScrollView view, bool? disabled)
         {
             throw new NotImplementedException();
         }
