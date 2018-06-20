@@ -20,15 +20,15 @@ namespace ReactNative.Tests
 
             await RunOnDispatcherAsync(() =>
             {
-                //try
-                //{
+                try
+                {
                     var result = func();
                     tcs.SetResult(result);
-                //}
-                //catch (Exception ex)
-                //{
-//                    tcs.SetException(ex);
-                //}
+                }
+                catch (Exception ex)
+                {
+                    tcs.SetException(ex);
+                }
             }).ConfigureAwait(false);
 
             return await tcs.Task.ConfigureAwait(false);
@@ -40,15 +40,15 @@ namespace ReactNative.Tests
 
             await RunOnDispatcherAsync(async () =>
             {
-                //try
-                //{
+                try
+                {
                     await asyncFunc();
                     tcs.SetResult(true);
-                //}
-                //catch (Exception ex)
-                //{
-                //    tcs.SetException(ex);
-                //}
+                }
+                catch (Exception ex)
+                {
+                    tcs.SetException(ex);
+                }
             }).ConfigureAwait(false);
 
             await tcs.Task.ConfigureAwait(false);
@@ -60,15 +60,15 @@ namespace ReactNative.Tests
 
             await RunOnDispatcherAsync(async () =>
             {
-                //try
-                //{
+                try
+                {
                     var result = await asyncFunc();
                     tcs.SetResult(result);
-                //}
-                //catch (Exception ex)
-                //{
-                    //tcs.SetException(ex);
-                //}
+                }
+                catch (Exception ex)
+                {
+                    tcs.SetException(ex);
+                }
             }).ConfigureAwait(false);
 
             return await tcs.Task.ConfigureAwait(false);
