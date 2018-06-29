@@ -120,66 +120,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bridge\DispatcherHelpers.cs" />
-    <Compile Include="Bridge\Queue\DispatcherActionQueue.cs" />
-    <Compile Include="Bridge\Queue\LayoutActionQueue.cs" />
+    <Compile Include="**\*.cs" Exclude="**\*.xaml.cs;**\*.g*.cs"/>
     <Compile Include="DevSupport\DevOptionDialog.xaml.cs">
       <DependentUpon>DevOptionDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DevSupport\Controls\LoadingIndicator.cs" />
     <Compile Include="DevSupport\ProgressDialog.xaml.cs">
       <DependentUpon>ProgressDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="DevSupport\RedBoxDialog.xaml.cs">
       <DependentUpon>RedBoxDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DevSupport\WebSocketJavaScriptExecutor.cs" />
-    <Compile Include="Modules\DeviceInfo\DeviceInfoModule.cs" />
-    <Compile Include="Modules\Dialog\DialogModule.cs" />
-    <Compile Include="Modules\Image\BitmapImageHelpers.cs" />
-    <Compile Include="Modules\Image\ImageLoaderModule.cs" />
-    <Compile Include="Modules\Launch\LauncherModule.cs" />
-    <Compile Include="Modules\Storage\AsyncStorageModule.cs" />
-    <Compile Include="Modules\Clipboard\ClipboardModule.cs" />
-    <Compile Include="Modules\Clipboard\ClipboardInstance.cs" />
-    <Compile Include="Modules\Clipboard\IClipboardInstance.cs" />
-    <Compile Include="Modules\NetInfo\DefaultNetworkInformation.cs" />
-    <Compile Include="Modules\NetInfo\INetworkInformation.cs" />
-    <Compile Include="Modules\NetInfo\NetInfoModule.cs" />
-    <Compile Include="Modules\WebSocket\WebSocketModule.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReactPage.cs" />
-    <Compile Include="ReactRootViewExtensions.cs" />
-    <Compile Include="Shell\MainReactPackage.cs" />
-    <Compile Include="Touch\TouchHandler.cs" />
     <Compile Include="Tracing\NullLoggingActivityBuilderExtensions.generated.cs">
       <DependentUpon>NullLoggingActivityBuilderExtensions.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Tracing\NullLoggingActivityBuilder.cs" />
-    <Compile Include="Tracing\Tracer.cs" />
-    <Compile Include="UIManager\BaseViewManager.cs" />
-    <Compile Include="UIManager\DisplayMetrics.cs" />
-    <Compile Include="UIManager\UIViewOperationQueue.cs" />
-    <Compile Include="Views\Image\ReactImageManager.cs" />
-    <Compile Include="Views\Picker\ReactPickerManager.cs" />
-    <Compile Include="Views\Picker\ReactPickerShadowNode.cs" />
-    <Compile Include="Views\Progress\ProgressBarShadowNode.cs" />
-    <Compile Include="Views\Progress\ReactProgressBarViewManager.cs" />
-    <Compile Include="Views\Scroll\IScrollView.cs" />
-    <Compile Include="Views\Scroll\ReactScrollViewManager.cs" />
-    <Compile Include="Views\Scroll\ScrollView.cs" />
-    <Compile Include="Views\Slider\ReactSliderManager.cs" />
-    <Compile Include="Views\TextInput\PlaceholderAdorner.cs" />
-    <Compile Include="Views\Text\ReactTextCompoundView.cs" />
-    <Compile Include="Views\Text\ReactTextShadowNode.cs" />
-    <Compile Include="Views\Text\ReactTextViewManager.cs" />
-    <Compile Include="Views\TextInput\ReactPasswordBoxManager.cs" />
-    <Compile Include="Views\TextInput\ReactTextInputManager.cs" />
-    <Compile Include="Views\Web\Events\WebViewLoadingErrorEvent.cs" />
-    <Compile Include="Views\Web\Events\WebViewLoadingEvent.cs" />
-    <Compile Include="Views\Web\ReactWebViewManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
