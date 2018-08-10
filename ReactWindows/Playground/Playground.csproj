@@ -230,7 +230,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="$(MSBuildThisFileDirectory)..\..\Yoga\csharp\Yoga\bin\Universal\$(Platform)\$(DependencyConfiguration)\yoga.dll">
-      <Link>%(Filename)%(Extension)</Link>
+      <Link>yoga.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Visible>False</Visible>
     </Content>

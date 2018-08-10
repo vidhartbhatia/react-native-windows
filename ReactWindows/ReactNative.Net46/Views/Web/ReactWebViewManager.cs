@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 
 using Newtonsoft.Json.Linq;
+using ReactNative.Bridge;
 using ReactNative.UIManager;
 using ReactNative.UIManager.Annotations;
 using ReactNative.Views.Web.Events;
@@ -113,6 +114,12 @@ namespace ReactNative.Views.Web
                 var uri = source.Value<string>("uri");
                 if (uri != null)
                 {
+                    string previousUri = view.Source?.OriginalString;
+                    if (!String.IsNullOrWhiteSpace(previousUri) && previousUri.Equals(uri))
+                    {
+                        return;
+                    }
+
                     using (var request = new HttpRequestMessage())
                     {
                         var sourceUri = new Uri(uri);
@@ -170,7 +177,7 @@ namespace ReactNative.Views.Web
         /// </summary>
         /// <param name="reactContext">The React context.</param>
         /// <param name="view">The view.</param>
-        public override void OnDropViewInstance(ThemedReactContext reactContext, WebBrowser view)
+        public override void OnDropViewInstance(IReactContext reactContext, WebBrowser view)
         {
             base.OnDropViewInstance(reactContext, view);
             view.LoadCompleted -= OnLoadCompleted;
@@ -182,7 +189,7 @@ namespace ReactNative.Views.Web
         /// </summary>
         /// <param name="reactContext">The React context.</param>
         /// <returns>The view instance.</returns>
-        protected override WebBrowser CreateViewInstance(ThemedReactContext reactContext)
+        protected override WebBrowser CreateViewInstance(IReactContext reactContext)
         {
             return new WebBrowser();
         }
@@ -193,7 +200,7 @@ namespace ReactNative.Views.Web
         /// </summary>
         /// <param name="reactContext">The React context.</param>
         /// <param name="view">The view instance.</param>
-        protected override void AddEventEmitters(ThemedReactContext reactContext, WebBrowser view)
+        protected override void AddEventEmitters(IReactContext reactContext, WebBrowser view)
         {
             base.AddEventEmitters(reactContext, view);
             view.LoadCompleted += OnLoadCompleted;
@@ -203,7 +210,7 @@ namespace ReactNative.Views.Web
         private void OnLoadCompleted(object sender, NavigationEventArgs e)
         {
             var webView = (WebBrowser)sender;
-            LoadFinished(webView, e.Uri?.ToString());
+            LoadFinished(webView, e.Uri?.OriginalString);
 
             if (webView.IsLoaded)
             {
@@ -238,7 +245,7 @@ namespace ReactNative.Views.Web
                     new WebViewLoadingEvent(
                          webView.GetTag(),
                          "Start",
-                         e.Uri?.ToString(),
+                         e.Uri?.OriginalString,
                          true,
                          "Title Unavailable",
                          webView.CanGoBack,

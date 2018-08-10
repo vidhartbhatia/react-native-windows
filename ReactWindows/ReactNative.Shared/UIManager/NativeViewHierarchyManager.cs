@@ -34,7 +34,7 @@ namespace ReactNative.UIManager
     /// public interface methods:
     /// - <see cref="UpdateProps(int, JObject)"/>
     /// - <see cref="UpdateLayout(int, int, Dimensions)"/>
-    /// - <see cref="CreateView(ThemedReactContext, int, string, JObject)"/>
+    /// - <see cref="CreateView(IReactContext, int, string, JObject)"/>
     /// - <see cref="ManageChildren(int, int[], ViewAtIndex[], int[])"/>
     /// executing all the scheduled operations at the end of the JavaScript batch.
     /// </summary>
@@ -45,13 +45,13 @@ namespace ReactNative.UIManager
     /// The <see cref="ReactContext"/> instance that is passed to views that
     /// this manager creates differs from the one that we pass to the
     /// constructor. Instead we wrap the provided instance of 
-    /// <see cref="ReactContext"/> in an instance of <see cref="ThemedReactContext"/>
+    /// <see cref="ReactContext"/> in an instance of <see cref="IReactContext"/>
     /// that additionally provides a correct theme based on the root view for
     /// a view tree that we attach newly created views to. Therefore this view
-    /// manager will create a copy of <see cref="ThemedReactContext"/> that
+    /// manager will create a copy of <see cref="IReactContext"/> that
     /// wraps the instance of <see cref="ReactContext"/> for each root view
     /// added to the manager (see
-    /// <see cref="AddRootView(int, SizeMonitoringCanvas, ThemedReactContext)"/>).
+    /// <see cref="AddRootView(int, SizeMonitoringCanvas, IReactContext)"/>).
     /// 
     /// TODO: 
     /// 1) AnimationRegistry
@@ -108,7 +108,9 @@ namespace ReactNative.UIManager
 #if WINDOWS_UWP
             CoreDispatcher dispatcher,
 #else
-            Dispatcher notUsed,
+#pragma warning disable CS1573
+            Dispatcher dispatcher,
+#pragma warning restore CS1573
 #endif
             Action<List<int>> onDropView
             )
@@ -194,11 +196,11 @@ namespace ReactNative.UIManager
         /// <summary>
         /// Creates a view with the given tag and class name.
         /// </summary>
-        /// <param name="themedContext">The context.</param>
+        /// <param name="reactContext">The context.</param>
         /// <param name="tag">The tag.</param>
         /// <param name="className">The class name.</param>
         /// <param name="initialProps">The initial props.</param>
-        public void CreateView(ThemedReactContext themedContext, int tag, string className, JObject initialProps)
+        public void CreateView(IReactContext reactContext, int tag, string className, JObject initialProps)
         {
             AssertOnCorrectDispatcher();
             using (Tracer.Trace(Tracer.TRACE_TAG_REACT_VIEW, "NativeViewHierarcyManager.CreateView")
@@ -207,12 +209,12 @@ namespace ReactNative.UIManager
                 .Start())
             {
                 var viewManager = _viewManagers.Get(className);
-                var view = viewManager.CreateView(themedContext);
+                var view = viewManager.CreateView(reactContext);
                 _tagsToViews.Add(tag, view);
                 _tagsToViewManagers.Add(tag, viewManager);
               
                 ViewExtensions.SetTag(view, tag);
-                ViewExtensions.SetReactContext(view, themedContext);
+                ViewExtensions.SetReactContext(view, reactContext);
               
 #if WINDOWS_UWP
                 if (view is UIElement element)
@@ -492,10 +494,10 @@ namespace ReactNative.UIManager
         /// </summary>
         /// <param name="tag">The tag.</param>
         /// <param name="view">The root view.</param>
-        /// <param name="themedContext">The themed context.</param>
-        public void AddRootView(int tag, SizeMonitoringCanvas view, ThemedReactContext themedContext)
+        /// <param name="reactContext">The react context.</param>
+        public void AddRootView(int tag, SizeMonitoringCanvas view, IReactContext reactContext)
         {
-            AddRootViewParent(tag, view, themedContext);
+            AddRootViewParent(tag, view, reactContext);
         }
 
         /// <summary>
@@ -654,15 +656,16 @@ namespace ReactNative.UIManager
 #if WINDOWS_UWP
         internal CoreDispatcher Dispatcher { get; private set; }
 #endif
-        private void AddRootViewParent(int tag, FrameworkElement view, ThemedReactContext themedContext)
+        private void AddRootViewParent(int tag, FrameworkElement view, IReactContext reactContext)
         {
             AssertOnCorrectDispatcher();
             _tagsToViews.Add(tag, view);
             _tagsToViewManagers.Add(tag, _rootViewManager);
             _rootTags.Add(tag, true);
 
+            // Keeping here for symmetry, tag on root views is set early, in UIManagerModule.AddMeasuredRootViewAsync
             ViewExtensions.SetTag(view, tag);
-            ViewExtensions.SetReactContext(view, themedContext);
+            ViewExtensions.SetReactContext(view, reactContext);
 #if WINDOWS_UWP
             AccessibilityHelper.OnRootViewAdded(view);
 #endif

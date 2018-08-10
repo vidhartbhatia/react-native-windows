@@ -17,8 +17,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReactNative.Tests", "ReactN
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ChakraBridge", "ChakraBridge\ChakraBridge.vcxproj", "{4B72C796-16D5-4E3A-81C0-3E36F531E578}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ReactNative.Shared", "ReactNative.Shared\ReactNative.Shared.shproj", "{EEA8B852-4D07-48E1-8294-A21AB5909FE5}"
-EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ReactNative.Shared.Tests", "ReactNative.Shared.Tests\ReactNative.Shared.Tests.shproj", "{EEA8B852-4D07-48E1-8294-A21AB5909FE6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReactNative.Net46", "ReactNative.Net46\ReactNative.Net46.csproj", "{22CBFF9C-FE36-43E8-A246-266C7635E662}"
@@ -35,15 +33,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Playground.Net46", "Playgro
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReactNativeWebViewBridge", "ReactNativeWebViewBridge\ReactNativeWebViewBridge.csproj", "{7596216B-669C-41F8-86DA-F3637F6545C0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReactNative.Core", "ReactNative.Core\ReactNative.Core.csproj", "{9C5545C3-77E7-429E-B3D9-D588855D2268}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReactNative.Core", "ReactNative.Core\ReactNative.Core.csproj", "{9C5545C3-77E7-429E-B3D9-D588855D2268}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReactNative.Core.Tests", "ReactNative.Core.Tests\ReactNative.Core.Tests.csproj", "{79007F00-3A5A-4C36-8F1A-114BFD06266A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReactNative.Core.Tests", "ReactNative.Core.Tests\ReactNative.Core.Tests.csproj", "{79007F00-3A5A-4C36-8F1A-114BFD06266A}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Facebook.Yoga.Shared", "..\Yoga\csharp\Facebook.Yoga\Facebook.Yoga.Shared.shproj", "{91C42D32-291D-4B72-90B4-551663D60B8B}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "yoga.uwp", "..\Yoga\csharp\Yoga\Yoga.Universal.vcxproj", "{2EACF721-73B5-46AE-9775-4A8674D05A9C}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Yoga.Universal", "..\Yoga\csharp\Yoga\Yoga.Universal.vcxproj", "{2EACF721-73B5-46AE-9775-4A8674D05A9C}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "yoga", "..\Yoga\csharp\Yoga\Yoga.vcxproj", "{0446C86B-F47B-4C46-B673-C7AE0CFF35D5}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Yoga", "..\Yoga\csharp\Yoga\Yoga.vcxproj", "{0446C86B-F47B-4C46-B673-C7AE0CFF35D5}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ReactNative.Shared", "ReactNative.Shared\ReactNative.Shared.shproj", "{1D298119-6CC9-4489-BE69-C395E1835363}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution

@@ -188,14 +188,14 @@
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)' == 'ReleaseBundle' or '$(Configuration)' == 'Release'">
     <Content Include="$(SolutionDir)\..\Yoga\csharp\Yoga\bin\$(Platform)\Release\yoga.dll">
-      <Link>%(Filename)%(Extension)</Link>
+      <Link>yoga.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Visible>False</Visible>
     </Content>
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)' == 'DebugBundle' or '$(Configuration)' == 'Debug'">
     <Content Include="$(SolutionDir)\..\Yoga\csharp\Yoga\bin\$(Platform)\Debug\yoga.dll">
-      <Link>%(Filename)%(Extension)</Link>
+      <Link>yoga.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Visible>False</Visible>
     </Content>

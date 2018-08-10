@@ -120,7 +120,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="**\*.cs" Exclude="**\*.xaml.cs;**\*.g*.cs"/>
+    <Compile Include="**\*.cs" Exclude="**\*.xaml.cs;**\*.g*.cs" />
     <Compile Include="DevSupport\DevOptionDialog.xaml.cs">
       <DependentUpon>DevOptionDialog.xaml</DependentUpon>
     </Compile>
