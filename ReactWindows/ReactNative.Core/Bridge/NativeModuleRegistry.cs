@@ -6,7 +6,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using ReactNative.Bridge.Queue;
-using ReactNative.Tracing;
+//using ReactNative.Tracing;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -85,9 +85,9 @@ namespace ReactNative.Bridge
         /// Write the module descriptions to the given <see cref="JsonWriter"/>.
         /// </summary>
         /// <param name="writer">The JSON writer.</param>
-        internal void WriteModuleDescriptions(JsonWriter writer)
+        public void WriteModuleDescriptions(JsonWriter writer)
         {
-            using (Tracer.Trace(Tracer.TRACE_TAG_REACT_BRIDGE, "CreateJSON").Start())
+            //using (Tracer.Trace(Tracer.TRACE_TAG_REACT_BRIDGE, "CreateJSON").Start())
             {
                 writer.WriteStartArray();
                 foreach (var moduleDef in _moduleTable)
@@ -105,7 +105,7 @@ namespace ReactNative.Bridge
         /// <param name="moduleId">The module ID.</param>
         /// <param name="methodId">The method ID.</param>
         /// <param name="parameters">The parameters.</param>
-        internal void Invoke(
+        public void Invoke(
             IReactInstance reactInstance,
             int moduleId,
             int methodId,
@@ -135,7 +135,7 @@ namespace ReactNative.Bridge
         /// <param name="methodId">The method ID.</param>
         /// <param name="parameters">The parameters.</param>
         /// <returns>The value returned from the method.</returns>
-        internal JToken InvokeSync(
+        public JToken InvokeSync(
             IReactInstance reactInstance,
             int moduleId,
             int methodId,
@@ -158,10 +158,10 @@ namespace ReactNative.Bridge
         /// Hook to notify modules that the <see cref="IReactInstance"/> has
         /// been initialized.
         /// </summary>
-        internal async Task NotifyReactInstanceInitializeAsync()
+        public async Task NotifyReactInstanceInitializeAsync()
         {
             _reactContext.AssertOnNativeModulesQueueThread();
-            using (Tracer.Trace(Tracer.TRACE_TAG_REACT_BRIDGE, "NativeModuleRegistry_NotifyReactInstanceInitialize").Start())
+            //using (Tracer.Trace(Tracer.TRACE_TAG_REACT_BRIDGE, "NativeModuleRegistry_NotifyReactInstanceInitialize").Start())
             {
                 await Task.WhenAll(_moduleInstances.Values.Select(module => RunAsync(module, module.Initialize)));
             }
@@ -171,10 +171,10 @@ namespace ReactNative.Bridge
         /// Hook to notify modules that the <see cref="IReactInstance"/> has
         /// been disposed.
         /// </summary>
-        internal void NotifyReactInstanceDispose()
+        public void NotifyReactInstanceDispose()
         {
             _reactContext.AssertOnNativeModulesQueueThread();
-            using (Tracer.Trace(Tracer.TRACE_TAG_REACT_BRIDGE, "NativeModuleRegistry_NotifyReactInstanceDestroy").Start())
+            //using (Tracer.Trace(Tracer.TRACE_TAG_REACT_BRIDGE, "NativeModuleRegistry_NotifyReactInstanceDestroy").Start())
             {
                 foreach (var module in _moduleInstances.Values)
                 {
@@ -241,7 +241,7 @@ namespace ReactNative.Bridge
             public JToken Invoke(IReactInstance reactInstance, int methodId, JArray parameters)
             {
                 var method = _methods[methodId];
-                using (Tracer.Trace(Tracer.TRACE_TAG_REACT_BRIDGE, method.TracingName).Start())
+                //using (Tracer.Trace(Tracer.TRACE_TAG_REACT_BRIDGE, method.TracingName).Start())
                 {
                     return method.Method.Invoke(reactInstance, parameters);
                 }

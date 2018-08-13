@@ -5,7 +5,7 @@
 
 using Newtonsoft.Json.Linq;
 using ReactNative.Bridge.Queue;
-using ReactNative.Tracing;
+//using ReactNative.Tracing;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -253,10 +253,11 @@ namespace ReactNative.Bridge
 
             public JToken Invoke(IReactInstance reactInstance, JArray jsArguments)
             {
-                using (Tracer.Trace(Tracer.TRACE_TAG_REACT_BRIDGE, "callNativeModuleMethod").Start())
-                {
+                // TODO: merge dependency injection for tracing
+                //using (Tracer.Trace(Tracer.TRACE_TAG_REACT_BRIDGE, "callNativeModuleMethod").Start())
+                //{
                     return _invokeDelegate.Value(reactInstance, jsArguments);
-                }
+                //}
             }
         }
     }

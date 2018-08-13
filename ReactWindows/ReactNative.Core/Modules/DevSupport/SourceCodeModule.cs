@@ -12,7 +12,7 @@ namespace ReactNative.Modules.DevSupport
     /// Module that exposes the URL to the source code map (used for exception
     /// stack trace parsing) to JavaScript.
     /// </summary>
-    class SourceCodeModule : NativeModuleBase
+    public class SourceCodeModule : NativeModuleBase
     {
         private readonly string _sourceMapUrl;
         private readonly string _sourceUrl;

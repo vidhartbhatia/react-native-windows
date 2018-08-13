@@ -33,17 +33,19 @@ namespace ReactNative.Modules.Core
         private bool _suspended;
 
         private bool _sendIdleEvents;
+        Func<IReactChoreographer> _choreographerGetter;
 
         /// <summary>
         /// Instantiates the <see cref="Timing"/> module.
         /// </summary>
         /// <param name="reactContext">The React context.</param>
-        public Timing(IReactContext reactContext)
+        public Timing(IReactContext reactContext, Func<IReactChoreographer> choreographerGetter)
             : base(reactContext)
         {
             _timers = new HeapBasedPriorityQueue<TimerData>(
                 Comparer<TimerData>.Create((x, y) => 
                     x.TargetTime.CompareTo(y.TargetTime)));
+            _choreographerGetter = choreographerGetter;
         }
 
         /// <summary>
@@ -72,13 +74,13 @@ namespace ReactNative.Modules.Core
         public void OnSuspend()
         {
             _suspended = true;
-            ReactChoreographer.Instance.JavaScriptEventsCallback -= DoFrameSafe;
+            _choreographerGetter().JavaScriptEventsCallback -= DoFrameSafe;
 
             lock (_idleGate)
             {
                 if (_sendIdleEvents)
                 {
-                    ReactChoreographer.Instance.IdleCallback -= DoFrameIdleCallbackSafe;
+                    _choreographerGetter().IdleCallback -= DoFrameIdleCallbackSafe;
                 }
             }  
         }
@@ -89,13 +91,13 @@ namespace ReactNative.Modules.Core
         public void OnResume()
         {
             _suspended = false;
-            ReactChoreographer.Instance.JavaScriptEventsCallback += DoFrameSafe;
+            _choreographerGetter().JavaScriptEventsCallback += DoFrameSafe;
 
             lock (_idleGate)
             {
                 if (_sendIdleEvents)
                 {
-                    ReactChoreographer.Instance.IdleCallback += DoFrameIdleCallbackSafe;
+                    _choreographerGetter().IdleCallback += DoFrameIdleCallbackSafe;
                 }
             }
         }
@@ -105,13 +107,13 @@ namespace ReactNative.Modules.Core
         /// </summary>
         public void OnDestroy()
         {
-            ReactChoreographer.Instance.JavaScriptEventsCallback -= DoFrameSafe;
+            _choreographerGetter().JavaScriptEventsCallback -= DoFrameSafe;
 
             lock (_idleGate)
             {
                 if (_sendIdleEvents)
                 {
-                    ReactChoreographer.Instance.IdleCallback -= DoFrameIdleCallbackSafe;
+                    _choreographerGetter().IdleCallback -= DoFrameIdleCallbackSafe;
                 }
             }
         }
@@ -150,7 +152,7 @@ namespace ReactNative.Modules.Core
                 _timers.Enqueue(timer);
             }
 
-            ReactChoreographer.Instance.ActivateCallback(nameof(Timing));
+            _choreographerGetter().ActivateCallback(nameof(Timing));
         }
 
         /// <summary>
@@ -165,7 +167,7 @@ namespace ReactNative.Modules.Core
                 _timers.Remove(new TimerData(timerId));
                 if (_timers.Count == 0)
                 {
-                    ReactChoreographer.Instance.DeactivateCallback(nameof(Timing));
+                    _choreographerGetter().DeactivateCallback(nameof(Timing));
                 }
             }
         }
@@ -185,13 +187,13 @@ namespace ReactNative.Modules.Core
                 _sendIdleEvents = sendIdleEvents;
                 if (_sendIdleEvents)
                 {
-                    ReactChoreographer.Instance.IdleCallback += DoFrameIdleCallbackSafe;
-                    ReactChoreographer.Instance.ActivateCallback(IdleChoreographerKey);
+                    _choreographerGetter().IdleCallback += DoFrameIdleCallbackSafe;
+                    _choreographerGetter().ActivateCallback(IdleChoreographerKey);
                 }
                 else
                 {
-                    ReactChoreographer.Instance.IdleCallback -= DoFrameIdleCallbackSafe;
-                    ReactChoreographer.Instance.DeactivateCallback(IdleChoreographerKey);
+                    _choreographerGetter().IdleCallback -= DoFrameIdleCallbackSafe;
+                    _choreographerGetter().DeactivateCallback(IdleChoreographerKey);
                 }
             }
         }
@@ -242,7 +244,7 @@ namespace ReactNative.Modules.Core
 
                 if (_timers.Count == 0)
                 {
-                    ReactChoreographer.Instance.DeactivateCallback(nameof(Timing));
+                    _choreographerGetter().DeactivateCallback(nameof(Timing));
                 }
             }
 

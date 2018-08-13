@@ -58,10 +58,11 @@ namespace ReactNative.Bridge
         /// </summary>
         /// <param name="sourceUrl">The source URL.</param>
         /// <param name="cachedFileLocation">The cached bundle.</param>
+        /// <param name="cacheFolder">The filesystem location where cached bundles will be stored</param>
         /// <returns>The JavaScript bundle loader.</returns>
-        public static JavaScriptBundleLoader CreateCachedBundleFromNetworkLoader(string sourceUrl, string cachedFileLocation)
+        public static JavaScriptBundleLoader CreateCachedBundleFromNetworkLoader(string sourceUrl, string cachedFileLocation, IFolder cacheFolder)
         {
-            return new CachedJavaScriptBundleLoader(sourceUrl, cachedFileLocation);
+            return new CachedJavaScriptBundleLoader(sourceUrl, cachedFileLocation, cacheFolder);
         }
 
         /// <summary>
@@ -103,11 +104,7 @@ namespace ReactNative.Bridge
 #else
             public override Task InitializeAsync(CancellationToken token)
             {
-                var assembly = Assembly.GetAssembly(typeof(JavaScriptBundleLoader));
-                var assemblyName = assembly.GetName();
-                var pathToAssembly = Path.GetDirectoryName(assemblyName.CodeBase);
-                var pathToAssemblyResource = SourceUrl;
-                var u = new Uri(pathToAssemblyResource);
+                var u = new Uri(SourceUrl);
                 _script = u.LocalPath;
                 return Task.CompletedTask;
             }
@@ -131,11 +128,13 @@ namespace ReactNative.Bridge
         {
             private readonly string _cachedFileLocation;
             private string _script;
+            private IFolder _cacheFolder;
 
-            public CachedJavaScriptBundleLoader(string sourceUrl, string cachedFileLocation)
+            public CachedJavaScriptBundleLoader(string sourceUrl, string cachedFileLocation, IFolder cacheFolder)
             {
                 SourceUrl = sourceUrl;
                 _cachedFileLocation = cachedFileLocation;
+                _cacheFolder = cacheFolder;
             }
 
             public override string SourceUrl { get; }
@@ -146,8 +145,7 @@ namespace ReactNative.Bridge
                 var localFolder = ApplicationData.Current.LocalFolder;
                 var storageFile = await localFolder.GetFileAsync(_cachedFileLocation).AsTask(token).ConfigureAwait(false);
 #else
-                var localFolder = FileSystem.Current.LocalStorage;
-                var storageFile = await localFolder.GetFileAsync(_cachedFileLocation).ConfigureAwait(false);
+                var storageFile = await _cacheFolder.GetFileAsync(_cachedFileLocation).ConfigureAwait(false);
 #endif
                 _script = storageFile.Path;
             }

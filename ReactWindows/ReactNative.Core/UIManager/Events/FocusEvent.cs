@@ -6,7 +6,7 @@ using System;
 
 namespace ReactNative.UIManager.Events
 {
-    class FocusEvent : Event
+    public class FocusEvent : Event
     {
         public FocusEvent(int viewTag)
             : base(viewTag)

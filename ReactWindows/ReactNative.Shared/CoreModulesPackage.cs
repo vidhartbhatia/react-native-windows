@@ -63,13 +63,14 @@ namespace ReactNative
                 //    reactContext,
                 //    _reactInstanceManager.DevSupportManager.DevSettings),
                 new DeviceEventManagerModule(reactContext, _hardwareBackButtonHandler),
+                //TODO: platform-specific, inject here?
                 new DeviceInfoModule(reactContext),
                 new ExceptionsManagerModule(_reactInstanceManager.DevSupportManager),
                 new PlatformConstantsModule(),
                 new SourceCodeModule(
                     _reactInstanceManager.SourceUrl,
                     _reactInstanceManager.DevSupportManager.SourceMapUrl),
-                new Timing(reactContext),
+                new Timing(reactContext, () => ReactChoreographer.Instance),
                 uiManagerModule,
                 //new DebugComponentOwnershipModule(reactContext),
             };

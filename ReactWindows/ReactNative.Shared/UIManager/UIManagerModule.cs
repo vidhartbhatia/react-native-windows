@@ -6,6 +6,7 @@
 using Newtonsoft.Json.Linq;
 using ReactNative.Bridge;
 using ReactNative.Bridge.Queue;
+using ReactNative.Modules.Core;
 using ReactNative.Modules.DeviceInfo;
 using ReactNative.Tracing;
 using ReactNative.UIManager.Events;
@@ -58,7 +59,7 @@ namespace ReactNative.UIManager
             if (layoutActionQueue == null)
                 throw new ArgumentNullException(nameof(layoutActionQueue));
 
-            _eventDispatcher = new EventDispatcher(reactContext);
+            _eventDispatcher = new EventDispatcher(reactContext, () => ReactChoreographer.Instance);
             _uiImplementation = uiImplementationProvider.Create(reactContext, viewManagers, _eventDispatcher);
             var lazyViewManagersEnabled = IsLazyViewManagersEnabled(options);
             _customDirectEvents = lazyViewManagersEnabled ? GetDirectEventTypeConstants() : new JObject();
@@ -136,8 +137,6 @@ namespace ReactNative.UIManager
             // Set tag early in case of concurrent DetachRootViewAsync
             rootView.SetTag(tag);
 
-            var context = new ThemedReactContext(Context);
-
             await DispatcherHelpers.CallOnDispatcher(rootView.Dispatcher, () =>
             {
                 var width = rootView.ActualWidth;
@@ -145,7 +144,7 @@ namespace ReactNative.UIManager
 
                 _layoutActionQueue.Dispatch(() =>
                 {
-                    _uiImplementation.RegisterRootView(rootView, tag, width, height, context);
+                    _uiImplementation.RegisterRootView(rootView, tag, width, height, Context);
                 });
 
                 var resizeCount = 0;

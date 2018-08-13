@@ -3,6 +3,7 @@
 // Copyright (c) 2015-present, Facebook, Inc.
 // Licensed under the MIT License.
 
+using ReactNative.Bridge;
 using ReactNative.Bridge.Queue;
 using System;
 using System.Collections.Generic;
@@ -462,7 +463,7 @@ namespace ReactNative.Bridge
         /// <remarks>
         /// This method should be called exactly once.
         /// </remarks>
-        internal void InitializeWithInstance(IReactInstance instance)
+        public void InitializeWithInstance(IReactInstance instance)
         {
             if (instance == null)
                 throw new ArgumentNullException(nameof(instance));

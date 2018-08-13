@@ -7,7 +7,7 @@ using Newtonsoft.Json.Linq;
 using ReactNative.Bridge;
 using ReactNative.Common;
 using ReactNative.DevSupport;
-using ReactNative.Tracing;
+//using ReactNative.Tracing;
 using System;
 
 namespace ReactNative.Modules.Core
@@ -69,7 +69,8 @@ namespace ReactNative.Modules.Core
         public void reportSoftException(string title, JArray details, int exceptionId)
         {
             var stackTrace = StackTraceHelper.ConvertJavaScriptStackTrace(details);
-            Tracer.Write(ReactConstants.Tag, title + Environment.NewLine + stackTrace.PrettyPrint());
+            // FIXME: use dependency injection for Tracer
+            //Tracer.Write(ReactConstants.Tag, title + Environment.NewLine + stackTrace.PrettyPrint());
         }
 
         /// <summary>

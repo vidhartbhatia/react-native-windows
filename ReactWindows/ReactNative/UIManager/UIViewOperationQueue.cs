@@ -279,7 +279,7 @@ namespace ReactNative.UIManager
         /// <param name="initialProps">The initial props.</param>
         /// <param name="rootViewTag">Root view tag.</param>
         public void EnqueueCreateView(
-            ThemedReactContext themedContext,
+            IReactContext themedContext,
             int viewReactTag,
             string viewClassName,
             JObject initialProps,

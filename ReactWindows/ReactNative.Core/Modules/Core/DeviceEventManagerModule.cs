@@ -29,7 +29,7 @@ namespace ReactNative.Modules.Core
         {
             _invokeDefaultBackPressAction = () =>
             {
-                DispatcherHelpers.AssertOnDispatcher();
+                Context.AssertOnDispatcherQueueThread();
                 onBackPressed();
             };
         }

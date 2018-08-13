@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 
 using Newtonsoft.Json.Linq;
+using ReactNative.Bridge;
 using ReactNative.Reflection;
 using ReactNative.UIManager;
 using ReactNative.UIManager.Annotations;
@@ -250,7 +251,7 @@ namespace ReactNative.Views.ControlView
         /// </summary>
         /// <param name="reactContext">The React context.</param>
         /// <returns>The view instance.</returns>
-        protected override ReactControl CreateViewInstance(ThemedReactContext reactContext)
+        protected override ReactControl CreateViewInstance(IReactContext reactContext)
         {
             return new ReactControl();
         }
@@ -303,7 +304,7 @@ namespace ReactNative.Views.ControlView
         /// Consider overriding this method if your view needs to emit events
         /// besides basic touch events to JavaScript (e.g., scroll events).
         /// </remarks>
-        protected override void AddEventEmitters(ThemedReactContext reactContext, ReactControl view)
+        protected override void AddEventEmitters(IReactContext reactContext, ReactControl view)
         {
             base.AddEventEmitters(reactContext, view);
             view.GotFocus += OnGotFocus;
@@ -322,7 +323,7 @@ namespace ReactNative.Views.ControlView
         /// Be sure to call this base class method to register for pointer 
         /// entered and pointer exited events.
         /// </remarks>
-        public override void OnDropViewInstance(ThemedReactContext reactContext, ReactControl view)
+        public override void OnDropViewInstance(IReactContext reactContext, ReactControl view)
         {
             view.GotFocus -= OnGotFocus;
             view.LostFocus -= OnLostFocus;

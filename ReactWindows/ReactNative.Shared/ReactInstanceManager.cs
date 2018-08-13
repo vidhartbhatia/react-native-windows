@@ -3,6 +3,7 @@
 // Copyright (c) 2015-present, Facebook, Inc.
 // Licensed under the MIT License.
 
+using PCLStorage;
 using ReactNative.Bridge;
 using ReactNative.Bridge.Queue;
 using ReactNative.Common;
@@ -537,7 +538,8 @@ namespace ReactNative
         {
             var bundleLoader = JavaScriptBundleLoader.CreateCachedBundleFromNetworkLoader(
                 _devSupportManager.SourceUrl,
-                _devSupportManager.DownloadedJavaScriptBundleFile);
+                _devSupportManager.DownloadedJavaScriptBundleFile,
+                FileSystem.Current.LocalStorage);
             return CreateReactContextAsync(_javaScriptExecutorFactory, bundleLoader, token);
        }
 

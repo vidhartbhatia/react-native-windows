@@ -5,7 +5,7 @@ using Newtonsoft.Json.Linq;
 
 namespace ReactNative.UIManager.Events
 {
-    class BlurEvent : Event
+    public class BlurEvent : Event
     {
         public BlurEvent(int viewTag)
             : base(viewTag)

@@ -5,7 +5,7 @@
 
 using ReactNative.Bridge;
 using ReactNative.Modules.Core;
-using ReactNative.Tracing;
+//using ReactNative.Tracing;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -87,18 +87,20 @@ namespace ReactNative.UIManager.Events
         private int _eventsToDispatchSize = 0;
         private RCTEventEmitter _rctEventEmitter;
         private bool _hasDispatchScheduled = false;
+        private Func<IReactChoreographer> _choreographerGetter;
 
         /// <summary>
         /// Instantiates the <see cref="EventDispatcher"/>.
         /// </summary>
         /// <param name="reactContext">The context.</param>
-        public EventDispatcher(IReactContext reactContext)
+        public EventDispatcher(IReactContext reactContext, Func<IReactChoreographer> choreographerGetter)
         {
             if (reactContext == null)
                 throw new ArgumentNullException(nameof(reactContext));
 
             _reactContext = reactContext;
             _reactContext.AddLifecycleEventListener(this);
+            _choreographerGetter = choreographerGetter;
         }
 
         /// <summary>
@@ -121,7 +123,7 @@ namespace ReactNative.UIManager.Events
                 _eventStaging.Add(@event);
             }
 
-            ReactChoreographer.Instance.ActivateCallback(nameof(EventDispatcher));
+            _choreographerGetter().ActivateCallback(nameof(EventDispatcher));
         }
 
         /// <summary>
@@ -152,7 +154,7 @@ namespace ReactNative.UIManager.Events
                 _rctEventEmitter = _reactContext.GetJavaScriptModule<RCTEventEmitter>();
             }
 
-            ReactChoreographer.Instance.JavaScriptEventsCallback += ScheduleDispatcherSafe;
+            _choreographerGetter().JavaScriptEventsCallback += ScheduleDispatcherSafe;
         }
 
         /// <summary>
@@ -181,7 +183,7 @@ namespace ReactNative.UIManager.Events
 
         private void ClearCallback()
         {
-            ReactChoreographer.Instance.JavaScriptEventsCallback -= ScheduleDispatcherSafe;
+            _choreographerGetter().JavaScriptEventsCallback -= ScheduleDispatcherSafe;
         }
 
         private void MoveStagedEventsToDispatchQueue()
@@ -237,7 +239,7 @@ namespace ReactNative.UIManager.Events
                 }
 
                 _eventStaging.Clear();
-                ReactChoreographer.Instance.DeactivateCallback(nameof(EventDispatcher));
+                _choreographerGetter().DeactivateCallback(nameof(EventDispatcher));
             }
         }
 
@@ -278,9 +280,9 @@ namespace ReactNative.UIManager.Events
 
         private void ScheduleDispatch(object sender, object e)
         {
-            DispatcherHelpers.AssertOnDispatcher();
-
-            var activity = Tracer.Trace(Tracer.TRACE_TAG_REACT_BRIDGE, "ScheduleDispatch").Start();
+            //DispatcherHelpers.AssertOnDispatcher();
+            // TODO: merge tracing dependency injection
+            //var activity = Tracer.Trace(Tracer.TRACE_TAG_REACT_BRIDGE, "ScheduleDispatch").Start();
 
             MoveStagedEventsToDispatchQueue();
 
@@ -295,19 +297,20 @@ namespace ReactNative.UIManager.Events
                 _hasDispatchScheduled = true;
                 _reactContext.RunOnJavaScriptQueueThread(() =>
                 {
-                    DispatchEvents(activity);
-                    activity?.Dispose();
+                    DispatchEvents(null);
+                    //activity?.Dispose();
                 });
 
                 return;
             }
 
-            activity?.Dispose();
+            //activity?.Dispose();
         }
 
         private void DispatchEvents(IDisposable activity)
         {
-            using (Tracer.Trace(Tracer.TRACE_TAG_REACT_BRIDGE, "DispatchEvents").Start())
+            // TODO: merge tracing dependency injection
+            //using (Tracer.Trace(Tracer.TRACE_TAG_REACT_BRIDGE, "DispatchEvents").Start())
             {
                 _hasDispatchScheduled = false;
 

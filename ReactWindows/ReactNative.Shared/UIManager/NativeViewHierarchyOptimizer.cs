@@ -4,6 +4,7 @@
 // Licensed under the MIT License.
 
 using Newtonsoft.Json.Linq;
+using ReactNative.Bridge;
 using ReactNative.Json;
 using System.Collections.Generic;
 #if !DISABLE_NATIVE_VIEW_HIERARCHY_OPTIMIZER
@@ -85,7 +86,7 @@ namespace ReactNative.UIManager
         public void HandleCreateView(
             ReactShadowNode node,
             int rootViewTag,
-            ThemedReactContext themedContext, 
+            IReactContext themedContext, 
             JObject initialProps)
         {
 #if DISABLE_NATIVE_VIEW_HIERARCHY_OPTIMIZER
