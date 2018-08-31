@@ -176,7 +176,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="**\*.cs" Exclude="**\*.xaml.cs;**\*.g*.cs" />
     <Compile Include="DevSupport\DevOptionDialog.xaml.cs">
       <DependentUpon>DevOptionDialog.xaml</DependentUpon>
     </Compile>
@@ -191,6 +190,52 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="ReactPage.cs" />
+    <Compile Include="ReactRootViewExtensions.cs" />
+    <Compile Include="Bridge\DispatcherHelpers.cs" />
+    <Compile Include="Bridge\Queue\DispatcherActionQueue.cs" />
+    <Compile Include="Bridge\Queue\LayoutActionQueue.cs" />
+    <Compile Include="DevSupport\Controls\LoadingIndicator.cs" />
+    <Compile Include="Modules\Clipboard\ClipboardInstance.cs" />
+    <Compile Include="Modules\Clipboard\ClipboardModule.cs" />
+    <Compile Include="Modules\Clipboard\IClipboardInstance.cs" />
+    <Compile Include="Modules\DeviceInfo\DeviceInfoModule.cs" />
+    <Compile Include="Modules\Dialog\DialogModule.cs" />
+    <Compile Include="Modules\Image\BitmapImageHelpers.cs" />
+    <Compile Include="Modules\Image\ImageLoaderModule.cs" />
+    <Compile Include="Modules\NetInfo\DefaultNetworkInformation.cs" />
+    <Compile Include="Modules\NetInfo\INetworkInformation.cs" />
+    <Compile Include="Modules\NetInfo\NetInfoModule.cs" />
+    <Compile Include="Modules\Storage\AsyncStorageModule.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Shell\MainReactPackage.cs" />
+    <Compile Include="Touch\TouchHandler.cs" />
+    <Compile Include="Tracing\NullLoggingActivityBuilder.cs" />
+    <Compile Include="Tracing\Tracer.cs" />
+    <Compile Include="UIManager\BaseViewManager.cs" />
+    <Compile Include="UIManager\DisplayMetrics.cs" />
+    <Compile Include="UIManager\UIViewOperationQueue.cs" />
+    <Compile Include="Views\Image\ReactImageManager.cs" />
+    <Compile Include="Views\Picker\ReactPickerManager.cs" />
+    <Compile Include="Views\Picker\ReactPickerShadowNode.cs" />
+    <Compile Include="Views\Progress\ProgressBarShadowNode.cs" />
+    <Compile Include="Views\Progress\ReactProgressBarViewManager.cs" />
+    <Compile Include="Views\Scroll\IScrollView.cs" />
+    <Compile Include="Views\Scroll\ReactScrollViewManager.cs" />
+    <Compile Include="Views\Scroll\ScrollView.cs" />
+    <Compile Include="Views\Slider\ReactSliderManager.cs" />
+    <Compile Include="Views\Text\ReactTextCompoundView.cs" />
+    <Compile Include="Views\Text\ReactTextShadowNode.cs" />
+    <Compile Include="Views\Text\ReactTextViewManager.cs" />
+    <Compile Include="Views\TextInput\PlaceholderAdorner.cs" />
+    <Compile Include="Views\TextInput\ReactPasswordBoxManager.cs" />
+    <Compile Include="Views\TextInput\ReactTextInputManager.cs" />
+    <Compile Include="Views\Web\ReactWebViewManager.cs" />
+    <Compile Include="Views\Web\Events\WebViewLoadingErrorEvent.cs" />
+    <Compile Include="Views\Web\Events\WebViewLoadingEvent.cs" />
+    <Compile Include="obj\x86\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\x86\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\x86\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

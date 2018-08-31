@@ -8,7 +8,7 @@ using ReactNative.Bridge;
 using ReactNative.Json;
 using ReactNative.Common;
 using ReactNative.Modules.Core;
-using ReactNative.Tracing;
+//using ReactNative.Tracing;
 using System;
 using System.Collections.Generic;
 using WebSocketSharp;
@@ -87,9 +87,9 @@ namespace ReactNative.Modules.WebSocket
             {
                 if (!_webSocketConnections.TryGetValue(id, out webSocket))
                 {
-                    Tracer.Write(
-                        ReactConstants.Tag,
-                        Invariant($"Cannot close WebSocket. Unknown WebSocket id {id}."));
+                    //Tracer.Write(
+                        //ReactConstants.Tag,
+                        //Invariant($"Cannot close WebSocket. Unknown WebSocket id {id}."));
 
                     return;
                 }
@@ -108,10 +108,10 @@ namespace ReactNative.Modules.WebSocket
                         _webSocketConnections.Remove(id);
                     }
 
-                    Tracer.Error(
-                        ReactConstants.Tag,
-                        Invariant($"Could not close WebSocket connection for id '{id}'."),
-                        ex);
+                    //Tracer.Error(
+                        //ReactConstants.Tag,
+                        //Invariant($"Could not close WebSocket connection for id '{id}'."),
+                        //ex);
                 }
             }
         }
