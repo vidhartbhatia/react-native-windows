@@ -76,11 +76,12 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ReactNativeDir)\ReactCommon;$(ReactNativeDir)\ReactCommon\jsi;$(ReactNativeDir)\ReactCommon\jsiexecutor;$(FollyDir);$(ReactNativeWindowsDir)stubs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ReactNativeDir)\ReactCommon;$(ReactNativeDir)\ReactCommon\jsi;$(ReactNativeDir)\ReactCommon\yoga;$(ReactNativeDir)\ReactCommon\jsiexecutor;$(FollyDir);$(ReactNativeWindowsDir)stubs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_WIN32;_CRT_SECURE_NO_WARNINGS;FOLLY_NO_CONFIG;NOMINMAX;RN_EXPORT=;JSI_EXPORT=;WIN32;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ForcedUsingFiles />
-      <DisableSpecificWarnings>4715;4146;4251;4800;4804;4305;4722;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <DisableSpecificWarnings>5028;4459;4714;4250;4267;4244;4715;4146;4251;4800;4804;4305;4722;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <PreprocessToFile>false</PreprocessToFile>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
@@ -136,9 +137,9 @@
     <ClInclude Include="$(ReactNativeDir)\ReactCommon\jschelpers\Value.h" Condition="'$(NOJSC)' != 'true'" />
     <ClInclude Include="$(ReactNativeDir)\ReactCommon\jsi\instrumentation.h" />
     <ClInclude Include="$(ReactNativeDir)\ReactCommon\jsi\JSCRuntime.h" Condition="'$(NOJSC)' != 'true'" />
-    <ClInclude Include="$(ReactNativeDir)\ReactCommon\jsi\V8Runtime.h" Condition="'$(Platform)' != 'arm' AND '$(USE_V8)' == 'true'"/>
-    <ClInclude Include="$(ReactNativeDir)\ReactCommon\jsi\V8Runtime_impl.h" Condition="'$(Platform)' != 'arm' AND '$(USE_V8)' == 'true'"/>
-    <ClInclude Include="$(ReactNativeDir)\ReactCommon\jsi\V8Platform.h" Condition="'$(Platform)' != 'arm' AND '$(USE_V8)' == 'true'"/>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\jsi\V8Runtime.h" Condition="'$(Platform)' != 'arm' AND '$(USE_V8)' == 'true'" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\jsi\V8Runtime_impl.h" Condition="'$(Platform)' != 'arm' AND '$(USE_V8)' == 'true'" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\jsi\V8Platform.h" Condition="'$(Platform)' != 'arm' AND '$(USE_V8)' == 'true'" />
     <ClInclude Include="$(ReactNativeDir)\ReactCommon\jsi\jsi-inl.h" />
     <ClInclude Include="$(ReactNativeDir)\ReactCommon\jsi\jsi.h" />
     <ClInclude Include="$(ReactNativeDir)\ReactCommon\jsi\JSIDynamic.h" />
@@ -149,6 +150,128 @@
     <ClInclude Include="$(YogaDir)\yoga\YGMacros.h" />
     <ClInclude Include="$(YogaDir)\yoga\YGNodeList.h" />
     <ClInclude Include="$(YogaDir)\yoga\Yoga.h" />
+
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\attributedstring\AttributedString.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\attributedstring\conversions.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\attributedstring\ParagraphAttributes.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\attributedstring\primitives.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\attributedstring\TextAttributes.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\activityindicator\ActivityIndicatorViewComponentDescriptor.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\activityindicator\ActivityIndicatorViewProps.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\activityindicator\ActivityIndicatorViewShadowNode.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\activityindicator\conversions.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\activityindicator\primitives.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\image\conversions.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\image\ImageComponentDescriptor.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\image\ImageEventEmitter.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\image\ImageLocalData.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\image\ImageProps.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\image\ImageShadowNode.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\root\RootProps.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\root\RootShadowNode.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\scrollview\conversions.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\scrollview\primitives.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\scrollview\ScrollViewComponentDescriptor.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\scrollview\ScrollViewEventEmitter.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\scrollview\ScrollViewLocalData.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\scrollview\ScrollViewProps.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\scrollview\ScrollViewShadowNode.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\slider\SliderComponentDescriptor.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\slider\SliderEventEmitter.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\slider\SliderLocalData.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\slider\SliderProps.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\slider\SliderShadowNode.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\text\basetext\BaseTextProps.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\text\basetext\BaseTextShadowNode.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\text\paragraph\conversions.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\text\paragraph\ParagraphComponentDescriptor.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\text\paragraph\ParagraphLocalData.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\text\paragraph\ParagraphMeasurementCache.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\text\paragraph\ParagraphProps.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\text\paragraph\ParagraphShadowNode.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\text\rawtext\RawTextComponentDescriptor.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\text\rawtext\RawTextProps.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\text\rawtext\RawTextShadowNode.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\text\text\TextComponentDescriptor.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\text\text\TextProps.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\text\text\TextShadowNode.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\view\ConcreteViewShadowNode.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\view\conversions.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\view\primitives.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\view\propsConversions.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\view\TouchEventEmitter.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\view\ViewComponentDescriptor.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\view\ViewEventEmitter.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\view\ViewProps.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\view\ViewShadowNode.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\view\accessibility\AccessibilityPrimitives.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\view\accessibility\AccessibilityProps.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\view\accessibility\accessibilityPropsConversions.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\view\accessibility\AccessibleShadowNode.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\view\yoga\YogaLayoutableShadowNode.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\view\yoga\YogaStylableProps.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\core\conversions.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\core\propsConversions.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\core\componentdescriptor\ComponentDescriptor.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\core\componentdescriptor\ConcreteComponentDescriptor.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\core\layout\LayoutableShadowNode.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\core\layout\LayoutConstraints.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\core\layout\LayoutContext.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\core\layout\LayoutMetrics.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\core\layout\LayoutPrimitives.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\core\primitives\RawProps.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\core\primitives\RawValue.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\core\primitives\ReactPrimitives.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\core\primitives\Sealable.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\core\shadownode\ConcreteShadowNode.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\core\shadownode\LocalData.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\core\shadownode\Props.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\core\shadownode\ShadowNode.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\core\shadownode\ShadowNodeFragment.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\core\tests\TestComponent.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\debug\DebugStringConvertible.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\debug\DebugStringConvertibleItem.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\debug\debugStringConvertibleUtils.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\debug\SystraceSection.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\events\BatchedEventQueue.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\events\EventBeat.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\events\EventBeatBasedExecutor.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\events\EventDispatcher.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\events\EventEmitter.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\events\EventQueue.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\events\EventTarget.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\events\primitives.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\events\RawEvent.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\events\UnbatchedEventQueue.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\graphics\ColorComponents.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\graphics\conversions.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\graphics\Geometry.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\graphics\platform\android\Color.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\graphics\platform\android\Float.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\imagemanager\ImageManager.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\imagemanager\ImageRequest.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\imagemanager\ImageResponse.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\imagemanager\ImageResponseObserver.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\imagemanager\ImageResponseObserverCoordinator.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\imagemanager\primitives.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\mounting\Differentiator.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\mounting\ShadowView.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\mounting\ShadowViewMutation.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\textlayoutmanager\platform\android\TextLayoutManager.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\uimanager\ComponentDescriptorFactory.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\uimanager\ComponentDescriptorRegistry.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\uimanager\ContextContainer.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\uimanager\primitives.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\uimanager\Scheduler.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\uimanager\SchedulerDelegate.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\uimanager\ShadowTree.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\uimanager\ShadowTreeDelegate.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\uimanager\ShadowTreeRegistry.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\uimanager\TimeUtils.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\uimanager\UIManager.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\uimanager\UIManagerBinding.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\uimanager\UIManagerDelegate.h" />
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\uimanager\UITemplateProcessor.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(ReactNativeDir)\ReactCommon\cxxreact\CxxNativeModule.cpp" />
@@ -181,18 +304,89 @@
     <ClCompile Include="$(ReactNativeDir)\ReactCommon\jsiexecutor\jsireact\JSIExecutor.cpp" />
     <ClCompile Include="$(ReactNativeDir)\ReactCommon\jsiexecutor\jsireact\JSINativeModules.cpp" />
     <ClCompile Include="$(ReactNativeDir)\ReactCommon\privatedata\PrivateDataBase.cpp" Condition="'$(NOJSC)' != 'true'" />
-    <ClCompile Include="$(ReactNativeDir)\ReactCommon\jsi\V8Platform.cpp"  Condition="'$(Platform)' != 'arm' AND '$(USE_V8)' == 'true'"/>
-    <ClCompile Include="$(ReactNativeDir)\ReactCommon\jsi\V8Runtime_shared.cpp"  Condition="'$(Platform)' != 'arm' AND '$(USE_V8)' == 'true'"/>
-    <ClCompile Include="$(ReactNativeDir)\ReactCommon\jsi\V8Runtime_win.cpp"  Condition="'$(Platform)' != 'arm' AND '$(USE_V8)' == 'true'"/>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\jsi\V8Platform.cpp" Condition="'$(Platform)' != 'arm' AND '$(USE_V8)' == 'true'" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\jsi\V8Runtime_shared.cpp" Condition="'$(Platform)' != 'arm' AND '$(USE_V8)' == 'true'" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\jsi\V8Runtime_win.cpp" Condition="'$(Platform)' != 'arm' AND '$(USE_V8)' == 'true'" />
     <ClCompile Include="$(YogaDir)\yoga\Utils.cpp" />
     <ClCompile Include="$(YogaDir)\yoga\YGConfig.cpp" />
     <ClCompile Include="$(YogaDir)\yoga\YGEnums.cpp" />
-    <ClCompile Include="$(YogaDir)\yoga\YGFloatOptional.cpp" />
     <ClCompile Include="$(YogaDir)\yoga\YGLayout.cpp" />
     <ClCompile Include="$(YogaDir)\yoga\YGNode.cpp" />
     <ClCompile Include="$(YogaDir)\yoga\YGNodePrint.cpp" />
     <ClCompile Include="$(YogaDir)\yoga\YGStyle.cpp" />
     <ClCompile Include="$(YogaDir)\yoga\Yoga.cpp" />
+    <ClCompile Include="$(YogaDir)\yoga\YGValue.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\attributedstring\AttributedString.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\attributedstring\ParagraphAttributes.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\attributedstring\TextAttributes.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\activityindicator\ActivityIndicatorViewProps.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\activityindicator\ActivityIndicatorViewShadowNode.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\image\ImageEventEmitter.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\image\ImageLocalData.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\image\ImageProps.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\image\ImageShadowNode.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\root\RootProps.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\root\RootShadowNode.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\scrollview\ScrollViewEventEmitter.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\scrollview\ScrollViewLocalData.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\scrollview\ScrollViewProps.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\scrollview\ScrollViewShadowNode.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\slider\SliderEventEmitter.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\slider\SliderLocalData.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\slider\SliderProps.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\slider\SliderShadowNode.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\text\basetext\BaseTextProps.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\text\basetext\BaseTextShadowNode.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\text\paragraph\ParagraphLocalData.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\text\paragraph\ParagraphProps.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\text\paragraph\ParagraphShadowNode.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\text\rawtext\RawTextProps.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\text\rawtext\RawTextShadowNode.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\text\text\TextProps.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\text\text\TextShadowNode.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\view\TouchEventEmitter.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\view\ViewEventEmitter.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\view\ViewProps.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\view\ViewShadowNode.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\view\accessibility\AccessibilityProps.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\view\accessibility\AccessibleShadowNode.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\view\yoga\YogaLayoutableShadowNode.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\view\yoga\YogaStylableProps.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\core\layout\LayoutableShadowNode.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\core\primitives\RawProps.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\core\primitives\RawValue.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\core\primitives\Sealable.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\core\shadownode\Props.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\core\shadownode\ShadowNode.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\core\shadownode\ShadowNodeFragment.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\debug\DebugStringConvertible.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\debug\DebugStringConvertibleItem.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\events\BatchedEventQueue.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\events\EventBeat.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\events\EventBeatBasedExecutor.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\events\EventDispatcher.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\events\EventEmitter.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\events\EventQueue.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\events\EventTarget.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\events\RawEvent.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\events\UnbatchedEventQueue.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\graphics\platform\android\Color.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\imagemanager\ImageResponse.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\imagemanager\ImageResponseObserverCoordinator.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\imagemanager\platform\android\ImageManager.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\imagemanager\platform\android\ImageRequest.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\mounting\Differentiator.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\mounting\ShadowView.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\mounting\ShadowViewMutation.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\sample\SampleComponentDescriptorFactor.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\textlayoutmanager\platform\android\TextLayoutManager.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\uimanager\ComponentDescriptorRegistry.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\uimanager\Scheduler.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\uimanager\ShadowTree.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\uimanager\ShadowTreeRegistry.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\uimanager\UIManager.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\uimanager\UIManagerBinding.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\uimanager\UITemplateProcessor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

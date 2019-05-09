@@ -5,7 +5,7 @@
 
 namespace facebook { namespace react {
 
-ShadowNode::~ShadowNode() {}
+// ShadowNode::~ShadowNode() {}
 
 void ShadowNode::dispatchCommand(int64_t commandId, const folly::dynamic& commandArgs) {}
 

@@ -32,6 +32,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(FollyDir)\folly\portability\SysMman.cpp" />
+    <ClCompile Include="$(FollyDir)\folly\portability\SysConf.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(FollyDir)\folly\portability\SysMman.h" />

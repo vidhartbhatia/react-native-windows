@@ -25,6 +25,9 @@
     <Filter Include="privatedata">
       <UniqueIdentifier>{20b1bda7-06e8-4ce8-8733-fc404e0afc13}</UniqueIdentifier>
     </Filter>
+    <Filter Include="fabric">
+      <UniqueIdentifier>{8bec7781-b851-462f-8944-f3cc9904964f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(ReactNativeDir)\ReactCommon\cxxreact\CxxNativeModule.cpp">
@@ -93,14 +96,230 @@
     <ClCompile Include="$(YogaDir)\yoga\Yoga.cpp">
       <Filter>yoga</Filter>
     </ClCompile>
-    <ClCompile Include="$(ReactNativeDir)\ReactCommon\jsi\V8Platform.cpp">
-      <Filter>jsi</Filter>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\view\accessibility\AccessibilityProps.cpp">
+      <Filter>fabric</Filter>
     </ClCompile>
-    <ClCompile Include="$(ReactNativeDir)\ReactCommon\jsi\V8Runtime_shared.cpp">
-      <Filter>jsi</Filter>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\view\accessibility\AccessibleShadowNode.cpp">
+      <Filter>fabric</Filter>
     </ClCompile>
-    <ClCompile Include="$(ReactNativeDir)\ReactCommon\jsi\V8Runtime_win.cpp">
-      <Filter>jsi</Filter>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\activityindicator\ActivityIndicatorViewProps.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\activityindicator\ActivityIndicatorViewShadowNode.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\attributedstring\AttributedString.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\text\basetext\BaseTextProps.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\text\basetext\BaseTextShadowNode.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\events\BatchedEventQueue.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\graphics\platform\ios\Color.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\graphics\platform\android\Color.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\uimanager\ComponentDescriptorRegistry.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\debug\DebugStringConvertible.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\debug\DebugStringConvertibleItem.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\mounting\Differentiator.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\events\EventBeat.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\events\EventBeatBasedExecutor.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\events\EventDispatcher.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\events\EventEmitter.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\events\EventQueue.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\events\EventTarget.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\image\ImageEventEmitter.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\image\ImageLocalData.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\imagemanager\platform\android\ImageManager.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\image\ImageProps.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\imagemanager\platform\android\ImageRequest.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\imagemanager\platform\ios\ImageRequest.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\imagemanager\ImageResponse.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\imagemanager\ImageResponseObserverCoordinator.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\image\ImageShadowNode.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\core\layout\LayoutableShadowNode.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\attributedstring\ParagraphAttributes.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\text\paragraph\ParagraphLocalData.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\text\paragraph\ParagraphProps.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\text\paragraph\ParagraphShadowNode.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\core\shadownode\Props.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\events\RawEvent.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\core\primitives\RawProps.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\text\rawtext\RawTextProps.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\text\rawtext\RawTextShadowNode.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\core\primitives\RawValue.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\root\RootProps.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\root\RootShadowNode.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\sample\SampleComponentDescriptorFactor.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\uimanager\Scheduler.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\scrollview\ScrollViewEventEmitter.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\scrollview\ScrollViewLocalData.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\scrollview\ScrollViewProps.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\scrollview\ScrollViewShadowNode.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\core\primitives\Sealable.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\core\shadownode\ShadowNode.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\core\shadownode\ShadowNodeFragment.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\uimanager\ShadowTree.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\uimanager\ShadowTreeRegistry.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\mounting\ShadowView.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\mounting\ShadowViewMutation.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\slider\SliderEventEmitter.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\slider\SliderLocalData.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\slider\SliderProps.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\slider\SliderShadowNode.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\attributedstring\TextAttributes.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\textlayoutmanager\platform\android\TextLayoutManager.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\text\text\TextProps.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\text\text\TextShadowNode.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\view\TouchEventEmitter.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\uimanager\UIManager.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\uimanager\UIManagerBinding.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\uimanager\UITemplateProcessor.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\events\UnbatchedEventQueue.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\view\ViewEventEmitter.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\view\ViewProps.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\view\ViewShadowNode.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(YogaDir)\yoga\YGConfig.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(YogaDir)\yoga\YGFloatOptional.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\view\yoga\YogaLayoutableShadowNode.cpp">
+      <Filter>fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\components\view\yoga\YogaStylableProps.cpp">
+      <Filter>fabric</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -209,17 +428,406 @@
     <ClInclude Include="$(YogaDir)\yoga\Yoga.h">
       <Filter>yoga</Filter>
     </ClInclude>
-    <ClInclude Include="$(ReactNativeDir)\ReactCommon\jsi\V8Platform.h">
-      <Filter>jsi</Filter>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\view\accessibility\AccessibilityPrimitives.h">
+      <Filter>fabric</Filter>
     </ClInclude>
-    <ClInclude Include="$(ReactNativeDir)\ReactCommon\jsi\V8Runtime.h">
-      <Filter>jsi</Filter>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\view\accessibility\AccessibilityProps.h">
+      <Filter>fabric</Filter>
     </ClInclude>
-    <ClInclude Include="$(ReactNativeDir)\ReactCommon\jsi\V8Runtime_impl.h">
-      <Filter>jsi</Filter>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\view\accessibility\accessibilityPropsConversions.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\view\accessibility\AccessibleShadowNode.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\activityindicator\ActivityIndicatorViewComponentDescriptor.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\activityindicator\ActivityIndicatorViewProps.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\activityindicator\ActivityIndicatorViewShadowNode.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\attributedstring\AttributedString.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\text\basetext\BaseTextProps.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\text\basetext\BaseTextShadowNode.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\events\BatchedEventQueue.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\graphics\platform\ios\Color.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\graphics\platform\android\Color.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\graphics\ColorComponents.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\core\componentdescriptor\ComponentDescriptor.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\uimanager\ComponentDescriptorFactory.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\uimanager\ComponentDescriptorRegistry.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\core\componentdescriptor\ConcreteComponentDescriptor.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\core\shadownode\ConcreteShadowNode.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\view\ConcreteViewShadowNode.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\uimanager\ContextContainer.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\core\conversions.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\attributedstring\conversions.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\text\paragraph\conversions.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\view\conversions.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\activityindicator\conversions.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\image\conversions.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\graphics\conversions.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\scrollview\conversions.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\debug\DebugStringConvertible.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\debug\DebugStringConvertibleItem.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\debug\debugStringConvertibleUtils.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\mounting\Differentiator.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\events\EventBeat.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\events\EventBeatBasedExecutor.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\events\EventDispatcher.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\events\EventEmitter.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\events\EventQueue.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\events\EventTarget.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\graphics\platform\ios\Float.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\graphics\platform\android\Float.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\graphics\Geometry.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\image\ImageComponentDescriptor.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\image\ImageEventEmitter.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\image\ImageLocalData.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\imagemanager\ImageManager.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\image\ImageProps.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\imagemanager\ImageRequest.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\imagemanager\ImageResponse.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\imagemanager\ImageResponseObserver.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\imagemanager\ImageResponseObserverCoordinator.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\image\ImageShadowNode.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\core\layout\LayoutableShadowNode.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\core\layout\LayoutConstraints.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\core\layout\LayoutContext.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\core\layout\LayoutMetrics.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\core\layout\LayoutPrimitives.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\core\shadownode\LocalData.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\textlayoutmanager\platform\ios\NSTextStorage+FontScaling.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\attributedstring\ParagraphAttributes.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\text\paragraph\ParagraphComponentDescriptor.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\text\paragraph\ParagraphLocalData.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\text\paragraph\ParagraphMeasurementCache.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\text\paragraph\ParagraphProps.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\text\paragraph\ParagraphShadowNode.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\attributedstring\primitives.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\imagemanager\primitives.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\activityindicator\primitives.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\view\primitives.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\uimanager\primitives.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\scrollview\primitives.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\events\primitives.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\core\shadownode\Props.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\view\propsConversions.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\core\propsConversions.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\events\RawEvent.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\core\primitives\RawProps.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\text\rawtext\RawTextComponentDescriptor.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\text\rawtext\RawTextProps.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\text\rawtext\RawTextShadowNode.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\core\primitives\RawValue.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\textlayoutmanager\platform\ios\RCTAttributedTextUtils.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\textlayoutmanager\platform\ios\RCTFontProperties.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\textlayoutmanager\platform\ios\RCTFontUtils.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\imagemanager\platform\ios\RCTImageManager.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\imagemanager\platform\ios\RCTImagePrimitivesConversions.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\textlayoutmanager\platform\ios\RCTTextLayoutManager.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\textlayoutmanager\platform\ios\RCTTextPrimitivesConversions.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\core\primitives\ReactPrimitives.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\root\RootProps.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\root\RootShadowNode.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\uimanager\Scheduler.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\uimanager\SchedulerDelegate.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\scrollview\ScrollViewComponentDescriptor.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\scrollview\ScrollViewEventEmitter.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\scrollview\ScrollViewLocalData.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\scrollview\ScrollViewProps.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\scrollview\ScrollViewShadowNode.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\core\primitives\Sealable.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\core\shadownode\ShadowNode.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\core\shadownode\ShadowNodeFragment.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\uimanager\ShadowTree.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\uimanager\ShadowTreeDelegate.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\uimanager\ShadowTreeRegistry.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\mounting\ShadowView.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\mounting\ShadowViewMutation.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\slider\SliderComponentDescriptor.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\slider\SliderEventEmitter.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\slider\SliderLocalData.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\slider\SliderProps.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\slider\SliderShadowNode.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\debug\SystraceSection.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\core\tests\TestComponent.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\attributedstring\TextAttributes.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\text\text\TextComponentDescriptor.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\textlayoutmanager\platform\android\TextLayoutManager.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\textlayoutmanager\platform\ios\TextLayoutManager.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\text\text\TextProps.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\text\text\TextShadowNode.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\uimanager\TimeUtils.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\view\TouchEventEmitter.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\uimanager\UIManager.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\uimanager\UIManagerBinding.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\uimanager\UIManagerDelegate.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\uimanager\UITemplateProcessor.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\events\UnbatchedEventQueue.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\view\ViewComponentDescriptor.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\view\ViewEventEmitter.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\view\ViewProps.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\view\ViewShadowNode.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\view\yoga\YogaLayoutableShadowNode.h">
+      <Filter>fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ReactNativeDir)\ReactCommon\fabric\components\view\yoga\YogaStylableProps.h">
+      <Filter>fabric</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <Filter>fabric</Filter>
+    </None>
   </ItemGroup>
 </Project>

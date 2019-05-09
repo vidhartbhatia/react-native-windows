@@ -53,6 +53,12 @@
     <ClCompile Include="$(FollyDir)\folly\Unicode.cpp" />
     <ClCompile Include="$(FollyDir)\folly\memory\detail\MallocImpl.cpp" />
     <ClCompile Include="$(FollyDir)\folly\lang\ColdClass.cpp" />
+    <ClCompile Include="$(FollyDir)\folly\SharedMutex.cpp" />
+    <ClCompile Include="$(FollyDir)\folly\detail\Futex.cpp" />
+    <ClCompile Include="$(FollyDir)\folly\concurrency\CacheLocality.cpp" />
+    <ClCompile Include="$(FollyDir)\folly\synchronization\ParkingLot.cpp" />
+    <ClCompile Include="$(MSBuildProjectDirectory)\stubs.cpp" />
+
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(FollyDir)\folly\ApplyTuple.h" />
@@ -294,7 +300,7 @@
       <AdditionalIncludeDirectories>$(ReactNativeWindowsDir)stubs;$(FollyDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>FOLLY_NO_CONFIG;NOMINMAX;NOJSC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ForcedUsingFiles />
-      <DisableSpecificWarnings>4146;4251;4800;4804;4305;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4714;4146;4251;4800;4804;4305;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
