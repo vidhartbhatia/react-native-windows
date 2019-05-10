@@ -96,7 +96,7 @@ void ChakraJsiRuntime::initRuntimeVersion()  noexcept {
   // NOP
 }
 
-std::unique_ptr<jsi::Runtime> makeChakraRuntime(ChakraJsiRuntimeArgs&& args)  noexcept {
+std::unique_ptr<jsi::Runtime> makeChakraJsiRuntime(ChakraJsiRuntimeArgs&& args)  noexcept {
   return std::make_unique<ChakraJsiRuntime>(std::move(args));
 }
 

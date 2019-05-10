@@ -323,7 +323,7 @@ void ChakraJsiRuntimeWithDebugger::ProcessDebuggerCommandQueue() {
 
 #endif
 
-std::unique_ptr<jsi::Runtime> makeChakraRuntime(ChakraJsiRuntimeArgs&& args) noexcept {
+std::unique_ptr<jsi::Runtime> makeChakraJsiRuntime(ChakraJsiRuntimeArgs&& args) noexcept {
 #ifdef CHAKRART_HAS_DEBUGGER
   return std::make_unique<ChakraJsiRuntimeWithDebugger>(std::move(args));
 #else
