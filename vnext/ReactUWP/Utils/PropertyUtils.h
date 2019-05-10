@@ -317,7 +317,7 @@ bool TryUpdateFontProperties(const T& element, const folly::dynamic& propertyNam
   if (propertyName == "fontSize")
   {
     if (propertyValue.isNumber())
-      element.FontSize(static_cast<double>(propertyValue.getInt()));
+      element.FontSize(static_cast<double>(propertyValue.asInt()));
     else if (propertyValue.isNull())
       element.ClearValue(T::FontSizeProperty());
   }
