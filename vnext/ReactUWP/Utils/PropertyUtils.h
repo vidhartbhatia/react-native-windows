@@ -105,7 +105,7 @@ bool TryUpdateBackgroundBrush(T& element, const folly::dynamic& propertyName, co
 {
   if (propertyName == "backgroundColor")
   {
-    if (propertyValue.isInt())
+    if (propertyValue.isNumber())
       element.Background(BrushFrom(propertyValue));
     else if (propertyValue.isNull())
       element.ClearValue(T::BackgroundProperty());
@@ -129,7 +129,7 @@ bool TryUpdateForeground(const T& element, const folly::dynamic& propertyName, c
 {
   if (propertyName == "color")
   {
-    if (propertyValue.isInt())
+    if (propertyValue.isNumber())
       element.Foreground(BrushFrom(propertyValue));
     else if (propertyValue.isNull())
       element.ClearValue(T::ForegroundProperty());
@@ -147,7 +147,7 @@ bool TryUpdateBorderProperties(ShadowNodeBase* node, T& element, const folly::dy
 
   if (propertyName == "borderColor")
   {
-    if (propertyValue.isInt())
+    if (propertyValue.isNumber())
       element.BorderBrush(BrushFrom(propertyValue));
     else if (propertyValue.isNull())
       element.ClearValue(T::BorderBrushProperty());
