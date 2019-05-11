@@ -367,7 +367,7 @@ folly::dynamic TextInputViewManager::GetExportedCustomDirectEventTypeConstants()
   return directEvents;
 }
 
-facebook::react::ShadowNode* TextInputViewManager::createShadow() const
+facebook::react::LegacyShadowNode* TextInputViewManager::createShadow() const
 {
   return new TextInputShadowNode();
 }

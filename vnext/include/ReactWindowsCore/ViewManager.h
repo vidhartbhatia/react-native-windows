@@ -7,7 +7,7 @@
 
 namespace facebook { namespace react {
 
-struct ShadowNode;
+struct LegacyShadowNode;
 
 class IViewManager
 {
@@ -17,8 +17,8 @@ public:
 	virtual ::folly::dynamic GetExportedViewConstants() const = 0;
 	virtual ::folly::dynamic GetCommands() const = 0;
 	virtual ::folly::dynamic GetNativeProps() const = 0;
-	virtual ShadowNode* createShadow() const = 0;
-	virtual void destroyShadow(ShadowNode*) const = 0;
+	virtual LegacyShadowNode* createShadow() const = 0;
+	virtual void destroyShadow(LegacyShadowNode*) const = 0;
 
 	virtual ::folly::dynamic GetConstants() const = 0;
 	virtual ::folly::dynamic GetExportedCustomBubblingEventTypeConstants() const = 0;

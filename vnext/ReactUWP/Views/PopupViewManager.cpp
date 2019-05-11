@@ -33,7 +33,7 @@ public:
   PopupShadowNode() = default;
   virtual ~PopupShadowNode();
   void createView() override;
-  void AddView(ShadowNode& child, int64_t index) override;
+  void AddView(LegacyShadowNode& child, int64_t index) override;
   void updateProperties(const folly::dynamic&& props) override;
   static void OnPopupClosed(IReactInstance& instance, int64_t tag, bool newValue);
   void SetAnchorPosition(const winrt::Windows::UI::Xaml::Controls::Primitives::Popup& popup);
@@ -72,7 +72,7 @@ void PopupShadowNode::createView()
   });
 }
 
-void PopupShadowNode::AddView(ShadowNode& child, int64_t index)
+void PopupShadowNode::AddView(LegacyShadowNode& child, int64_t index)
 {
   Super::AddView(child, index);
 
@@ -227,7 +227,7 @@ folly::dynamic PopupViewManager::GetNativeProps() const
   return props;
 }
 
-facebook::react::ShadowNode* PopupViewManager::createShadow() const
+facebook::react::LegacyShadowNode* PopupViewManager::createShadow() const
 {
   return new PopupShadowNode();
 }

@@ -74,7 +74,7 @@ extern const DECLSPEC_SELECTANY double c_UndefinedEdge = -1;
 #pragma warning(push)
 #pragma warning(disable: 4275) // base is not DLL exported
 #pragma warning(disable: 4251) // member is not DLL exported
-struct REACTWINDOWS_EXPORT ShadowNodeBase : public facebook::react::ShadowNode
+struct REACTWINDOWS_EXPORT ShadowNodeBase : public facebook::react::LegacyShadowNode
 {
   ShadowNodeBase(const ShadowNodeBase&) = delete;
   ShadowNodeBase& operator=(ShadowNodeBase const&) = delete;
@@ -84,7 +84,7 @@ struct REACTWINDOWS_EXPORT ShadowNodeBase : public facebook::react::ShadowNode
   virtual void onDropViewInstance() override;
   virtual void dispatchCommand(int64_t commandId, const folly::dynamic& commandArgs) override;
   virtual void removeAllChildren() override;
-  virtual void AddView(ShadowNode& child, int64_t index) override;
+  virtual void AddView(LegacyShadowNode& child, int64_t index) override;
   virtual void RemoveChildAt(int64_t indexToRemove) override;
   virtual void createView() override;
 

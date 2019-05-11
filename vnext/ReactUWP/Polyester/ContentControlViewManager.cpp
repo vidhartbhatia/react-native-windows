@@ -70,7 +70,7 @@ ContentControlViewManager::ContentControlViewManager(const std::shared_ptr<IReac
 {
 }
 
-facebook::react::ShadowNode* ContentControlViewManager::createShadow() const
+facebook::react::LegacyShadowNode* ContentControlViewManager::createShadow() const
 {
   return new ContentControlShadowNode();
 }

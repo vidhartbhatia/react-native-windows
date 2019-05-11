@@ -13,7 +13,7 @@ class DatePickerViewManager : public ControlViewManager
 public:
   DatePickerViewManager(const std::shared_ptr<IReactInstance>& reactInstance);
 
-  facebook::react::ShadowNode* createShadow() const;
+  facebook::react::LegacyShadowNode* createShadow() const;
   const char* GetName() const override;
   folly::dynamic GetNativeProps() const override;
 

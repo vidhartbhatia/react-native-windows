@@ -5,12 +5,12 @@
 
 namespace facebook { namespace react {
 
-// ShadowNode::~ShadowNode() {}
+LegacyShadowNode::~LegacyShadowNode() {}
 
-void ShadowNode::dispatchCommand(int64_t commandId, const folly::dynamic& commandArgs) {}
+void LegacyShadowNode::dispatchCommand(int64_t commandId, const folly::dynamic& commandArgs) {}
 
-void ShadowNode::onDropViewInstance() {}
+void LegacyShadowNode::onDropViewInstance() {}
 
-void ShadowNode::updateProperties(const folly::dynamic&& props) {}
+void LegacyShadowNode::updateProperties(const folly::dynamic&& props) {}
 
 }} // namespace facebook::react

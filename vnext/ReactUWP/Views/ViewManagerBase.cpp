@@ -106,14 +106,14 @@ dynamic ViewManagerBase::GetConstants() const
   return constants;
 }
 
-facebook::react::ShadowNode* ViewManagerBase::createShadow() const
+facebook::react::LegacyShadowNode* ViewManagerBase::createShadow() const
 {
-  // This class is the default ShadowNode that most view managers can use. If they need special functionality
+  // This class is the default LegacyShadowNode that most view managers can use. If they need special functionality
   //  they should override this function and create their own ShadowNodeBase sub-class.
   return new ShadowNodeBase();
 }
 
-void ViewManagerBase::destroyShadow(facebook::react::ShadowNode* node) const
+void ViewManagerBase::destroyShadow(facebook::react::LegacyShadowNode* node) const
 {
   delete node;
 }

@@ -15,7 +15,7 @@ public:
   FlyoutViewManager(const std::shared_ptr<IReactInstance>& reactInstance);
 
   const char* GetName() const override;
-  facebook::react::ShadowNode* createShadow() const override;
+  facebook::react::LegacyShadowNode* createShadow() const override;
   folly::dynamic GetNativeProps() const override;
   folly::dynamic GetExportedCustomDirectEventTypeConstants() const override;
   void SetLayoutProps(ShadowNodeBase& nodeToUpdate, XamlView viewToUpdate, float left, float top, float width, float height) override;

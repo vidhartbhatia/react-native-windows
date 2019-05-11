@@ -298,7 +298,7 @@ void UIManager::setChildren(int64_t viewTag, folly::dynamic&& childrenTags)
 void UIManager::updateView(int64_t tag, const std::string& className, folly::dynamic&& props)
 {
   m_nativeUIManager->ensureInBatch();
-	ShadowNode* pShadowNode = FindShadowNodeForTag(tag);
+	LegacyShadowNode* pShadowNode = FindShadowNodeForTag(tag);
 	// Guard against setNative calls to removed views
 	if (pShadowNode == nullptr)
 		return;
@@ -309,7 +309,7 @@ void UIManager::updateView(int64_t tag, const std::string& className, folly::dyn
   m_nativeUIManager->UpdateView(*pShadowNode, props);
 }
 
-void UIManager::RemoveShadowNode(ShadowNode& nodeToRemove)
+void UIManager::RemoveShadowNode(LegacyShadowNode& nodeToRemove)
 {
 	nodeToRemove.m_parent = -1;
 	m_nodeRegistry.removeNode(nodeToRemove.m_tag);
@@ -414,12 +414,12 @@ std::unordered_set<int64_t>& UIManager::GetAllRootTags()
   return m_nodeRegistry.getAllRoots();
 }
 
-ShadowNode* UIManager::FindShadowNodeForTag(int64_t tag)
+LegacyShadowNode* UIManager::FindShadowNodeForTag(int64_t tag)
 {
   return m_nodeRegistry.findNode(tag);
 }
 
-ShadowNode& UIManager::GetShadowNodeForTag(int64_t tag)
+LegacyShadowNode& UIManager::GetShadowNodeForTag(int64_t tag)
 {
   return m_nodeRegistry.getNode(tag);
 }
@@ -440,8 +440,16 @@ std::vector<facebook::xplat::module::CxxModule::Method> UIManagerModule::getMeth
 	{
 		Method("getConstantsForViewManager", [manager](dynamic argsJson) -> dynamic
 		{
-			auto args = folly::parseJson(argsJson.asString());
-			return manager->getConstantsForViewManager(jsArgAsString(args, 0));
+      std::string className;
+      if (argsJson.isArray()) {
+        className = argsJson[0].asString();
+      }
+      else {
+        auto args = folly::parseJson(argsJson.asString());
+        className = jsArgAsString(args, 0);
+      }
+
+			return manager->getConstantsForViewManager(className);
 		}, SyncTag),
 		Method("removeRootView", [manager](dynamic args)
 		{

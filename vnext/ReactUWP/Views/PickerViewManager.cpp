@@ -207,7 +207,7 @@ folly::dynamic PickerViewManager::GetNativeProps() const
   return props;
 }
 
-facebook::react::ShadowNode* PickerViewManager::createShadow() const
+facebook::react::LegacyShadowNode* PickerViewManager::createShadow() const
 {
   return new PickerShadowNode();
 }

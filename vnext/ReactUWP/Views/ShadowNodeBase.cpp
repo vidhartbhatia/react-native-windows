@@ -39,7 +39,7 @@ void ShadowNodeBase::removeAllChildren()
   GetViewManager()->RemoveAllChildren(GetView());
 }
 
-void ShadowNodeBase::AddView(ShadowNode& child, int64_t index)
+void ShadowNodeBase::AddView(LegacyShadowNode& child, int64_t index)
 {
   this->GetViewManager()->AddView(GetView(), static_cast<ShadowNodeBase&>(child).GetView(), index);
 }

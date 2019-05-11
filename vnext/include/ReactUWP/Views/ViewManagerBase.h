@@ -13,7 +13,7 @@
 #include <ReactWindowsCore/ReactWindowsAPI.h>
 
 namespace facebook { namespace react {
-struct ShadowNode;
+struct LegacyShadowNode;
 } } // facebook::react
 
 namespace react { namespace uwp {
@@ -45,8 +45,8 @@ public:
   folly::dynamic GetCommands() const override;
   folly::dynamic GetNativeProps() const override;
 
-  facebook::react::ShadowNode* createShadow() const override;
-  void destroyShadow(facebook::react::ShadowNode* node) const override;
+  facebook::react::LegacyShadowNode* createShadow() const override;
+  void destroyShadow(facebook::react::LegacyShadowNode* node) const override;
 
   folly::dynamic GetConstants() const override;
   folly::dynamic GetExportedCustomBubblingEventTypeConstants() const override;

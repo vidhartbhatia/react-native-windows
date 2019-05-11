@@ -107,7 +107,7 @@ struct RootShadowNode final : public ShadowNodeBase
     assert(false);
   }
 
-  void AddView(facebook::react::ShadowNode& child, int64_t index) override
+  void AddView(facebook::react::LegacyShadowNode& child, int64_t index) override
   {
     auto panel(GetView().as<winrt::Panel>());
     if (panel != nullptr)
@@ -126,17 +126,17 @@ void NativeUIManager::setHost(facebook::react::INativeUIManagerHost* host)
   m_host = host;
 }
 
-facebook::react::ShadowNode* NativeUIManager::createRootShadowNode(facebook::react::IReactRootView* pReactRootView)
+facebook::react::LegacyShadowNode* NativeUIManager::createRootShadowNode(facebook::react::IReactRootView* pReactRootView)
 {
   return new RootShadowNode(pReactRootView, m_host);
 }
 
-void NativeUIManager::destroyRootShadowNode(facebook::react::ShadowNode* node)
+void NativeUIManager::destroyRootShadowNode(facebook::react::LegacyShadowNode* node)
 {
   delete node;
 }
 
-void NativeUIManager::AddRootView(facebook::react::ShadowNode& shadowNode, facebook::react::IReactRootView* pReactRootView)
+void NativeUIManager::AddRootView(facebook::react::LegacyShadowNode& shadowNode, facebook::react::IReactRootView* pReactRootView)
 {
   ShadowNodeBase& node = static_cast<ShadowNodeBase&>(shadowNode);
 
@@ -159,7 +159,7 @@ void NativeUIManager::destroy()
   delete this;
 }
 
-void NativeUIManager::removeRootView(facebook::react::ShadowNode& shadow)
+void NativeUIManager::removeRootView(facebook::react::LegacyShadowNode& shadow)
 {
   RemoveView(shadow, true);
 }
@@ -689,7 +689,7 @@ static void StyleYogaNode(ShadowNodeBase& shadowNode, const YGNodeRef yogaNode, 
   }
 }
 
-void NativeUIManager::CreateView(facebook::react::ShadowNode& shadowNode, folly::dynamic /*ReadableMap*/ props)
+void NativeUIManager::CreateView(facebook::react::LegacyShadowNode& shadowNode, folly::dynamic /*ReadableMap*/ props)
 {
   ShadowNodeBase& node = static_cast<ShadowNodeBase&>(shadowNode);
   auto* pViewManager = node.GetViewManager();
@@ -716,7 +716,7 @@ void NativeUIManager::CreateView(facebook::react::ShadowNode& shadowNode, folly:
   }
 }
 
-void NativeUIManager::AddView(facebook::react::ShadowNode& parentShadowNode, facebook::react::ShadowNode& childShadowNode, uint64_t index)
+void NativeUIManager::AddView(facebook::react::LegacyShadowNode& parentShadowNode, facebook::react::LegacyShadowNode& childShadowNode, uint64_t index)
 {
   ShadowNodeBase& parentNode = static_cast<ShadowNodeBase&>(parentShadowNode);
   auto* pViewManager = parentNode.GetViewManager();
@@ -738,7 +738,7 @@ void NativeUIManager::AddView(facebook::react::ShadowNode& parentShadowNode, fac
   }
 }
 
-void NativeUIManager::RemoveView(facebook::react::ShadowNode& shadowNode, bool removeChildren /*= true*/)
+void NativeUIManager::RemoveView(facebook::react::LegacyShadowNode& shadowNode, bool removeChildren /*= true*/)
 {
   ShadowNodeBase& node = static_cast<ShadowNodeBase&>(shadowNode);
 
@@ -762,7 +762,7 @@ void NativeUIManager::RemoveView(facebook::react::ShadowNode& shadowNode, bool r
   m_tagsToYogaContext.erase(node.m_tag);
 }
 
-void NativeUIManager::ReplaceView(facebook::react::ShadowNode& shadowNode)
+void NativeUIManager::ReplaceView(facebook::react::LegacyShadowNode& shadowNode)
 {
   ShadowNodeBase& node = static_cast<ShadowNodeBase&>(shadowNode);
   auto* pViewManager = node.GetViewManager();
@@ -791,7 +791,7 @@ void NativeUIManager::ReplaceView(facebook::react::ShadowNode& shadowNode)
   }
 }
 
-void NativeUIManager::UpdateView(facebook::react::ShadowNode& shadowNode, folly::dynamic /*ReadableMap*/ props)
+void NativeUIManager::UpdateView(facebook::react::LegacyShadowNode& shadowNode, folly::dynamic /*ReadableMap*/ props)
 {
   ShadowNodeBase& node = static_cast<ShadowNodeBase&>(shadowNode);
   auto* pViewManager = node.GetViewManager();
@@ -878,7 +878,7 @@ winrt::Windows::Foundation::Rect GetRectOfElementInParentCoords(winrt::Framework
   return anchorRect;
 }
 
-void NativeUIManager::measure(facebook::react::ShadowNode& shadowNode, facebook::react::ShadowNode& shadowRoot, facebook::xplat::module::CxxModule::Callback callback)
+void NativeUIManager::measure(facebook::react::LegacyShadowNode& shadowNode, facebook::react::LegacyShadowNode& shadowRoot, facebook::xplat::module::CxxModule::Callback callback)
 {
   std::vector<folly::dynamic> args;
   ShadowNodeBase& node = static_cast<ShadowNodeBase&>(shadowNode);

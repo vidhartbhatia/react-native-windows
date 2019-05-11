@@ -103,7 +103,7 @@ folly::dynamic CheckBoxViewManager::GetNativeProps() const
   return props;
 }
 
-facebook::react::ShadowNode* CheckBoxViewManager::createShadow() const
+facebook::react::LegacyShadowNode* CheckBoxViewManager::createShadow() const
 {
   return new CheckBoxShadowNode();
 }

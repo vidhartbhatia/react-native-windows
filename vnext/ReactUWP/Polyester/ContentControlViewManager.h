@@ -13,7 +13,7 @@ class ContentControlViewManager : public ControlViewManager
 public:
   ContentControlViewManager(const std::shared_ptr<IReactInstance>& reactInstance);
 
-  facebook::react::ShadowNode* createShadow() const override;
+  facebook::react::LegacyShadowNode* createShadow() const override;
 
   void AddView(XamlView parent, XamlView child, int64_t index) override;
   void RemoveAllChildren(XamlView parent) override;

@@ -56,7 +56,7 @@ public:
   FlyoutShadowNode() = default;
   virtual ~FlyoutShadowNode();
 
-  void AddView(ShadowNode& child, int64_t index) override;
+  void AddView(LegacyShadowNode& child, int64_t index) override;
   void createView() override;
   static void OnFlyoutClosed(IReactInstance& instance, int64_t tag, bool newValue);
   void removeAllChildren() override;
@@ -78,7 +78,7 @@ FlyoutShadowNode::~FlyoutShadowNode()
   m_touchEventHanadler->RemoveTouchHandlers();
 }
 
-void FlyoutShadowNode::AddView(ShadowNode& child, int64_t index)
+void FlyoutShadowNode::AddView(LegacyShadowNode& child, int64_t index)
 {
   auto childView = static_cast<ShadowNodeBase&>(child).GetView();
   m_touchEventHanadler->AddTouchHandlers(childView);
@@ -225,7 +225,7 @@ XamlView FlyoutViewManager::CreateViewCore(int64_t tag)
   return ViewPanel::Create().as<XamlView>();
 }
 
-facebook::react::ShadowNode* FlyoutViewManager::createShadow() const
+facebook::react::LegacyShadowNode* FlyoutViewManager::createShadow() const
 {
   return new FlyoutShadowNode();
 }

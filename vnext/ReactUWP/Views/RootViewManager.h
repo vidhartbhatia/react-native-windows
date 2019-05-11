@@ -21,7 +21,7 @@ public:
 
   void SetLayoutProps(ShadowNodeBase& nodeToUpdate, XamlView viewToUpdate, float left, float top, float width, float height) override;
 
-  void destroyShadow(facebook::react::ShadowNode* node) const override;
+  void destroyShadow(facebook::react::LegacyShadowNode* node) const override;
 
 protected:
   XamlView CreateViewCore(int64_t tag) override;

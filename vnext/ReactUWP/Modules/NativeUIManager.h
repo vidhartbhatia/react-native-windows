@@ -33,22 +33,22 @@ public:
   NativeUIManager();
 
   // INativeUIManager
-  facebook::react::ShadowNode* createRootShadowNode(facebook::react::IReactRootView* rootView) override;
+  facebook::react::LegacyShadowNode* createRootShadowNode(facebook::react::IReactRootView* rootView) override;
   void configureNextLayoutAnimation(folly::dynamic&& config, facebook::xplat::module::CxxModule::Callback success, facebook::xplat::module::CxxModule::Callback error) override {};
   void destroy() override;
-  void destroyRootShadowNode(facebook::react::ShadowNode*) override;
-  void removeRootView(facebook::react::ShadowNode& rootshadow) override;
+  void destroyRootShadowNode(facebook::react::LegacyShadowNode*) override;
+  void removeRootView(facebook::react::LegacyShadowNode& rootshadow) override;
   void setHost(facebook::react::INativeUIManagerHost* host) override;
   facebook::react::INativeUIManagerHost* getHost() override { return m_host; }
-  void AddRootView(facebook::react::ShadowNode& shadowNode, facebook::react::IReactRootView* pReactRootView) override;
-  void CreateView(facebook::react::ShadowNode& shadowNode, folly::dynamic /*ReadableMap*/ props) override;
-  void AddView(facebook::react::ShadowNode& parentShadowNode, facebook::react::ShadowNode& childShadowNode, uint64_t index) override;
-  void RemoveView(facebook::react::ShadowNode& shadowNode, bool removeChildren = true) override;
-  void ReplaceView(facebook::react::ShadowNode& shadowNode) override;
-  void UpdateView(facebook::react::ShadowNode& shadowNode, folly::dynamic /*ReadableMap*/ props) override;
+  void AddRootView(facebook::react::LegacyShadowNode& shadowNode, facebook::react::IReactRootView* pReactRootView) override;
+  void CreateView(facebook::react::LegacyShadowNode& shadowNode, folly::dynamic /*ReadableMap*/ props) override;
+  void AddView(facebook::react::LegacyShadowNode& parentShadowNode, facebook::react::LegacyShadowNode& childShadowNode, uint64_t index) override;
+  void RemoveView(facebook::react::LegacyShadowNode& shadowNode, bool removeChildren = true) override;
+  void ReplaceView(facebook::react::LegacyShadowNode& shadowNode) override;
+  void UpdateView(facebook::react::LegacyShadowNode& shadowNode, folly::dynamic /*ReadableMap*/ props) override;
   void onBatchComplete() override;
   void ensureInBatch() override;
-  void measure(facebook::react::ShadowNode& shadowNode, facebook::react::ShadowNode& shadowRoot, facebook::xplat::module::CxxModule::Callback callback) override;
+  void measure(facebook::react::LegacyShadowNode& shadowNode, facebook::react::LegacyShadowNode& shadowRoot, facebook::xplat::module::CxxModule::Callback callback) override;
 
   // Other public functions
   void DirtyYogaNode(int64_t tag);

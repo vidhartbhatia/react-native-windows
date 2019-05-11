@@ -96,7 +96,7 @@ folly::dynamic CustomFrameworkElementViewManager::GetExportedCustomDirectEventTy
 }
 
 
-facebook::react::ShadowNode* CustomFrameworkElementViewManager::createShadow() const
+facebook::react::LegacyShadowNode* CustomFrameworkElementViewManager::createShadow() const
 {
   return new CustomFrameworkElementShadowNode();
 }

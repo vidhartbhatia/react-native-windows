@@ -87,7 +87,7 @@ public:
     m_accessibilityStates[state] = value;
   }
 
-  void AddView(ShadowNode& child, int64_t index) override
+  void AddView(LegacyShadowNode& child, int64_t index) override
   {
     GetViewPanel()->InsertAt(static_cast<uint32_t>(index), static_cast<ShadowNodeBase&>(child).GetView().as<winrt::UIElement>());
   }
@@ -189,7 +189,7 @@ folly::dynamic ViewViewManager::GetExportedCustomDirectEventTypeConstants() cons
   return directEvents;
 }
 
-facebook::react::ShadowNode* ViewViewManager::createShadow() const
+facebook::react::LegacyShadowNode* ViewViewManager::createShadow() const
 {
   return new ViewShadowNode();
 }
@@ -500,14 +500,14 @@ void ViewViewManager::TryUpdateView(ViewShadowNode* pViewShadowNode, ViewPanel* 
   // If we need to change the root of our view, do it now
   if (oldXamlView != newXamlView)
   {
-    // Inform the parent ShadowNode of this change so the hierarchy can be updated
+    // Inform the parent LegacyShadowNode of this change so the hierarchy can be updated
     int64_t parentTag = pViewShadowNode->GetParent();
     auto host = static_cast<facebook::react::INativeUIManager*>(instance->NativeUIManager())->getHost();
     auto *pParentNode = static_cast<ShadowNodeBase*>(host->FindShadowNodeForTag(parentTag));
     if (pParentNode != nullptr)
       pParentNode->ReplaceChild(oldXamlView, newXamlView);
 
-    // Update the ShadowNode with the new XamlView
+    // Update the LegacyShadowNode with the new XamlView
     pViewShadowNode->ReplaceView(newXamlView);
     pViewShadowNode->RefreshProperties();
 

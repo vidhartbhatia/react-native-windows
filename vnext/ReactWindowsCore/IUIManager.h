@@ -14,7 +14,7 @@ namespace facebook { namespace react {
 struct INativeUIManager;
 struct IReactRootView;
 class IViewManager;
-struct ShadowNode;
+struct LegacyShadowNode;
 
 class IUIManager
 {
@@ -40,7 +40,7 @@ public:
 	virtual INativeUIManager* getNativeUIManager() = 0;
 
 	// needed for control specific native modules to get the shadow node from the UIManager given its tag
-	virtual ShadowNode* FindShadowNodeForTag(int64_t tag) = 0;
+	virtual LegacyShadowNode* FindShadowNodeForTag(int64_t tag) = 0;
 };
 
 std::shared_ptr<IUIManager> createIUIManager(std::vector<std::unique_ptr<IViewManager>>&& viewManagers, INativeUIManager* nativeManager);

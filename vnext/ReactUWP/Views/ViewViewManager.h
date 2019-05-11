@@ -20,7 +20,7 @@ public:
 
   folly::dynamic GetNativeProps() const override;
   folly::dynamic GetExportedCustomDirectEventTypeConstants() const override;
-  facebook::react::ShadowNode* createShadow() const override;
+  facebook::react::LegacyShadowNode* createShadow() const override;
 
   void UpdateProperties(ShadowNodeBase* nodeToUpdate, folly::dynamic reactDiffMap) override;
 

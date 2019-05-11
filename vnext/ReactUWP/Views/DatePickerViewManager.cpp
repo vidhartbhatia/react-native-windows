@@ -203,7 +203,7 @@ folly::dynamic DatePickerViewManager::GetNativeProps() const
   return props;
 }
 
-facebook::react::ShadowNode* DatePickerViewManager::createShadow() const
+facebook::react::LegacyShadowNode* DatePickerViewManager::createShadow() const
 {
   return new DatePickerShadowNode();
 }

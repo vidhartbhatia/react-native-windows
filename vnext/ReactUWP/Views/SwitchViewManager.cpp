@@ -78,7 +78,7 @@ folly::dynamic SwitchViewManager::GetNativeProps() const
   return props;
 }
 
-facebook::react::ShadowNode* SwitchViewManager::createShadow() const
+facebook::react::LegacyShadowNode* SwitchViewManager::createShadow() const
 {
   return new SwitchShadowNode();
 }

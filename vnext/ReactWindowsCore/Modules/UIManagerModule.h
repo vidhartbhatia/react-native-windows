@@ -12,7 +12,7 @@
 namespace facebook { namespace react {
 
 struct IReactRootView;
-struct ShadowNode;
+struct LegacyShadowNode;
 
 class UIManager : public IUIManager, INativeUIManagerHost
 {
@@ -42,8 +42,8 @@ public:
 	// INativeUIManagerHost
 	void zombieView(int64_t tag) override;
 	std::unordered_set<int64_t>& GetAllRootTags() override;
-	ShadowNode& GetShadowNodeForTag(int64_t tag) override;
-	ShadowNode* FindShadowNodeForTag(int64_t tag) override;
+	LegacyShadowNode& GetShadowNodeForTag(int64_t tag) override;
+	LegacyShadowNode* FindShadowNodeForTag(int64_t tag) override;
 
 private:
 	std::vector<std::unique_ptr<IViewManager>> m_viewManagers;
@@ -51,7 +51,7 @@ private:
 	INativeUIManager* m_nativeUIManager;
 
 	void manageChildren(int64_t viewTag, std::vector<int64_t>& moveFrom, std::vector<int64_t>& moveTo, std::vector<int64_t>& addChildTags, std::vector<int64_t>& addAtIndices, std::vector<int64_t>& removeFrom);
-	void RemoveShadowNode(ShadowNode& nodeToRemove);
+	void RemoveShadowNode(LegacyShadowNode& nodeToRemove);
 	void DropView(int64_t tag, bool removeChildren = true, bool zombieView = false);
 	IViewManager* GetViewManager(const std::string& className) const;
 

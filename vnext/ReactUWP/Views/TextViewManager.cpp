@@ -36,7 +36,7 @@ TextViewManager::TextViewManager(const std::shared_ptr<IReactInstance>& reactIns
 {
 }
 
-facebook::react::ShadowNode* TextViewManager::createShadow() const
+facebook::react::LegacyShadowNode* TextViewManager::createShadow() const
 {
   return new TextShadowNode();
 }

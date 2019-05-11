@@ -61,7 +61,7 @@ void RootViewManager::SetLayoutProps(ShadowNodeBase& /*nodeToUpdate*/, XamlView 
   // when the upper layout (i.e. the non-react UI in the app) changes.
 }
 
-void RootViewManager::destroyShadow(facebook::react::ShadowNode* node) const
+void RootViewManager::destroyShadow(facebook::react::LegacyShadowNode* node) const
 {
   // Don't delete the node here, allow the NativeUIManager to handle that since it creates it.
 }

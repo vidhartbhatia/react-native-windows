@@ -7,19 +7,19 @@
 
 namespace facebook { namespace react {
 
-void ShadowNodeDeleter::operator()(ShadowNode* node)
+void ShadowNodeDeleter::operator()(LegacyShadowNode* node)
 {
 	if (node->m_viewManager)
 		node->m_viewManager->destroyShadow(node);
 }
 
-void ShadowNodeRegistry::addRootView(std::unique_ptr<ShadowNode, ShadowNodeDeleter>&& root, int64_t rootViewTag)
+void ShadowNodeRegistry::addRootView(std::unique_ptr<LegacyShadowNode, ShadowNodeDeleter>&& root, int64_t rootViewTag)
 {
 	m_roots.insert(rootViewTag);
 	m_allNodes[rootViewTag] = std::move(root);
 }
 
-ShadowNode& ShadowNodeRegistry::getRoot(int64_t rootViewTag)
+LegacyShadowNode& ShadowNodeRegistry::getRoot(int64_t rootViewTag)
 {
 	CHECK(m_roots.find(rootViewTag) != m_roots.end());
 	return getNode(rootViewTag);
@@ -31,18 +31,18 @@ void ShadowNodeRegistry::removeRootView(int64_t rootViewTag)
 	removeNode(rootViewTag);
 }
 
-void ShadowNodeRegistry::addNode(std::unique_ptr<ShadowNode, ShadowNodeDeleter>&& node, int64_t tag)
+void ShadowNodeRegistry::addNode(std::unique_ptr<LegacyShadowNode, ShadowNodeDeleter>&& node, int64_t tag)
 {
 	m_allNodes[tag] = std::move(node);
 }
 
-ShadowNode* ShadowNodeRegistry::findNode(int64_t tag)
+LegacyShadowNode* ShadowNodeRegistry::findNode(int64_t tag)
 {
 	auto iter = m_allNodes.find(tag);
 	return (iter != m_allNodes.end()) ? iter->second.get() : nullptr;
 }
 
-ShadowNode& ShadowNodeRegistry::getNode(int64_t tag)
+LegacyShadowNode& ShadowNodeRegistry::getNode(int64_t tag)
 {
 	return *m_allNodes.at(tag);
 }
