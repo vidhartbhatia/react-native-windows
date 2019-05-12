@@ -18,6 +18,10 @@
 #include <mutex> 
 #include <sstream>
 
+#if defined(USE_EDGEMODE_JSRT)
+typedef JsValueRef JsWeakRef;
+#endif
+
 namespace facebook { 
 namespace jsi { 
 namespace chakraruntime {
@@ -173,6 +177,16 @@ private:
     JsValueRef m_obj;
   };
 
+  class ChakraWeakRefValue final : public PointerValue {
+    ChakraWeakRefValue(JsWeakRef obj);
+    ~ChakraWeakRefValue();
+
+    void invalidate() override;
+  protected:
+    friend class ChakraJsiRuntime;
+    JsWeakRef m_obj;
+  };
+
 private:
 
   jsi::Object createProxy(jsi::Object&& target, jsi::Object&& handler) noexcept;
@@ -255,6 +269,10 @@ private:
   static JsValueRef stringRef(const jsi::String& str);
   static JsPropertyIdRef propIdRef(const jsi::PropNameID& sym);
   static JsValueRef objectRef(const jsi::Object& obj);
+  static JsWeakRef objectRef(const jsi::WeakObject& obj);
+
+  static JsWeakRef newWeakObjectRef(const jsi::Object& obj);
+  static JsValueRef strongObjectRef(const jsi::WeakObject& obj);
 
   // Factory methods for creating String/Object
   jsi::String createString(JsValueRef stringRef) const;
@@ -273,12 +291,17 @@ private:
 
   jsi::Runtime::PointerValue* makePropertyIdValue(JsPropertyIdRef propId) const;
 
+  jsi::Runtime::PointerValue* makeWeakRefValue(JsWeakRef obj) const;
+
   inline void checkException(JsErrorCode res);
   inline void checkException(JsErrorCode res, const char* msg);
 
   JsRuntimeHandle m_runtime;
   JsContextRef m_ctx;
   std::string m_desc;
+
+
+  jsi::Value m_getProxyTargetFunc;
 
   static JsValueRef CALLBACK HostFunctionCall(JsValueRef callee, bool isConstructCall, JsValueRef *argumentsIncThis, unsigned short argumentCountIncThis, void *callbackState);
 

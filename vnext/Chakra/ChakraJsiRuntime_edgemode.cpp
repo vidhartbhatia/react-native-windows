@@ -13,17 +13,6 @@ namespace facebook {
 namespace jsi {
 namespace chakraruntime {
 
-// edge mode currently doesn't allow us to inspect proxies .. We need to implement these hostObject
-// related methods through some bookkeeping in our code.
-bool ChakraJsiRuntime::isHostObject(const jsi::Object& obj) const {
-  throw std::runtime_error("ChakraJsiRuntime::isHostObject is not yet implemented.");
-}
-
-std::shared_ptr<jsi::HostObject> ChakraJsiRuntime::getHostObject(
-  const jsi::Object& obj) {
-  throw std::runtime_error("ChakraJsiRuntime::createObject is not implemented.");
-}
-
 Value ChakraJsiRuntime::evaluateJavaScriptSimple(const jsi::Buffer& buffer, const std::string& sourceURL) {
   const std::wstring script16 = facebook::react::UnicodeConversion::Utf8ToUtf16(reinterpret_cast<const char*>(buffer.data()), buffer.size());
   if (script16.empty()) throw jsi::JSINativeException("Script can't be empty.");
