@@ -79,6 +79,7 @@
         REACTWINDOWS_BUILD - building with REACTWINDOWS_API as dll exports
       -->
       <PreprocessorDefinitions>REACTWINDOWS_BUILD;RN_PLATFORM=uwp;USE_EDGEMODE_JSRT;NOMINMAX;FOLLY_NO_CONFIG;RN_EXPORT=;JSI_EXPORT=;WIN32=0;WINRT=1;NOJSC;_HAS_AUTO_PTR_ETC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DisableSpecificWarnings>5028;4459;4714;4250;4267;4244;4715;4146;4251;4800;4804;4305;4722;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <AdditionalIncludeDirectories>$(ReactNativeWindowsDir);$(ReactNativeWindowsDir)Pch;$(ReactNativeWindowsDir)ReactUWP\GeneratedWinmdHeader;$(ReactNativeWindowsDir)ReactWindowsCore;$(ReactNativeWindowsDir)include\ReactWindowsCore;$(ReactNativeWindowsDir)include\ReactUWP;$(YogaDir);$(ReactNativeDir)\ReactCommon;$(ReactNativeWindowsDir)include;$(ReactNativeWindowsDir)stubs;$(ReactNativeWindowsDir)Shared;$(FollyDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalOptions>/await %(AdditionalOptions)</AdditionalOptions>

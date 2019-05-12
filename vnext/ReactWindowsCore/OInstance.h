@@ -14,10 +14,34 @@
 #include "ViewManager.h"
 #include "Sandbox/SandboxEndpoint.h"
 
+#include <fabric/uimanager/ContextContainer.h>
+#include <fabric/uimanager/ComponentDescriptorFactory.h>
+#include <fabric/uimanager/Scheduler.h>
+
 namespace facebook { namespace react {
 
 struct IDevSupportManager;
 struct IReactRootView;
+
+class OSchedulerDelegate : public SchedulerDelegate {
+  void schedulerDidFinishTransaction(
+    Tag rootTag,
+    const ShadowViewMutationList &mutations,
+    const long commitStartTime,
+    const long layoutTime) override {
+
+  };
+
+  void schedulerDidRequestPreliminaryViewAllocation(
+    SurfaceId surfaceId,
+    ComponentName componentName,
+    bool isLayoutable,
+    ComponentHandle componentHandle) override {
+
+  }
+
+};
+
 
 class InstanceImpl : public InstanceWrapper, private ::std::enable_shared_from_this<InstanceImpl>
 {
@@ -126,6 +150,14 @@ private:
 
   std::shared_ptr<IDevSupportManager> m_devManager;
   std::shared_ptr<DevSettings> m_devSettings;
+
+  SharedContextContainer m_contextContainer;
+  ComponentRegistryFactory m_buildRegistryFunction;
+
+  std::shared_ptr<Scheduler> m_scheduler;
+  std::shared_ptr<OSchedulerDelegate> m_schedulerDelegate;
+
+  std::shared_ptr<const ReactNativeConfig> m_reactNativeConfig;
 };
 
 }}

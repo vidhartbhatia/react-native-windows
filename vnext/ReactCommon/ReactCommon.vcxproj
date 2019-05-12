@@ -387,6 +387,7 @@
     <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\uimanager\UIManager.cpp" />
     <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\uimanager\UIManagerBinding.cpp" />
     <ClCompile Include="$(ReactNativeDir)\ReactCommon\fabric\uimanager\UITemplateProcessor.cpp" />
+    <ClCompile Include="$(ReactNativeDir)\ReactCommon\config\ReactNativeConfig.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

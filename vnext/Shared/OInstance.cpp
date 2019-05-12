@@ -46,6 +46,8 @@
 #include <jsiexecutor/jsireact/JSIExecutor.h>
 #include <jsi/RuntimeHolder.h>
 
+#include <fabric/components/view/ViewComponentDescriptor.h>
+
 namespace {
 
 #if (defined(_MSC_VER) && !defined(WINRT))
@@ -166,7 +168,7 @@ public:
       nullptr);
   }
 
-  OJSIExecutorFactory(std::shared_ptr<jsi::RuntimeHolderLazyInit>&& runtimeHolder) noexcept
+  OJSIExecutorFactory(std::shared_ptr<jsi::RuntimeHolderLazyInit> runtimeHolder) noexcept
     : runtimeHolder_(std::move(runtimeHolder)) {}
 
 private:
@@ -174,7 +176,6 @@ private:
 };
 
 }
-
 
 void logMarker(const facebook::react::ReactMarker::ReactMarkerId /*id*/, const char* /*tag*/) {
 }
@@ -373,7 +374,7 @@ InstanceImpl::InstanceImpl(std::string&& jsBundleBasePath,
 
     // If the consumer gives us a JSI runtime, then  use it.
     if (m_devSettings->jsiRuntimeHolder) {
-      jsef = std::make_shared<OJSIExecutorFactory>(std::move(m_devSettings->jsiRuntimeHolder));
+      jsef = std::make_shared<OJSIExecutorFactory>(m_devSettings->jsiRuntimeHolder);
     }
     else {
       // We use the older non-JSI ChakraExecutor pipeline as a fallback as of now. This will go away once we completely move to JSI flow.
@@ -650,6 +651,21 @@ InstanceImpl::~InstanceImpl() {
 }
 
 
+class OEventBeat : public EventBeat {
+public:
+  void induce() const override {}
+};
+
+ComponentRegistryFactory getComponentRegistryFactory() {
+  return [](const SharedEventDispatcher &eventDispatcher,
+    const SharedContextContainer &contextContainer) {
+    auto registry = std::make_shared<ComponentDescriptorRegistry>();
+    registry->registerComponentDescriptor(
+      std::make_shared<ViewComponentDescriptor>(eventDispatcher));
+    return registry;
+  };
+}
+
 void InstanceImpl::AttachMeasuredRootView(IReactRootView* rootView, folly::dynamic&& initProps) noexcept
 {
   if (m_devManager->HasException())
@@ -662,11 +678,41 @@ void InstanceImpl::AttachMeasuredRootView(IReactRootView* rootView, folly::dynam
   auto rootTag = m_uimanager->AddMeasuredRootView(rootView);
   rootView->SetTag(rootTag);
 
+  RuntimeExecutor runtimeExecutor =
+    [this](std::function<void(facebook::jsi::Runtime &runtime)> &&callback) {
+    m_jsThread->runOnQueue([this, callback = std::move(callback)]() {
+      callback(*m_devSettings->jsiRuntimeHolder->getRuntime());
+    });
+  };
+
+  EventBeatFactory synchronousBeatFactory = [runtimeExecutor]() {
+    return std::make_unique<OEventBeat>();
+  };
+
+  EventBeatFactory asynchronousBeatFactory = [runtimeExecutor]() {
+    return std::make_unique<OEventBeat>();
+  };
+
+  m_contextContainer = std::make_shared<ContextContainer>();
+
+  m_reactNativeConfig = std::make_shared<const EmptyReactNativeConfig>();
+
+  m_contextContainer->registerInstance(m_reactNativeConfig, "ReactNativeConfig");
+
+  m_contextContainer->registerInstance<EventBeatFactory>(synchronousBeatFactory, "synchronous");
+  m_contextContainer->registerInstance<EventBeatFactory>(asynchronousBeatFactory, "asynchronous");
+
+  m_contextContainer->registerInstance(runtimeExecutor, "runtime-executor");
+
+  m_schedulerDelegate = std::make_shared<OSchedulerDelegate>();
+  m_scheduler = std::make_shared<Scheduler>(m_contextContainer, getComponentRegistryFactory());
+  m_scheduler->setDelegate(m_schedulerDelegate.get());
+
   std::string jsMainModuleName = rootView->JSComponentName();
   folly::dynamic params = folly::dynamic::array(
     std::move(jsMainModuleName),
     folly::dynamic::object("initialProps", std::move(initProps))
-    ("rootTag", rootTag));
+    ("rootTag", rootTag)("fabric", true));
   m_innerInstance->callJSFunction("AppRegistry", "runApplication", std::move(params));
 }
 
