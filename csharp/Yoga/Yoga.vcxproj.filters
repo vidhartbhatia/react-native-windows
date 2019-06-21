@@ -24,7 +24,13 @@
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\yoga\CompactValue.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\yoga\Utils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\yoga\YGConfig.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\yoga\YGEnums.h">
@@ -39,6 +45,9 @@
     <ClInclude Include="..\..\yoga\YGMacros.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\yoga\YGMarker.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\yoga\YGNode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -48,13 +57,16 @@
     <ClInclude Include="..\..\yoga\YGStyle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\yoga\Yoga.h">
+    <ClInclude Include="..\..\yoga\YGValue.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\yoga\Yoga-internal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\yoga\YGConfig.h">
+    <ClInclude Include="..\..\yoga\Yoga.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\yoga\instrumentation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -71,13 +83,16 @@
     <ClCompile Include="..\..\yoga\Utils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\yoga\YGConfig.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\yoga\YGEnums.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\yoga\YGFloatOptional.cpp">
+    <ClCompile Include="..\..\yoga\YGLayout.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\yoga\YGLayout.cpp">
+    <ClCompile Include="..\..\yoga\YGMarker.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\yoga\YGNode.cpp">
@@ -89,10 +104,10 @@
     <ClCompile Include="..\..\yoga\YGStyle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\yoga\Yoga.cpp">
+    <ClCompile Include="..\..\yoga\YGValue.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\yoga\YGConfig.cpp">
+    <ClCompile Include="..\..\yoga\Yoga.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
