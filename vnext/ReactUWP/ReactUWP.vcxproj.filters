@@ -241,6 +241,15 @@
     <ClCompile Include="Views\FlyoutViewManager.cpp">
       <Filter>Views</Filter>
     </ClCompile>
+    <ClCompile Include="Views\MenuFlyoutViewManager.cpp">
+      <Filter>Views</Filter>
+    </ClCompile>
+    <ClCompile Include="Views\MenuFlyoutSubItemViewManager.cpp">
+      <Filter>Views</Filter>
+    </ClCompile>
+     <ClCompile Include="Views\MenuFlyoutItemViewManager.cpp">
+      <Filter>Views</Filter>
+    </ClCompile>
     <ClCompile Include="Views\Impl\ScrollViewUWPImplementation.cpp">
       <Filter>Views\Impl</Filter>
     </ClCompile>
