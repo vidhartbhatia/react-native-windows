@@ -52,13 +52,12 @@ const ComponentExamples: Array<IRNTesterExample> = [
     module: require('./FlyoutExample.uwp'),
   },
   {
-<<<<<<< HEAD
     key: 'FlyoutContextFlyoutExample',
     module: require('./FlyoutContextFlyoutExample.uwp'),
-=======
+  },
+  {
     key: 'MenuFlyoutExample',
     module: require('./MenuFlyoutExample.uwp'),
->>>>>>> MenuFlyout
   },
   {
     key: 'GlyphExample',
